@@ -1,18 +1,17 @@
 // The ItemManager should go here. Remember that you have to export it.
 
-const UNSORTED = Symbol("unsorted");
-const SORTED_ASC = Symbol("sortedAsc");
-const SORTED_DESC = Symbol("sortedDesc");
+import { writeFile, readFileSync } from 'fs';
+
+const DATA_FILE_NAME = "savedData.json";
 
 export class ItemManager {
   init() {
-    this.items = [
-      {text: 'Walk the dog', isNew: false},
-      {text: 'Take a shower', isNew: false},
-      {text: 'Feed the baby', isNew: false},
-      {text: 'Wash the dishes', isNew: false}
-    ]
-    this.sortOrder = UNSORTED;
+    try {
+      this.items = this.getItemsFromFile();
+    } catch (error) {
+      this.items = [];
+      this.writeItemsToFile();
+    }
     return this.items;
   }
 
@@ -23,27 +22,52 @@ export class ItemManager {
     } else {
       this.items.push({text: text, isNew: true });
     }
-    this.sortOrder = UNSORTED;
+    this.writeItemsToFile();
     return this.items;
+  }
+
+  async getItem(index) {
+    // const data = await getItemsFromFile();
+    // return data.find((value) => value.id === id); // instead of index
+    return this.items[index];
   }
 
   markItemAsOld(item){
     item.isNew = false;
+    this.writeItemsToFile();
+    return this.items;
   }
 
   deleteItem(index) {
     this.items.splice(index, 1);
+    this.writeItemsToFile();
+    return this.items;
+  }
+
+  clearAllItems() {
+    this.items = [];
+    this.writeItemsToFile();
     return this.items;
   }
 
   sortItems(){
-    if (this.sortOrder === UNSORTED || this.sortOrder === SORTED_DESC) {
-      this.items.sort((a, b) => a.text.localeCompare(b.text));
-      this.sortOrder = SORTED_ASC;
-    } else {
-      this.items.reverse();
-      this.sortOrder = SORTED_DESC;
-    }
+    this.items.sort((a, b) => a.text.localeCompare(b.text));
+    this.writeItemsToFile();
     return this.items;
+  }
+
+  async getAll() {
+    return await getItemsFromFile();
+  }
+
+  getItemsFromFile(){
+      const data = readFileSync(DATA_FILE_NAME);
+      return JSON.parse(data);
+  }
+
+  writeItemsToFile(){
+    writeFile(DATA_FILE_NAME, JSON.stringify(this.items, null, 2), err => {
+      if (err) throw err;
+    });
   }
 }
