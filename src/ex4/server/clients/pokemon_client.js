@@ -1,5 +1,6 @@
 // The Pokemon Client (using axios) goes here
 
+import axios from "axios";
 import { popularPokemons } from "./popular-pokemons.js";
 
 export class PokemonClient {
@@ -12,7 +13,7 @@ export class PokemonClient {
       const pokemons = pokemonText.split(',').map( el => el.trim() );
       let promises = [];
       pokemons.forEach(pokemon => {
-        promises.push(fetch(`${this.API_BASE}/${pokemon}/`));
+        promises.push(axios.get(`${this.API_BASE}/${pokemon}/`));
       });
       const responses = await Promise.all(promises);
       const elements = await Promise.all(responses.map(response => response.json()));
