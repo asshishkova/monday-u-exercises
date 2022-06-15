@@ -15,7 +15,7 @@ export class PokemonClient {
         return axios.get(`${this.API_BASE}/${pokemon}/`);
       });
       const responses = await Promise.all(promises);
-      const elements = await Promise.all(responses.map(response => response.json()));
+      const elements = await Promise.all(responses.map(response => response.data));
       return elements.map(element => {
         return {
           name: element.forms[0].name,
@@ -24,12 +24,12 @@ export class PokemonClient {
         }
       });
     } catch (error) {
-      this.handleFailure(pokemonText);
+      this.handleFailure(error, pokemonText);
     }
   }
 
-  handleFailure(pokemon) {
-    console.log(`Failed to fetch ${pokemon}`);
+  handleFailure(error, pokemon) {
+    console.log(`Failed to fetch ${pokemon}: `, error);
   }
 
   isPokemon(name) {

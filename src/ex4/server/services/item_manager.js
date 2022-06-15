@@ -1,6 +1,7 @@
 // The ItemManager should go here. Remember that you have to export it.
 
-import { writeFile, readFileSync } from 'fs';
+import { promises as fs } from 'fs';
+
 
 const DATA_FILE_NAME = "savedData.json";
 
@@ -14,16 +15,21 @@ export class ItemManager {
     return this.items;
   }
 
-  async addItem(req) {
+  async addItem(text) {
     const data = await this.getItemsFromFile();
-    const itemIndex = data.findIndex(item => item.text === req.text);
+    const itemIndex = data.findIndex(item => item.text === text);
+    let newItem;
     if (itemIndex > -1) {
       data[itemIndex].isNew = true;
+      newItem = data[itemIndex];
     } else {
-      data.push({id: req.id, text: req.text, isNew: true});
+      const newId = data.reduce((maxId, data) => maxId = maxId > data.id ? acc : data.id, 0) + 1;
+      newItem = {id: newId, text: text, isNew: true};
+      data.push(newItem);
     }
+    console.log('newItem: ', newItem);
     this.writeItemsToFile(data);
-    return data;
+    return newItem;
   }
 
   async getItem(id) {
@@ -41,8 +47,8 @@ export class ItemManager {
     const data = await this.getAll();
     const itemIndex = data.findIndex(item => item.id === id);
     const deletedTodo = data[itemIndex]
-    data.splice(index, 1);
-    await writeItemsToFile(data);
+    data.splice(itemIndex, 1);
+    await this.writeItemsToFile(data);
     return deletedTodo;
 
   }
@@ -63,13 +69,13 @@ export class ItemManager {
     return await this.getItemsFromFile();
   }
 
-  getItemsFromFile(){
-    const data = readFileSync(DATA_FILE_NAME);
+  async getItemsFromFile(){
+    const data = await fs.readFile(DATA_FILE_NAME);
     return JSON.parse(data);
   }
 
-  writeItemsToFile(data){
-    writeFile(DATA_FILE_NAME, JSON.stringify(data, null, 2), err => {
+  async writeItemsToFile(data){
+    await fs.writeFile(DATA_FILE_NAME, JSON.stringify(data, null, 2), err => {
       if (err) throw err;
     });
   }
