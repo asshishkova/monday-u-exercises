@@ -26,11 +26,20 @@ export class ItemManager {
     return this.items;
   }
 
-  async getItem(index) {
-    // const data = await getItemsFromFile();
-    // return data.find((value) => value.id === id); // instead of index
-    return this.items[index];
+  async getItem(id) {
+    const data = await this.getItemsFromFile();
+    return data.find((value) => value.id === id); // instead of index
+    // return this.items[index];
   }
+
+  // async getItem(id) {
+  //   return await this.getItemFromFile(id);
+  // }
+
+  // async getItemFromFile(id) {
+  //   const data = readFileSync(DATA_FILE_NAME);
+  //   return JSON.parse(data).find((value) => value.id === id);
+  // }
 
   markItemAsOld(item){
     item.isNew = false;
@@ -57,12 +66,12 @@ export class ItemManager {
   }
 
   async getAll() {
-    return await getItemsFromFile();
+    return await this.getItemsFromFile();
   }
 
   getItemsFromFile(){
-      const data = readFileSync(DATA_FILE_NAME);
-      return JSON.parse(data);
+    const data = readFileSync(DATA_FILE_NAME);
+    return JSON.parse(data);
   }
 
   writeItemsToFile(){

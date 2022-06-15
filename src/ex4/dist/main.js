@@ -1,5 +1,5 @@
-import { ItemManager } from "../server/services/item_manager.js";
-import { PokemonClient } from "../server/clients/pokemon_client.js";
+// import { ItemManager } from "../server/services/item_manager.js";
+// import { PokemonClient } from "../server/clients/pokemon_client.js";
 import { ItemClient } from "./clients/item_client.js";
 
 const SHOW = true;
@@ -7,8 +7,8 @@ const HIDE = false;
 
 class Main {
   constructor() {
-    this.itemManager = new ItemManager();
-    this.pokemonClient = new PokemonClient();
+    // this.itemManager = new ItemManager();
+    // this.pokemonClient = new PokemonClient();
     this.itemClient = new ItemClient();
   }
 
@@ -21,6 +21,7 @@ class Main {
 
   handleItem = async () => {
     // implement
+    // this.itemClient.addTodo
   }
 
   deleteItem = async item => {
