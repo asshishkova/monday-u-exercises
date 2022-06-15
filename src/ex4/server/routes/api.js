@@ -3,9 +3,10 @@
 import { ItemManager } from "../services/item_manager.js";
 
 const itemManager = new ItemManager();
+itemManager.init();
 
 async function createTodo(req, res) {
-  console.log("Saving todo");
+  console.log(`Adding ${req.body.text}`);
   await itemManager.addItem(req.body);
   res.status(200).json(req.body);
 }

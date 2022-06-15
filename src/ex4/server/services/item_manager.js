@@ -15,31 +15,22 @@ export class ItemManager {
     return this.items;
   }
 
-  addItem(text) {
-    const itemIndex = this.items.findIndex(item => item.text === text);
+  async addItem(req) {
+    // const data = await this.getItemsFromFile();
+    const itemIndex = this.items.findIndex(item => item.text === req.text);
     if (itemIndex > -1) {
       this.items[itemIndex].isNew = true;
     } else {
-      this.items.push({text: text, isNew: true });
+      this.items.push({id: req.id, text: req.text, isNew: true});
     }
     this.writeItemsToFile();
     return this.items;
   }
 
   async getItem(id) {
-    const data = await this.getItemsFromFile();
-    return data.find((value) => value.id === id); // instead of index
-    // return this.items[index];
+    const data = await this.getAll();
+    return data.find((value) => value.id === id);
   }
-
-  // async getItem(id) {
-  //   return await this.getItemFromFile(id);
-  // }
-
-  // async getItemFromFile(id) {
-  //   const data = readFileSync(DATA_FILE_NAME);
-  //   return JSON.parse(data).find((value) => value.id === id);
-  // }
 
   markItemAsOld(item){
     item.isNew = false;
@@ -47,10 +38,14 @@ export class ItemManager {
     return this.items;
   }
 
-  deleteItem(index) {
-    this.items.splice(index, 1);
-    this.writeItemsToFile();
-    return this.items;
+  deleteItem(id) {
+    const data = await this.getAll();
+    const itemIndex = data.findIndex(item => item.id === id);
+    const deletedTodo = data[index]
+    data.splice(index, 1);
+    await writeItemsToFile(data);
+    return deletedTodo;
+
   }
 
   clearAllItems() {
