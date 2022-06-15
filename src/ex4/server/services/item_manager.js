@@ -7,24 +7,23 @@ const DATA_FILE_NAME = "savedData.json";
 export class ItemManager {
   init() {
     try {
-      this.items = this.getItemsFromFile();
+      const data = this.getItemsFromFile();
     } catch (error) {
-      this.items = [];
-      this.writeItemsToFile();
+      this.writeItemsToFile([]);
     }
     return this.items;
   }
 
   async addItem(req) {
-    // const data = await this.getItemsFromFile();
-    const itemIndex = this.items.findIndex(item => item.text === req.text);
+    const data = await this.getItemsFromFile();
+    const itemIndex = data.findIndex(item => item.text === req.text);
     if (itemIndex > -1) {
-      this.items[itemIndex].isNew = true;
+      data[itemIndex].isNew = true;
     } else {
-      this.items.push({id: req.id, text: req.text, isNew: true});
+      data.push({id: req.id, text: req.text, isNew: true});
     }
-    this.writeItemsToFile();
-    return this.items;
+    this.writeItemsToFile(data);
+    return data;
   }
 
   async getItem(id) {
@@ -38,10 +37,10 @@ export class ItemManager {
     return this.items;
   }
 
-  deleteItem(id) {
+  async deleteItem(id) {
     const data = await this.getAll();
     const itemIndex = data.findIndex(item => item.id === id);
-    const deletedTodo = data[index]
+    const deletedTodo = data[itemIndex]
     data.splice(index, 1);
     await writeItemsToFile(data);
     return deletedTodo;
@@ -69,8 +68,8 @@ export class ItemManager {
     return JSON.parse(data);
   }
 
-  writeItemsToFile(){
-    writeFile(DATA_FILE_NAME, JSON.stringify(this.items, null, 2), err => {
+  writeItemsToFile(data){
+    writeFile(DATA_FILE_NAME, JSON.stringify(data, null, 2), err => {
       if (err) throw err;
     });
   }
