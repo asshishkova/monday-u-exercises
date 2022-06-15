@@ -11,14 +11,18 @@ export class PokemonClient {
   async fetchPokemon(pokemonText) {
     try {
       const pokemons = pokemonText.split(',').map( el => el.trim() );
-      let promises = [];
-      pokemons.forEach(pokemon => {
-        promises.push(axios.get(`${this.API_BASE}/${pokemon}/`));
+      const promises = pokemons.map(pokemon => {
+        return axios.get(`${this.API_BASE}/${pokemon}/`);
       });
       const responses = await Promise.all(promises);
       const elements = await Promise.all(responses.map(response => response.json()));
-      return elements.map(element =>
-        `${element.forms[0].name} (${element.types[0].type.name} pokemon)`);
+      return elements.map(element => {
+        return {
+          name: element.forms[0].name,
+          type: element.types[0].type.name,
+          id: element.id
+        }
+      });
     } catch (error) {
       this.handleFailure(pokemonText);
     }
