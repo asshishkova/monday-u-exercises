@@ -25,7 +25,6 @@ async function createTodo(req, res) {
 
 async function addPokemon(text) {
   const pokemons = await pokemonClient.fetchPokemon(text);
-  console.log('pokemons: ', pokemons);
   const newItems = [];
   try {
     for (const pokemon of pokemons) {
