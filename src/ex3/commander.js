@@ -2,6 +2,8 @@ import { Command } from "commander";
 import { MainCommander } from "./main-commander.js";
 import { ItemManagerCommander } from "./item-manager-commander.js";
 import { PokemonClient } from "./pokemon-client-commander.js";
+// import Package from "./package.json" assert {type: "json"};
+// ExperimentalWarning: Importing JSON modules is an experimental feature. This feature could change at any time
 
 const itemManagerCommander = new ItemManagerCommander();
 const pokemonClient = new PokemonClient();
@@ -15,6 +17,7 @@ program
   .name("todos-manager")
   .description("Add, delete, show and sort todos")
   .version("1.0.0");
+  // .version(Package.version);
 
 program
   .command("add")
