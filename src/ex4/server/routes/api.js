@@ -32,7 +32,7 @@ async function addPokemon(text) {
       newItems.push(await itemManager.addItem(catchPokemonTodo));
     }
   } catch (error) {
-    newItems.push(await itemManager.addItem(`Failed to fetch ${text}.`));
+    newItems.push(await itemManager.addItem(`Failed to fetch ${text}`));
     console.log("Todo was not added: ", error);
   }
   return newItems;
@@ -74,9 +74,23 @@ async function deleteTodo(req, res) {
   res.status(200).json(data);
 }
 
+async function updateTodo(req, res) {
+  const todoId = Number.parseInt(req.params.id);
+  if (isNaN(todoId)) {
+    let error = Error();
+    error.statusCode = 400
+    error.message = 'Wrong parameters'
+    throw error
+  }
+  const data = await itemManager.updateItem(todoId, req.body);
+  res.status(200).json(data);
+}
+
+
 export {
   createTodo,
   getTodo,
   getAll,
   deleteTodo,
+  updateTodo
 };

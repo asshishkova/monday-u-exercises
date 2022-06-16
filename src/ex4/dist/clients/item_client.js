@@ -20,4 +20,14 @@ export class ItemClient {
       console.log(error);
     }
   }
+
+  async markItemAsOld(item) {
+    try {
+      const response = await axios.put(`/todo/${item.id}`, {isNew: false});
+      return response.data;
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
 }

@@ -78,7 +78,7 @@ class Main {
   showTodoWithAnimation(todoListElement, todoItem) {
     todoListElement.className = "todo-li animation-add-todo";
     setTimeout (() => { todoListElement.className = "todo-li existing-todo";}, 700);
-    // this.itemManager.markItemAsOld(todoItem);
+    this.itemClient.markItemAsOld(todoItem);
   }
 
   addEventListenerForTodoText(listElement) {

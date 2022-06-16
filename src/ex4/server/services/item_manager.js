@@ -37,10 +37,15 @@ export class ItemManager {
     return data.find((value) => value.id === id);
   }
 
-  markItemAsOld(item){
-    item.isNew = false;
-    this.writeItemsToFile();
-    return this.items;
+  async  updateItem(itemId, body) {
+    const data = await this.getAll();
+    const index = data.findIndex(value => {
+        return value.id === itemId;
+    });
+    const item = data[index];
+    Object.assign(item, body);
+    await this.writeItemsToFile(data);
+    return item;
   }
 
   async deleteItem(id) {
@@ -50,7 +55,6 @@ export class ItemManager {
     data.splice(itemIndex, 1);
     await this.writeItemsToFile(data);
     return deletedTodo;
-
   }
 
   clearAllItems() {
