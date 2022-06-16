@@ -2,7 +2,6 @@
 
 import { promises as fs } from 'fs';
 
-
 const DATA_FILE_NAME = "savedData.json";
 
 export class ItemManager {

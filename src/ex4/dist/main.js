@@ -1,5 +1,3 @@
-// import { ItemManager } from "../server/services/item_manager.js";
-// import { PokemonClient } from "../server/clients/pokemon_client.js";
 import { ItemClient } from "./clients/item_client.js";
 
 const SHOW = true;
@@ -7,22 +5,15 @@ const HIDE = false;
 
 class Main {
   constructor() {
-    // this.itemManager = new ItemManager();
-    // this.pokemonClient = new PokemonClient();
     this.itemClient = new ItemClient();
   }
 
   init = async () => {
-    // const addItemButton = document.getElementById("list-item-submit");
-    // addItemButton.addEventListener("click", this.handleItem);
-
     this.todoList = document.getElementById("todos-list");
-
     this.todoTextBox = document.getElementById("new-todo-textbox");
     this.todoAmountInfo = document.getElementById("amount-info");
 
-    this.todos = await this.itemClient.getItems();
-    await this.renderTodos(); // this will make it so that any time you refresh the page you'll see the items already in your todo list
+    this.updateTodos();
 
     this.clearAllButton = document.getElementById("clear-all-button");
     this.addTodoForm = document.getElementById("add-todo");
@@ -38,16 +29,6 @@ class Main {
       }
     });
   }
-
-  handleItem = async () => {
-    // implement
-    // this.itemClient.addTodo
-  }
-
-  // deleteItem = async item => {
-  //   // implement
-  //   this.itemClient.getTodos()
-  // }
 
   async renderTodos() {
     this.todoList.innerHTML = "";
@@ -149,11 +130,6 @@ class Main {
     }, 700);
   }
 
-  // async deleteTodoTask(todoItem) {
-  //   await this.itemClient.deleteItem(todoItem);
-  //   await this.updateTodos();
-  // }
-
   async updateTodos() {
     this.todos = await this.itemClient.getItems();
     await this.renderTodos();
@@ -173,25 +149,6 @@ class Main {
     this.todoTextBox.value = "";
     await this.itemClient.createItem(text);
     await this.updateTodos();
-    // if (this.pokemonClient.isPokemon(text)) {
-    //   this.addPokemon(text.toLowerCase());
-    // } else {
-    //   const isTextNaN = text.split(',').map( el => isNaN(el));
-    //   if (isTextNaN.includes(true)) {
-    //     this.updateTodos(this.itemManager.addItem(text))
-    //   } else {
-    //     this.addPokemon(text);
-    //   }
-    // }
-  }
-
-  _createDeleteButton = item => {
-    const button = document.createElement("img");
-    button.src = "./images/delete_icon.svg";
-    button.classList.add('list-item-delete-button');
-    button.addEventListener("click", _ => this.deleteItem(item));
-
-    return button
   }
 }
 

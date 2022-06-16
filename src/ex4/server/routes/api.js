@@ -86,7 +86,6 @@ async function updateTodo(req, res) {
   res.status(200).json(data);
 }
 
-
 export {
   createTodo,
   getTodo,

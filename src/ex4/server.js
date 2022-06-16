@@ -11,27 +11,7 @@ const app = express();
 
 app.use([logger, compression(), express.json()]);
 app.use(express.static('dist'));
-
 app.use('/todo', todoRouter);
-
-// app.get('/', (req, res) => {
-//   res.send('root');
-//   // res.status(200).json({
-//   //     health: 'ok'
-//   // });
-// });
-
-// app.post('/error', async (req, res, next) => {
-//     try {
-//         let error = Error("My shiny error");
-//         error.statusCode = 400;
-//         throw error;
-//     } catch (e) {
-//         next(e);
-//     }
-// });
-
-
 app.use(errorHandler);
 
 process.on('unhandledRejection', (reason, promise) => {
