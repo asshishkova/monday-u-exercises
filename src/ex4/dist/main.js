@@ -143,27 +143,27 @@ class Main {
   async deleteToDoTaskWithAnimation(todoItem, todoLi) {
     todoLi.classList.remove("existing-todo");
     todoLi.classList.add("animation-delete-todo");
+    await this.itemClient.deleteItem(todoItem);
     setTimeout (async() => {
-      await this.deleteTodoTask(todoItem);
+      await this.updateTodos();
     }, 700);
   }
 
-  async deleteTodoTask(todoItem) {
-    await this.itemClient.deleteItem(todoItem);
-    await this.updateTodos();
-  }
+  // async deleteTodoTask(todoItem) {
+  //   await this.itemClient.deleteItem(todoItem);
+  //   await this.updateTodos();
+  // }
 
   async updateTodos() {
     this.todos = await this.itemClient.getItems();
-    console.log(this.todos);
-    this.renderTodos();
+    await this.renderTodos();
   }
 
   async onClearAllButtonClicked() {
-    let deleteButtons = Array.prototype.slice.call(document.getElementsByClassName("delete-todo-button"));
-    while (deleteButtons.length > 0) {
-      await this.onDeleteButtonClicked(deleteButtons[0]);
-      deleteButtons = Array.prototype.slice.call(document.getElementsByClassName("delete-todo-button"));
+    for (let i = this.todos.length - 1; i >= 0; i--) {
+      const todoItem = this.todos[i];
+      const todoLi = document.getElementById('todos-list').children.item(i);
+      await this.deleteToDoTaskWithAnimation(todoItem, todoLi);
     }
   }
 
