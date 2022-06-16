@@ -18,26 +18,25 @@ class Main {
 
     this.todoList = document.getElementById("todos-list");
 
-    // this.todoTextBox = document.getElementById("new-todo-textbox");
-    // this.todoAmountInfo = document.getElementById("amount-info");
+    this.todoTextBox = document.getElementById("new-todo-textbox");
+    this.todoAmountInfo = document.getElementById("amount-info");
 
-    // this.clearAllButton = document.getElementById("clear-all-button");
-    // this.addTodoForm = document.getElementById("add-todo");
-    // this.sortListButton = document.getElementById("sort-list-button");
-
-    // this.clearAllButton.addEventListener('click', () => this.onClearAllButtonClicked());
-    // this.addTodoForm.addEventListener('submit', (event) => this.onAddTodoFormSubmitted(event));
-    // this.sortListButton.addEventListener('click', () => this.onSortListButtonClicked());
-    // this.todoTextBox.addEventListener("keypress", (event) => {
-    //   if (event.key === "Enter") {
-    //     event.preventDefault();
-    //     document.getElementById('add-todo-button').click();
-    //   }
-    // });
-
-    this.todos = await this.itemClient.getTodos();
+    this.todos = await this.itemClient.getItems();
     await this.renderTodos(); // this will make it so that any time you refresh the page you'll see the items already in your todo list
 
+    this.clearAllButton = document.getElementById("clear-all-button");
+    this.addTodoForm = document.getElementById("add-todo");
+    this.sortListButton = document.getElementById("sort-list-button");
+
+    this.clearAllButton.addEventListener('click', () => this.onClearAllButtonClicked());
+    this.addTodoForm.addEventListener('submit', (event) => this.onAddTodoFormSubmitted(event));
+    this.sortListButton.addEventListener('click', () => this.onSortListButtonClicked());
+    this.todoTextBox.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById('add-todo-button').click();
+      }
+    });
   }
 
   handleItem = async () => {
@@ -45,26 +44,10 @@ class Main {
     // this.itemClient.addTodo
   }
 
-  deleteItem = async item => {
-    // implement
-  }
-
-  renderItems = async () => {
-    const list = document.getElementById("list");
-    list.innerHTML = "";
-
-    const items = 'where do you get the items from now that you have a server..?'
-
-    items.forEach(item => {
-      const listItem = document.createElement("li");
-      listItem.classList.add('list-item');
-      listItem.innerHTML = item;
-
-      const listItemDeleteButton = this._createDeleteButton(item);
-      listItem.appendChild(listItemDeleteButton);
-      list.appendChild(listItem);
-    })
-  }
+  // deleteItem = async item => {
+  //   // implement
+  //   this.itemClient.getTodos()
+  // }
 
   async renderTodos() {
     this.todoList.innerHTML = "";
@@ -132,8 +115,11 @@ class Main {
 
   showNoTodosImage() {
     if (this.todos.length === 0) {
-      this.showOrHideElement('no-todos-placeholder', SHOW)
-      this.showOrHideElement('footer', HIDE)
+      // setTimeout(() => {
+        this.showOrHideElement('no-todos-placeholder', SHOW)
+        this.showOrHideElement('footer', HIDE)
+      // }, 2000);
+
     } else {
       this.showOrHideElement('no-todos-placeholder', HIDE)
       this.showOrHideElement('footer', SHOW)
@@ -151,24 +137,26 @@ class Main {
 
   onDeleteButtonClicked(clickedButton) {
     const index = Array.prototype.indexOf.call(this.todoList.getElementsByClassName("existing-todo"), clickedButton.parentElement);
+    const todoItem = this.todos[index];
     const todoLi = clickedButton.parentElement;
-    this.deleteToDoTaskWithAnimation(index, todoLi);
+    this.deleteToDoTaskWithAnimation(todoItem, todoLi);
    }
 
-  deleteToDoTaskWithAnimation(index, todoLi) {
+  deleteToDoTaskWithAnimation(todoItem, todoLi) {
     todoLi.classList.remove("existing-todo");
     todoLi.classList.add("animation-delete-todo");
     setTimeout (() => {
-      this.deleteTodoTask(index);
+      this.deleteTodoTask(todoItem);
     }, 700);
   }
 
-  deleteTodoTask(index) {
-    this.updateTodos(this.itemManager.deleteItem(index));
+  async deleteTodoTask(todoItem) {
+    await this.itemClient.deleteItem(todoItem);
+    this.updateTodos();
   }
 
-  updateTodos(updatedArray) {
-    this.todos = updatedArray;
+  async updateTodos() {
+    this.todos = await this.itemClient.getItems();
     this.renderTodos();
   }
 
