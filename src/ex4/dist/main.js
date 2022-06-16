@@ -118,13 +118,13 @@ class Main {
     const index = Array.prototype.indexOf.call(this.todoList.getElementsByClassName("existing-todo"), clickedButton.parentElement);
     const todoItem = this.todos[index];
     const todoLi = clickedButton.parentElement;
-    await this.deleteToDoTaskWithAnimation(todoItem, todoLi);
+    await this.itemClient.deleteItem(todoItem);
+    await this.activateDeleteAnimation(todoLi);
   }
 
-  async deleteToDoTaskWithAnimation(todoItem, todoLi) {
+  async activateDeleteAnimation(todoLi) {
     todoLi.classList.remove("existing-todo");
     todoLi.classList.add("animation-delete-todo");
-    await this.itemClient.deleteItem(todoItem);
     setTimeout (async() => {
       await this.updateTodos();
     }, 700);
@@ -136,10 +136,10 @@ class Main {
   }
 
   async onClearAllButtonClicked() {
-    for (let i = this.todos.length - 1; i >= 0; i--) {
-      const todoItem = this.todos[i];
+    await this.itemClient.clearAll();
+    for (let i = 0; i < this.todos.length; i++) {
       const todoLi = document.getElementById('todos-list').children.item(i);
-      await this.deleteToDoTaskWithAnimation(todoItem, todoLi);
+      await this.activateDeleteAnimation(todoLi);
     }
   }
 

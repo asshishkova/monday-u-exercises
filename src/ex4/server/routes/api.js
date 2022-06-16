@@ -86,16 +86,22 @@ async function updateTodo(req, res) {
   res.status(200).json(data);
 }
 
+async function clearAll(req, res) {
+  const data = await itemManager.clearAll();
+  res.status(200).json(data);
+}
+
 async function sortTodos(req, res) {
   const data = await itemManager.sortItems();
   res.status(200).json(data);
 }
 
 export {
+  getAll,
   createTodo,
   getTodo,
-  getAll,
   deleteTodo,
   updateTodo,
+  clearAll,
   sortTodos
 };

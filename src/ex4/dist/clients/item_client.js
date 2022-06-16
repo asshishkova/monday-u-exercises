@@ -41,6 +41,16 @@ export class ItemClient {
     }
   }
 
+  async clearAll() {
+    try {
+      const response = await axios.post(`/todo/clearall`);
+      return response.data;
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
   async sortItems() {
     try {
       const response = await axios.post(`/todo/sort`);

@@ -60,17 +60,19 @@ export class ItemManager {
     return deletedTodo;
   }
 
+  async clearAll(){
+    await this.writeItemsToFile([]);
+    return [];
+  }
+
   async sortItems(){
     const data = await this.getAll();
-    console.log('this.sortOrder', this.sortOrder);
     if (this.sortOrder === UNSORTED || this.sortOrder === SORTED_DESC) {
       data.sort((a, b) => a.text.localeCompare(b.text));
       this.sortOrder = SORTED_ASC;
-      console.log('in if');
     } else {
       data.reverse();
       this.sortOrder = SORTED_DESC;
-      console.log('in else');
     }
     await this.writeItemsToFile(data);
     return data;

@@ -6,6 +6,7 @@ import {
   getAll,
   deleteTodo,
   updateTodo,
+  clearAll,
   sortTodos
 } from "./api.js";
 
@@ -16,4 +17,5 @@ todoRouter.get('/:id', getTodo);
 todoRouter.post('/', createTodo);
 todoRouter.delete('/:id', deleteTodo);
 todoRouter.patch('/:id', updateTodo);
+todoRouter.post('/clearall', clearAll);
 todoRouter.post('/sort', sortTodos);
