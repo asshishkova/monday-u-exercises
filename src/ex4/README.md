@@ -21,7 +21,7 @@ You can use your existing project (copy+paste then refactor), or use the boilerp
 - [x] Create your express backend (include separate `dist` and `server` folders)
 - [x] Your `server.js` file should have all the express boilerplate and host your `dist` directory to any client that requests it (hint: you'll need to `.use` the `express.static` method)
 - [x] Create an `api.js` file that acts as the 'controller' of your backend, handling all the routes (endpoints)
-- [x] Create separate endpoints for (1) fetching all the todo items, (2) creating a new one, and (3) deleting an existing one (hint: don't forget `bodyParser`) // express.json parses the body, and there are endpoints for (4) get all, (5) update todo
+- [x] Create separate endpoints for (1) fetching all the todo items, (2) creating a new one, and (3) deleting an existing one (hint: don't forget `bodyParser`) // express.json parses the body, and there are endpoints for (4) get all, (5) update todo, (6) sort.
 - [x] Move the pokemon fetching code to the backend - use `axios` instead of `fetch` for your requests
 - [x] On app load (i.e. when a user enters the page) it should fetch all the todo items and render them
 
@@ -36,4 +36,4 @@ But now when you refresh the page **the data should still be there**
 - [ ] Handle server errors elegantly. Specifically, if anything goes wrong the user should see an error message (ideally, not an alert) with an explanation of what went wrong instead of crashing the page
 - [ ] Add a loder/spinner to the page that indicates the client is waiting for an async operation (e.g. a call to the server) to finish // it does not load too long to show any spinner...
 - [ ] Add simple caching to your server. If a user requests for the same pokemon ID three times in the same minute, for example, it should only make a request to the Pokemon API once. You can use a simple in-memory data structure for your cache. // did not have enough time :(
-- [x] Also added: endpoints for get all, update todo; clear all button (calls delete in a loop). Working on: sort, validation for post and patch.
+- [x] Also added: endpoints for get all, update todo, sort; clear all button (calls delete in a loop). Working on: validation for post and patch.
