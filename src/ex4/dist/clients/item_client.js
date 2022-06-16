@@ -40,4 +40,14 @@ export class ItemClient {
       console.log(error);
     }
   }
+
+  async sortItems() {
+    try {
+      const response = await axios.post(`/todo/sort`);
+      return response.data;
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
 }

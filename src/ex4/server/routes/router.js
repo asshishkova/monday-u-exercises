@@ -5,7 +5,8 @@ import {
   getTodo,
   getAll,
   deleteTodo,
-  updateTodo
+  updateTodo,
+  sortTodos
 } from "./api.js";
 
 export const todoRouter = express.Router();
@@ -15,3 +16,4 @@ todoRouter.get('/:id', getTodo);
 todoRouter.post('/', createTodo);
 todoRouter.delete('/:id', deleteTodo);
 todoRouter.patch('/:id', updateTodo);
+todoRouter.post('/sort', sortTodos);

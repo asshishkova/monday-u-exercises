@@ -7,11 +7,10 @@ const DATA_FILE_NAME = "savedData.json";
 export class ItemManager {
   init() {
     try {
-      const data = this.getItemsFromFile();
+      this.getItemsFromFile();
     } catch (error) {
       this.writeItemsToFile([]);
     }
-    return this.items;
   }
 
   async addItem(text) {
@@ -22,7 +21,7 @@ export class ItemManager {
       data[itemIndex].isNew = true;
       newItem = data[itemIndex];
     } else {
-      const newId = data.reduce((maxId, data) => maxId = maxId > data.id ? acc : data.id, 0) + 1;
+      const newId = data.reduce((maxId, data) => maxId = maxId > data.id ? maxId : data.id, 0) + 1;
       newItem = {id: newId, text: text, isNew: true};
       data.push(newItem);
     }
@@ -56,16 +55,21 @@ export class ItemManager {
     return deletedTodo;
   }
 
-  clearAllItems() {
-    this.items = [];
-    this.writeItemsToFile();
-    return this.items;
-  }
+  async sortItems(){
 
-  sortItems(){
-    this.items.sort((a, b) => a.text.localeCompare(b.text));
-    this.writeItemsToFile();
-    return this.items;
+    // if (this.sortOrder === UNSORTED || this.sortOrder === SORTED_DESC) {
+    //   this.items.sort((a, b) => a.text.localeCompare(b.text));
+    //   this.sortOrder = SORTED_ASC;
+    // } else {
+    //   this.items.reverse();
+    //   this.sortOrder = SORTED_DESC;
+    // }
+    // return this.items;
+
+    const data = await this.getAll();
+    data.sort((a, b) => a.text.localeCompare(b.text));
+    await this.writeItemsToFile(data);
+    return data;
   }
 
   async getAll() {

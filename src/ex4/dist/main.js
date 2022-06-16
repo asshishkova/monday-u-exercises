@@ -21,7 +21,7 @@ class Main {
 
     this.clearAllButton.addEventListener('click', () => this.onClearAllButtonClicked());
     this.addTodoForm.addEventListener('submit', async (event) => await this.onAddTodoFormSubmitted(event));
-    this.sortListButton.addEventListener('click', () => this.onSortListButtonClicked());
+    this.sortListButton.addEventListener('click', async() => await this.onSortListButtonClicked());
     this.todoTextBox.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
         event.preventDefault();
@@ -148,6 +148,11 @@ class Main {
     const text = this.todoTextBox.value;
     this.todoTextBox.value = "";
     await this.itemClient.createItem(text);
+    await this.updateTodos();
+  }
+
+  async onSortListButtonClicked() {
+    await this.itemClient.sortItems();
     await this.updateTodos();
   }
 }
