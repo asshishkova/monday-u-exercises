@@ -30,4 +30,14 @@ export class ItemClient {
       console.log(error);
     }
   }
+
+  async createItem(itemText) {
+    try {
+      const response = await axios.post(`/todo`, {text: itemText});
+      return response.data;
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
 }

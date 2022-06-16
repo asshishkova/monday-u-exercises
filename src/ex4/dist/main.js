@@ -29,7 +29,7 @@ class Main {
     this.sortListButton = document.getElementById("sort-list-button");
 
     this.clearAllButton.addEventListener('click', () => this.onClearAllButtonClicked());
-    this.addTodoForm.addEventListener('submit', (event) => this.onAddTodoFormSubmitted(event));
+    this.addTodoForm.addEventListener('submit', async (event) => await this.onAddTodoFormSubmitted(event));
     this.sortListButton.addEventListener('click', () => this.onSortListButtonClicked());
     this.todoTextBox.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
@@ -115,10 +115,8 @@ class Main {
 
   showNoTodosImage() {
     if (this.todos.length === 0) {
-      // setTimeout(() => {
-        this.showOrHideElement('no-todos-placeholder', SHOW)
-        this.showOrHideElement('footer', HIDE)
-      // }, 2000);
+      this.showOrHideElement('no-todos-placeholder', SHOW)
+      this.showOrHideElement('footer', HIDE)
 
     } else {
       this.showOrHideElement('no-todos-placeholder', HIDE)
@@ -135,52 +133,56 @@ class Main {
     alert(clickedTodo.textContent);
   }
 
-  onDeleteButtonClicked(clickedButton) {
+  async onDeleteButtonClicked(clickedButton) {
     const index = Array.prototype.indexOf.call(this.todoList.getElementsByClassName("existing-todo"), clickedButton.parentElement);
     const todoItem = this.todos[index];
     const todoLi = clickedButton.parentElement;
-    this.deleteToDoTaskWithAnimation(todoItem, todoLi);
-   }
+    await this.deleteToDoTaskWithAnimation(todoItem, todoLi);
+  }
 
-  deleteToDoTaskWithAnimation(todoItem, todoLi) {
+  async deleteToDoTaskWithAnimation(todoItem, todoLi) {
     todoLi.classList.remove("existing-todo");
     todoLi.classList.add("animation-delete-todo");
-    setTimeout (() => {
-      this.deleteTodoTask(todoItem);
+    setTimeout (async() => {
+      await this.deleteTodoTask(todoItem);
     }, 700);
   }
 
   async deleteTodoTask(todoItem) {
     await this.itemClient.deleteItem(todoItem);
-    this.updateTodos();
+    await this.updateTodos();
   }
 
   async updateTodos() {
     this.todos = await this.itemClient.getItems();
+    console.log(this.todos);
     this.renderTodos();
   }
 
-  onClearAllButtonClicked() {
-    const deleteButtons = Array.prototype.slice.call(document.getElementsByClassName("delete-todo-button"));
-    for (const button of deleteButtons.reverse()) {
-      this.onDeleteButtonClicked(button);
-    };
+  async onClearAllButtonClicked() {
+    let deleteButtons = Array.prototype.slice.call(document.getElementsByClassName("delete-todo-button"));
+    while (deleteButtons.length > 0) {
+      await this.onDeleteButtonClicked(deleteButtons[0]);
+      deleteButtons = Array.prototype.slice.call(document.getElementsByClassName("delete-todo-button"));
+    }
   }
 
-  onAddTodoFormSubmitted(event) {
+  async onAddTodoFormSubmitted(event) {
     event.preventDefault();
     const text = this.todoTextBox.value;
     this.todoTextBox.value = "";
-    if (this.pokemonClient.isPokemon(text)) {
-      this.addPokemon(text.toLowerCase());
-    } else {
-      const isTextNaN = text.split(',').map( el => isNaN(el));
-      if (isTextNaN.includes(true)) {
-        this.updateTodos(this.itemManager.addItem(text))
-      } else {
-        this.addPokemon(text);
-      }
-    }
+    await this.itemClient.createItem(text);
+    await this.updateTodos();
+    // if (this.pokemonClient.isPokemon(text)) {
+    //   this.addPokemon(text.toLowerCase());
+    // } else {
+    //   const isTextNaN = text.split(',').map( el => isNaN(el));
+    //   if (isTextNaN.includes(true)) {
+    //     this.updateTodos(this.itemManager.addItem(text))
+    //   } else {
+    //     this.addPokemon(text);
+    //   }
+    // }
   }
 
   _createDeleteButton = item => {
