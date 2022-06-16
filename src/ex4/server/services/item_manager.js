@@ -4,8 +4,13 @@ import { promises as fs } from 'fs';
 
 const DATA_FILE_NAME = "savedData.json";
 
+const UNSORTED = Symbol("unsorted");
+const SORTED_ASC = Symbol("sortedAsc");
+const SORTED_DESC = Symbol("sortedDesc");
+
 export class ItemManager {
   init() {
+    this.sortOrder = UNSORTED;
     try {
       this.getItemsFromFile();
     } catch (error) {
@@ -56,18 +61,17 @@ export class ItemManager {
   }
 
   async sortItems(){
-
-    // if (this.sortOrder === UNSORTED || this.sortOrder === SORTED_DESC) {
-    //   this.items.sort((a, b) => a.text.localeCompare(b.text));
-    //   this.sortOrder = SORTED_ASC;
-    // } else {
-    //   this.items.reverse();
-    //   this.sortOrder = SORTED_DESC;
-    // }
-    // return this.items;
-
     const data = await this.getAll();
-    data.sort((a, b) => a.text.localeCompare(b.text));
+    console.log('this.sortOrder', this.sortOrder);
+    if (this.sortOrder === UNSORTED || this.sortOrder === SORTED_DESC) {
+      data.sort((a, b) => a.text.localeCompare(b.text));
+      this.sortOrder = SORTED_ASC;
+      console.log('in if');
+    } else {
+      data.reverse();
+      this.sortOrder = SORTED_DESC;
+      console.log('in else');
+    }
     await this.writeItemsToFile(data);
     return data;
   }
