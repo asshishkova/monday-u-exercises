@@ -37,7 +37,7 @@ export class ItemManager {
     return data.find((value) => value.id === id);
   }
 
-  async  updateItem(itemId, body) {
+  async updateItem(itemId, body) {
     const data = await this.getAll();
     const index = data.findIndex(value => {
         return value.id === itemId;

@@ -51,34 +51,34 @@ class Main {
 
   async renderTodos() {
     this.todoList.innerHTML = "";
-    this.todos.forEach(todoItem => {
-      this.addTodoItem(todoItem);
-    });
+    for (const todoItem of this.todos) {
+      await this.addTodoItem(todoItem);
+    }
     this.showFooterAndImage();
   }
 
-  addTodoItem(todoItem) {
-    const listItem = this.createTodoListElement(todoItem);
+  async addTodoItem(todoItem) {
+    const listItem = await this.createTodoListElement(todoItem);
     this.addEventListenerForTodoText(listItem);
     this.addEventListenerForDeleteButton(listItem);
     this.todoList.appendChild(listItem);
   }
 
-  createTodoListElement(todoItem) {
+  async createTodoListElement(todoItem) {
     const todoListElement = document.createElement("li");
     todoListElement.className = "todo-li existing-todo";
     if (todoItem.isNew) {
-      this.showTodoWithAnimation(todoListElement, todoItem);
+      await this.showTodoWithAnimation(todoListElement, todoItem);
     }
     todoListElement.innerHTML = `<div class="todo-text">${todoItem.text}</div>
                                 <button class="delete-todo-button btn"><i class="fa fa-trash"></i></button>`;
     return todoListElement;
   }
 
-  showTodoWithAnimation(todoListElement, todoItem) {
+  async showTodoWithAnimation(todoListElement, todoItem) {
     todoListElement.className = "todo-li animation-add-todo";
     setTimeout (() => { todoListElement.className = "todo-li existing-todo";}, 700);
-    this.itemClient.markItemAsOld(todoItem);
+    await this.itemClient.markItemAsOld(todoItem);
   }
 
   addEventListenerForTodoText(listElement) {
