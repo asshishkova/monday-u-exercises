@@ -28,7 +28,7 @@ export class ItemManager {
       data.push(newItem);
     }
     console.log('newItem: ', newItem);
-    this.writeItemsToFile(data);
+    await this.writeItemsToFile(data);
     return newItem;
   }
 
