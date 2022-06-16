@@ -30,7 +30,6 @@ export class ItemManager {
       newItem = {id: newId, text: text, isNew: true};
       data.push(newItem);
     }
-    console.log('newItem: ', newItem);
     await this.writeItemsToFile(data);
     return newItem;
   }

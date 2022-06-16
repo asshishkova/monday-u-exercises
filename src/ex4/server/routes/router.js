@@ -1,5 +1,5 @@
 import express from "express";
-// const {validateSchema, jediSchema} = require("../middleware/validation");
+import {validateSchema, createTodoSchema, updateTodoSchema} from "../middleware/validation.js";
 import {
   createTodo,
   getTodo,
@@ -14,8 +14,8 @@ export const todoRouter = express.Router();
 
 todoRouter.get('/', getAll);
 todoRouter.get('/:id', getTodo);
-todoRouter.post('/', createTodo);
+todoRouter.post('/', validateSchema(createTodoSchema), createTodo);
 todoRouter.delete('/:id', deleteTodo);
-todoRouter.patch('/:id', updateTodo);
+todoRouter.patch('/:id', validateSchema(updateTodoSchema), updateTodo);
 todoRouter.post('/clearall', clearAll);
 todoRouter.post('/sort', sortTodos);

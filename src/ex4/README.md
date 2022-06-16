@@ -34,6 +34,8 @@ But now when you refresh the page **the data should still be there**
 
 - [x] Create a [middleware](https://expressjs.com/en/guide/using-middleware.html) that makes a log each time a user accesses any of the routes (you can just do a `console.log`)
 - [ ] Handle server errors elegantly. Specifically, if anything goes wrong the user should see an error message (ideally, not an alert) with an explanation of what went wrong instead of crashing the page
-- [ ] Add a loder/spinner to the page that indicates the client is waiting for an async operation (e.g. a call to the server) to finish // it does not load too long to show any spinner...
-- [ ] Add simple caching to your server. If a user requests for the same pokemon ID three times in the same minute, for example, it should only make a request to the Pokemon API once. You can use a simple in-memory data structure for your cache. // did not have enough time to check it out :(
-- [x] Also added: endpoints for get all, update todo, sort, clear all. Working on: validation for post and patch.
+- [ ] Add a loder/spinner to the page that indicates the client is waiting for an async operation (e.g. a call to the server) to finish _**// it does not load long to show any spinner...**_
+- [ ] Add simple caching to your server. If a user requests for the same pokemon ID three times in the same minute, for example, it should only make a request to the Pokemon API once. You can use a simple in-memory data structure for your cache. _**// did not have enough time to check it out :(**_
+- [x] **Also added**:
+  - endpoints for get all, update todo, sort, clear all (can be called both from Postman and UI);
+  - validation for post and patch (checks necessary fields and does not allow extra fields).
