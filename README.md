@@ -7,25 +7,15 @@ This is going to be so much fun! Here are a few general details:
 
 ## Exercises list
 
-<<<<<<< HEAD
-**Exercise 1** - [HTML, CSS, JS.](https://github.com/asshishkova/monday-u-exercises/tree/ex4/src/ex1)
+**Exercise 1** - [HTML, CSS, JS.](https://github.com/asshishkova/monday-u-exercises/tree/ex5/src/ex1)
 
-**Exercise 2** - [In depth JS, Async JS, MVC](https://github.com/asshishkova/monday-u-exercises/tree/ex4/src/ex2)
+**Exercise 2** - [In depth JS, Async JS, MVC](https://github.com/asshishkova/monday-u-exercises/tree/ex5/src/ex2)
 
-**Exercise 3** - [Node.js, CLI](https://github.com/asshishkova/monday-u-exercises/tree/ex4/src/ex3)
+**Exercise 3** - [Advance Node.js, CLI](https://github.com/asshishkova/monday-u-exercises/tree/ex5/src/ex3)
 
-**Exercise 4** - [Express.js](https://github.com/asshishkova/monday-u-exercises/tree/ex4/src/ex4)
-=======
-**Exercise 1** - [HTML, CSS, JS.](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex1)
+**Exercise 4** - [Express.js](https://github.com/asshishkova/monday-u-exercises/tree/ex5/src/ex4)
 
-**Exercise 2** - [In depth JS, Async JS, MVC](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex2)
-
-**Exercise 3** - [Advance Node.js, CLI](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex3)
-
-**Exercise 4** - [Express.js](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex4)
-
-**Exercise 5** - [Sequelize ORM](https://github.com/monday-u-com/monday-u-exercises/tree/master/src/ex5)
->>>>>>> f836412aa35da6a02cda7d9e3becf1eff82223a4
+**Exercise 5** - [Sequelize ORM](https://github.com/asshishkova/monday-u-exercises/tree/ex5/src/ex5)
 
 # Submitting your tasks
 Create a pull request in your forked repository and send to your mentor when it's ready.
