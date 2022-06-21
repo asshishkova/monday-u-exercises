@@ -12,34 +12,32 @@ class ItemManager {
   }
 
   async addItem(text) {
-    await Todo.create({
+    return await Todo.create({
       "text": text,
       "isNew": true,
     });
   }
 
-  async getItem(todo_id) {
+  async getItem(itemId) {
     return await Todo.findAll({
       where: {
-        id: todo_id
+        id: itemId
       }
     });
   }
 
-  // async updateItem(itemId, body) {
-  //   const data = await this.getAll();
-  //   const index = data.findIndex(value => {
-  //       return value.id === itemId;
-  //   });
-  //   const item = data[index];
-  //   Object.assign(item, body);
-  //   await this.writeItemsToFile(data);
-  //   return item;
-  // }
+  async updateItem(itemId, body) {
+    return await Todo.update({
+      text: body.text, // undefined does not affect anything?
+      isNew: body.isNew
+     }, {
+      where: { id: itemId }
+     })
+  }
 
-  async deleteItem(todo_id) {
-    await Todo.destroy({
-      where: { id: todo_id },
+  async deleteItem(itemId) {
+    return await Todo.destroy({
+      where: { id: itemId },
     });
   }
 
