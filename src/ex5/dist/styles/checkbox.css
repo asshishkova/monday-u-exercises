@@ -28,11 +28,11 @@
 }
 
 /* On mouse-over, add a background color */
-.todo-item-checkbox:hover input ~ .done-checkbox-mark {
+/* .todo-item-checkbox:hover input ~ .done-checkbox-mark {
   background-color: var(--very-dark-green);
-}
+} */
 
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked, add a background */
 .todo-item-checkbox input:checked ~ .done-checkbox-mark {
   background-color: var(--very-dark-green);
 }
