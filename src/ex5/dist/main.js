@@ -52,7 +52,8 @@ class Main {
       await this.showTodoWithAnimation(todoListElement, todoItem);
     }
     todoListElement.innerHTML = `<label class="todo-item">
-                                    <label class="todo-item-checkbox">${todoItem.text}
+                                    <label class="todo-item-checkbox">
+                                      <div class="todo-item-text">${todoItem.text}</div>
                                       <input type="checkbox" class="done-checkbox">
                                       <span class="done-checkbox-mark"></span>
                                     </label>

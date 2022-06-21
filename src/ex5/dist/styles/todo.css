@@ -70,7 +70,11 @@
   width: 415px;
   min-height: 40px;
   cursor: pointer;
-  overflow: scroll;
   display: flex;
   align-items: center;
+}
+
+.todo-item-text {
+  width: 370px;
+  overflow: scroll;
 }
