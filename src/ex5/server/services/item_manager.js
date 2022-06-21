@@ -41,9 +41,11 @@ class ItemManager {
     });
   }
 
-  async clearAll(){
-    await this.writeItemsToFile([]);
-    return [];
+  async clearAll() {
+    return await Todo.destroy({
+      where: {},
+      truncate: true
+    });
   }
 
   async sortItems(){
