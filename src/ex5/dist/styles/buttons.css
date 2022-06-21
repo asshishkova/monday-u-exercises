@@ -29,11 +29,18 @@
 
 #clear-all-button {
   background-color: var(--dark-green);
-  width: 138px;
+  width: 115px;
 }
 
 #sort-list-button {
   background-color: var(--light-green);
   color: var(--very-dark-green);
-  width: 92px;
+  width: 115px;
+  display: flex;
+  justify-content: space-between;
+  padding: 1px 8px;
+}
+
+.fa-caret-down {
+  margin-top: 5px;
 }

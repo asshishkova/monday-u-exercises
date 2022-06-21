@@ -2,17 +2,12 @@
 
 const { Todo } = require('../db/models');
 
-const UNSORTED = "unsorted";
-const ASC = 'ASC';
-const DESC = 'DESC';
-
 class ItemManager {
   init() {
-    this.sortOrder = UNSORTED;
+    this.sortBy = "id";
   }
 
   async addItem(text) {
-    this.sortOrder = UNSORTED;
     return await Todo.create({
       "text": text,
       "isNew": true,
@@ -50,31 +45,15 @@ class ItemManager {
   }
 
   async sortItems(){
-    this.sortOrder = this.sortOrder === ASC? DESC : ASC
+    return this.sortBy = this.sortBy === "id"? "text" : "id";
   }
 
   async getAll() {
-    if (this.sortOrder === UNSORTED) {
-      return await Todo.findAll()
-    } else {
-      return await Todo.findAll({
-        order: [
-          ["text", `${this.sortOrder}`],
-        ]
-      });
-    }
-
-    // const oldItems = Todo.findAll({
-    //   where: { isNew: false },
-    // });
-    // const newItems = Todo.findAll({
-    //   where: { isNew: true },
-    //   order: [
-    //     ["text", `${this.sortOrder}`],
-    //   ]
-    // });
-    // const promises = [oldItems, newItems];
-    // return (await Promise.all(promises)).flat();
+    return await Todo.findAll({
+      order: [
+        [this.sortBy, "ASC"],
+      ]
+    });
   }
 }
 

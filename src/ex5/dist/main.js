@@ -163,7 +163,10 @@ class Main {
   }
 
   async onSortListButtonClicked() {
-    await this.itemClient.sortItems();
+    this.sortListButton.innerHTML = `
+      ${await this.itemClient.sortItems()}
+      <i class="fa fa-caret-down"></i>
+    `;
     await this.updateTodos();
   }
 }
