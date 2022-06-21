@@ -1,6 +1,6 @@
-import {validationResult, checkSchema} from 'express-validator';
+const {validationResult, checkSchema} = require('express-validator');
 
-export function validateSchema(schema) {
+function validateSchema(schema) {
   const validationMiddleware = checkSchema(schema);
   return async (req, res, next) => {
 
@@ -23,8 +23,7 @@ export function validateSchema(schema) {
     next(error);
   };
 }
-
-export const createTodoSchema = {
+const createTodoSchema = {
   text: {
     isString: {
       errorMessage: "Todo text should be a string"
@@ -37,7 +36,7 @@ export const createTodoSchema = {
   }
 };
 
-export const updateTodoSchema = {
+const updateTodoSchema = {
   isNew: {
     isBoolean: {
       errorMessage: 'isNew must be boolean'
@@ -60,3 +59,9 @@ function checkIfExtraFields (validators, req) {
   }
   return true
 }
+
+module.exports = {
+  validateSchema,
+  createTodoSchema,
+  updateTodoSchema
+};

@@ -1,6 +1,6 @@
-import express from "express";
-import {validateSchema, createTodoSchema, updateTodoSchema} from "../middleware/validation.js";
-import {
+const express = require('express');
+const {validateSchema, createTodoSchema, updateTodoSchema} =  require("../middleware/validation.js");
+const {
   createTodo,
   getTodo,
   getAll,
@@ -8,9 +8,9 @@ import {
   updateTodo,
   clearAll,
   sortTodos
-} from "./api.js";
+} = require("./api.js");
 
-export const todoRouter = express.Router();
+const todoRouter = express.Router();
 
 todoRouter.get('/', getAll);
 todoRouter.get('/:id', getTodo);
@@ -19,3 +19,5 @@ todoRouter.delete('/:id', deleteTodo);
 todoRouter.patch('/:id', validateSchema(updateTodoSchema), updateTodo);
 todoRouter.post('/clearall', clearAll);
 todoRouter.post('/sort', sortTodos);
+
+module.exports = todoRouter;

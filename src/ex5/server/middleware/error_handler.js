@@ -1,4 +1,4 @@
-export function errorHandler(err, req, res, next) {
+function errorHandler(err, req, res, next) {
     console.log("Received error", err.message);
     console.log("Stacktrace", err.stack);
     if(res.headersSent){
@@ -10,3 +10,5 @@ export function errorHandler(err, req, res, next) {
         "error": `${err.message || "Something went wrong"}`
     });
 };
+
+module.exports = errorHandler;

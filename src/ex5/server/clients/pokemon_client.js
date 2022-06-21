@@ -1,9 +1,9 @@
 // The Pokemon Client (using axios) goes here
 
-import axios from "axios";
-import { popularPokemons } from "./popular-pokemons.js";
+const axios = require("axios");
+const popularPokemons = require("./popular-pokemons.js")
 
-export class PokemonClient {
+class PokemonClient {
   constructor() {
     this.API_BASE = 'https://pokeapi.co/api/v2/pokemon';
   }
@@ -36,6 +36,8 @@ export class PokemonClient {
     return popularPokemons.find(pokemon => pokemon.toLowerCase() === name.trim().toLowerCase());
   }
 }
+
+module.exports = PokemonClient;
 
 // const axios = require("axios")
 

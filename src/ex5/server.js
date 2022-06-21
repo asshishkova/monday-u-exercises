@@ -1,11 +1,11 @@
 // Express boilerplate, hosting the `dist` file, connecting to the routes
 
-import express from "express";
-import compression from "compression";
-import 'express-async-errors';
-import { logger } from "./server/middleware/logger.js";
-import { errorHandler } from "./server/middleware/error_handler.js";
-import { todoRouter } from "./server/routes/router.js";
+const express = require('express');
+const compression = require('compression');
+require('express-async-errors');
+const logger = require("./server/middleware/logger.js");
+const errorHandler = require("./server/middleware/error_handler.js");
+const todoRouter = require("./server/routes/router.js");
 const port = 8080;
 const app = express();
 

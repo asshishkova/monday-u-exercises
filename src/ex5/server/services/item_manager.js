@@ -1,6 +1,6 @@
 // The ItemManager should go here. Remember that you have to export it.
 
-import { promises as fs } from 'fs';
+const fs = require('fs').promises;
 
 const DATA_FILE_NAME = "savedData.json";
 
@@ -8,7 +8,7 @@ const UNSORTED = Symbol("unsorted");
 const SORTED_ASC = Symbol("sortedAsc");
 const SORTED_DESC = Symbol("sortedDesc");
 
-export class ItemManager {
+class ItemManager {
   init() {
     this.sortOrder = UNSORTED;
     try {
@@ -92,6 +92,8 @@ export class ItemManager {
     });
   }
 }
+
+module.exports = ItemManager;
 
 // const PokemonClient = require('../clients/pokemon_client')
 

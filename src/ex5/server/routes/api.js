@@ -1,7 +1,7 @@
 // Define your endpoints here (this is your "controller file")
 
-import { ItemManager } from "../services/item_manager.js";
-import { PokemonClient } from "../clients/pokemon_client.js";
+const ItemManager = require("../services/item_manager.js");
+const PokemonClient = require("../clients/pokemon_client.js");
 
 const itemManager = new ItemManager();
 itemManager.init();
@@ -96,7 +96,7 @@ async function sortTodos(req, res) {
   res.status(200).json(data);
 }
 
-export {
+module.exports = {
   getAll,
   createTodo,
   getTodo,
