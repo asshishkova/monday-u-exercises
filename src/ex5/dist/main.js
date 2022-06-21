@@ -51,10 +51,12 @@ class Main {
     if (todoItem.isNew) {
       await this.showTodoWithAnimation(todoListElement, todoItem);
     }
-    todoListElement.innerHTML = `<div class="todo-item">
-                                  <input type="checkbox" class="done-checkbox" id=${todoItem.id} value="">
-                                  <label for="${todoItem.id}" class="todo-text">${todoItem.text}</label>
-                                </div>
+    todoListElement.innerHTML = `<label class="todo-item">
+                                    <label class="todo-item-checkbox">${todoItem.text}
+                                      <input type="checkbox" class="done-checkbox">
+                                      <span class="done-checkbox-mark"></span>
+                                    </label>
+                                </label>
                                 <button class="delete-todo-button btn"><i class="fa fa-trash"></i></button>`;
     return todoListElement;
   }

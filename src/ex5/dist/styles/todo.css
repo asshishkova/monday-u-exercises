@@ -66,15 +66,11 @@
 }
 
 .todo-item {
-  padding: 3.5px;
+  padding-right: 10px;
   width: 415px;
-}
-
-.todo-text:hover {
+  min-height: 40px;
   cursor: pointer;
-}
-
-.done-checkbox {
-  margin: 10px;
-  cursor: pointer;
+  overflow: scroll;
+  display: flex;
+  align-items: center;
 }
