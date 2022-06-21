@@ -1,6 +1,6 @@
 // The ItemManager should go here. Remember that you have to export it.
 
-const { Todo } = require('../db/models');
+const { Item } = require('../db/models');
 
 class ItemManager {
   init() {
@@ -8,14 +8,14 @@ class ItemManager {
   }
 
   async addItem(text) {
-    return await Todo.create({
+    return await Item.create({
       "text": text,
       "isNew": true,
     });
   }
 
   async getItem(itemId) {
-    return await Todo.findAll({
+    return await Item.findAll({
       where: {
         id: itemId
       }
@@ -23,7 +23,7 @@ class ItemManager {
   }
 
   async updateItem(itemId, body) {
-    return await Todo.update({
+    return await Item.update({
       text: body.text, // undefined does not affect anything?
       isNew: body.isNew
      }, {
@@ -32,13 +32,13 @@ class ItemManager {
   }
 
   async deleteItem(itemId) {
-    return await Todo.destroy({
+    return await Item.destroy({
       where: { id: itemId },
     });
   }
 
   async clearAll() {
-    return await Todo.destroy({
+    return await Item.destroy({
       where: {},
       truncate: true
     });
@@ -49,7 +49,7 @@ class ItemManager {
   }
 
   async getAll() {
-    return await Todo.findAll({
+    return await Item.findAll({
       order: [
         [this.sortBy, "ASC"],
       ]
