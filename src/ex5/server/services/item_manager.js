@@ -2,9 +2,9 @@
 
 const { Todo } = require('../db/models');
 
-const UNSORTED = Symbol("unsorted");
-const SORTED_ASC = Symbol("sortedAsc");
-const SORTED_DESC = Symbol("sortedDesc");
+const UNSORTED = "unsorted";
+const ASC = 'ASC';
+const DESC = 'DESC';
 
 class ItemManager {
   init() {
@@ -12,6 +12,7 @@ class ItemManager {
   }
 
   async addItem(text) {
+    this.sortOrder = UNSORTED;
     return await Todo.create({
       "text": text,
       "isNew": true,
@@ -49,26 +50,31 @@ class ItemManager {
   }
 
   async sortItems(){
-    const data = await this.getAll();
-    if (this.sortOrder === UNSORTED || this.sortOrder === SORTED_DESC) {
-      data.sort((a, b) => a.text.localeCompare(b.text));
-      this.sortOrder = SORTED_ASC;
-    } else {
-      data.reverse();
-      this.sortOrder = SORTED_DESC;
-    }
-    await this.writeItemsToFile(data);
-    return data;
+    this.sortOrder = this.sortOrder === ASC? DESC : ASC
   }
 
   async getAll() {
-    return await Todo.findAll();
-  }
+    if (this.sortOrder === UNSORTED) {
+      return await Todo.findAll()
+    } else {
+      return await Todo.findAll({
+        order: [
+          ["text", `${this.sortOrder}`],
+        ]
+      });
+    }
 
-  async writeItemsToFile(data){
-    await fs.writeFile(DATA_FILE_NAME, JSON.stringify(data, null, 2), err => {
-      if (err) throw err;
-    });
+    // const oldItems = Todo.findAll({
+    //   where: { isNew: false },
+    // });
+    // const newItems = Todo.findAll({
+    //   where: { isNew: true },
+    //   order: [
+    //     ["text", `${this.sortOrder}`],
+    //   ]
+    // });
+    // const promises = [oldItems, newItems];
+    // return (await Promise.all(promises)).flat();
   }
 }
 
