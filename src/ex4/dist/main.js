@@ -36,6 +36,12 @@ class Main {
       await this.addTodoItem(todoItem);
     }
     this.showFooterAndImage();
+    for (const [i, todoItem] of this.todos.entries()) {
+      if (todoItem.isNew) {
+        const listItem = this.todoList.children.item(i);
+        await this.showTodoWithAnimation(listItem, todoItem);
+      }
+    }
   }
 
   async addTodoItem(todoItem) {
@@ -48,9 +54,6 @@ class Main {
   async createTodoListElement(todoItem) {
     const todoListElement = document.createElement("li");
     todoListElement.className = "todo-li existing-todo";
-    if (todoItem.isNew) {
-      await this.showTodoWithAnimation(todoListElement, todoItem);
-    }
     todoListElement.innerHTML = `<div class="todo-text">${todoItem.text}</div>
                                 <button class="delete-todo-button btn"><i class="fa fa-trash"></i></button>`;
     return todoListElement;
