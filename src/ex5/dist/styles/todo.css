@@ -30,7 +30,7 @@
 
 .todo-li:hover {
   background-color: rgba(128, 128, 128, 0.4);
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .todos-content {
@@ -65,7 +65,16 @@
   }
 }
 
-.todo-text {
-  padding: 5px;
+.todo-item {
+  padding: 3.5px;
   width: 415px;
+}
+
+.todo-text:hover {
+  cursor: pointer;
+}
+
+.done-checkbox {
+  margin: 10px;
+  cursor: pointer;
 }

@@ -40,7 +40,7 @@ class Main {
 
   async addTodoItem(todoItem) {
     const listItem = await this.createTodoListElement(todoItem);
-    this.addEventListenerForTodoText(listItem);
+    // this.addEventListenerForTodoText(listItem);
     this.addEventListenerForDeleteButton(listItem);
     this.todoList.appendChild(listItem);
   }
@@ -51,7 +51,10 @@ class Main {
     if (todoItem.isNew) {
       await this.showTodoWithAnimation(todoListElement, todoItem);
     }
-    todoListElement.innerHTML = `<div class="todo-text">${todoItem.text}</div>
+    todoListElement.innerHTML = `<div class="todo-item">
+                                  <input type="checkbox" class="done-checkbox" id=${todoItem.id} value="">
+                                  <label for="${todoItem.id}" class="todo-text">${todoItem.text}</label>
+                                </div>
                                 <button class="delete-todo-button btn"><i class="fa fa-trash"></i></button>`;
     return todoListElement;
   }
@@ -62,12 +65,12 @@ class Main {
     await this.itemClient.markItemAsOld(todoItem);
   }
 
-  addEventListenerForTodoText(listElement) {
-    const todoText = listElement.getElementsByClassName("todo-text")[0];
-    todoText.addEventListener('click', ({target}) => {
-      this.onTodoTextClicked(target);
-    });
-  }
+  // addEventListenerForTodoText(listElement) {
+  //   const todoText = listElement.getElementsByClassName("todo-text")[0];
+  //   todoText.addEventListener('click', ({target}) => {
+  //     this.onTodoTextClicked(target);
+  //   });
+  // }
 
   addEventListenerForDeleteButton(listItem) {
     const deleteButton = listItem.getElementsByClassName("delete-todo-button")[0];
@@ -110,9 +113,9 @@ class Main {
     document.getElementById(elementId).style.display = this.displayStyle;
   }
 
-  onTodoTextClicked(clickedTodo) {
-    alert(clickedTodo.textContent);
-  }
+  // onTodoTextClicked(clickedTodo) {
+  //   alert(clickedTodo.textContent);
+  // }
 
   async onDeleteButtonClicked(clickedButton) {
     const index = Array.prototype.indexOf.call(this.todoList.getElementsByClassName("existing-todo"), clickedButton.parentElement);
