@@ -21,15 +21,15 @@ export class ItemClient {
     }
   }
 
-  async markItemAsOld(item) {
-    try {
-      const response = await axios.patch(`/todo/${item.id}`, {isNew: false});
-      return response.data;
-    }
-    catch (error) {
-      console.log(error);
-    }
-  }
+  // async markItemAsOld(item) {
+  //   try {
+  //     const response = await axios.patch(`/todo/${item.id}`, {isNew: false});
+  //     return response.data;
+  //   }
+  //   catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   async createItem(itemText) {
     try {

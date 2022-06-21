@@ -1,8 +1,6 @@
 // The ItemManager should go here. Remember that you have to export it.
 
-const fs = require('fs').promises;
-
-const DATA_FILE_NAME = "savedData.json";
+const { Todo } = require('../db/models');
 
 const UNSORTED = Symbol("unsorted");
 const SORTED_ASC = Symbol("sortedAsc");
@@ -11,44 +9,33 @@ const SORTED_DESC = Symbol("sortedDesc");
 class ItemManager {
   init() {
     this.sortOrder = UNSORTED;
-    try {
-      this.getItemsFromFile();
-    } catch (error) {
-      this.writeItemsToFile([]);
-    }
   }
 
   async addItem(text) {
-    const data = await this.getItemsFromFile();
-    const itemIndex = data.findIndex(item => item.text === text);
-    let newItem;
-    if (itemIndex > -1) {
-      data[itemIndex].isNew = true;
-      newItem = data[itemIndex];
-    } else {
-      const newId = data.reduce((maxId, data) => maxId = maxId > data.id ? maxId : data.id, 0) + 1;
-      newItem = {id: newId, text: text, isNew: true};
-      data.push(newItem);
-    }
-    await this.writeItemsToFile(data);
-    return newItem;
-  }
-
-  async getItem(id) {
-    const data = await this.getAll();
-    return data.find((value) => value.id === id);
-  }
-
-  async updateItem(itemId, body) {
-    const data = await this.getAll();
-    const index = data.findIndex(value => {
-        return value.id === itemId;
+    await Todo.create({
+      "text": text,
+      "isNew": true,
     });
-    const item = data[index];
-    Object.assign(item, body);
-    await this.writeItemsToFile(data);
-    return item;
   }
+
+  async getItem(todo_id) {
+    return await Todo.findAll({
+      where: {
+        id: todo_id
+      }
+    });
+  }
+
+  // async updateItem(itemId, body) {
+  //   const data = await this.getAll();
+  //   const index = data.findIndex(value => {
+  //       return value.id === itemId;
+  //   });
+  //   const item = data[index];
+  //   Object.assign(item, body);
+  //   await this.writeItemsToFile(data);
+  //   return item;
+  // }
 
   async deleteItem(id) {
     const data = await this.getAll();
@@ -78,12 +65,7 @@ class ItemManager {
   }
 
   async getAll() {
-    return await this.getItemsFromFile();
-  }
-
-  async getItemsFromFile(){
-    const data = await fs.readFile(DATA_FILE_NAME);
-    return JSON.parse(data);
+    return await Todo.findAll();
   }
 
   async writeItemsToFile(data){
