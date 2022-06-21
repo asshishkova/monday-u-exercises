@@ -37,13 +37,10 @@ class ItemManager {
   //   return item;
   // }
 
-  async deleteItem(id) {
-    const data = await this.getAll();
-    const itemIndex = data.findIndex(item => item.id === id);
-    const deletedTodo = data[itemIndex]
-    data.splice(itemIndex, 1);
-    await this.writeItemsToFile(data);
-    return deletedTodo;
+  async deleteItem(todo_id) {
+    await Todo.destroy({
+      where: { id: todo_id },
+    });
   }
 
   async clearAll(){
