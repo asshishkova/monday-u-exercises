@@ -34,7 +34,7 @@
 
 /* When the checkbox is checked, add a background */
 .todo-item-checkbox input:checked ~ .done-checkbox-mark {
-  background-color: var(--very-dark-green);
+  background-color: var(--dark-green);
 }
 
 /* Create the done-checkbox-mark/indicator (hidden when not checked) */

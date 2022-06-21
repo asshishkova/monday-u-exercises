@@ -20,7 +20,10 @@ class Main {
     this.sortListButton = document.getElementById("sort-list-button");
 
     this.clearAllButton.addEventListener('click', () => this.onClearAllButtonClicked());
-    this.addTodoForm.addEventListener('submit', async (event) => await this.onAddTodoFormSubmitted(event));
+    this.addTodoForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      this.onAddTodoFormSubmitted(event);
+    });
     this.sortListButton.addEventListener('click', async() => await this.onSortListButtonClicked());
     this.todoTextBox.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
@@ -65,7 +68,7 @@ class Main {
   async showTodoWithAnimation(todoListElement, todoItem) {
     todoListElement.className = "todo-li animation-add-todo";
     setTimeout (() => { todoListElement.className = "todo-li existing-todo";}, 700);
-    await this.itemClient.markItemAsOld(todoItem);
+    this.itemClient.markItemAsOld(todoItem);
   }
 
   // addEventListenerForTodoText(listElement) {
@@ -150,7 +153,6 @@ class Main {
   }
 
   async onAddTodoFormSubmitted(event) {
-    event.preventDefault();
     const text = this.todoTextBox.value;
     this.todoTextBox.value = "";
     await this.itemClient.createItem(text);
