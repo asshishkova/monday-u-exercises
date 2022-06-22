@@ -122,15 +122,16 @@ class Main {
     const todoItem = this.todos[index];
     const todoLi = clickedButton.parentElement;
     await this.itemClient.deleteItem(todoItem);
+    this.todos = await this.itemClient.getItems();
     await this.activateDeleteAnimation(todoLi);
   }
 
   async activateDeleteAnimation(todoLi) {
     todoLi.classList.remove("existing-todo");
     todoLi.classList.add("animation-delete-todo");
-    setTimeout (async() => {
-      await this.updateTodos();
-    }, 700);
+    todoLi.addEventListener('animationend', () => {
+      this.renderTodos();
+    });
   }
 
   async updateTodos() {
@@ -140,7 +141,9 @@ class Main {
 
   async onClearAllButtonClicked() {
     await this.itemClient.clearAll();
-    for (let i = 0; i < this.todos.length; i++) {
+    const amount = this.todos.length;
+    this.todos = await this.itemClient.getItems();
+    for (let i = 0; i < amount; i++) {
       const todoLi = document.getElementById('todos-list').children.item(i);
       await this.activateDeleteAnimation(todoLi);
     }
