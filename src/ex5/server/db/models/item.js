@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   Item.init({
     text: DataTypes.STRING,
     isNew: DataTypes.BOOLEAN,
-    status: DataTypes.BOOLEAN
+    status: DataTypes.BOOLEAN,
+    done: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Item',

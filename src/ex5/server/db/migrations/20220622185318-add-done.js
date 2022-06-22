@@ -2,17 +2,17 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-     await queryInterface.addColumn(
+    await queryInterface.addColumn(
       'Items',
-      'status',
-      Sequelize.BOOLEAN
+      'done',
+      Sequelize.DATE
     );
   },
 
   async down (queryInterface, Sequelize) {
     await queryInterface.removeColumn(
       'Items',
-      'status'
+      'done'
     );
   }
 };

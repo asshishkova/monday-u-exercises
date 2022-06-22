@@ -4,13 +4,13 @@ function validateSchema(schema) {
   const validationMiddleware = checkSchema(schema);
   return async (req, res, next) => {
 
-    const extraFields = checkIfExtraFields(validationMiddleware, req)
-    if (extraFields) {
-      const error = Error("Request should not contain additional fields");
-      error.statusCode = 400;
-      next(error);
-      return;
-    }
+    // const extraFields = checkIfExtraFields(validationMiddleware, req)
+    // if (extraFields) {
+    //   const error = Error("Request should not contain additional fields");
+    //   error.statusCode = 400;
+    //   next(error);
+    //   return;
+    // }
 
     await validationMiddleware.run(req);
     const result = validationResult(req);

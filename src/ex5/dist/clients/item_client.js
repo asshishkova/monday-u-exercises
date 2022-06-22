@@ -35,10 +35,16 @@ export class ItemClient {
   }
 
   async changeItemStatus(item) {
+    const doneTime = item.done === null? Date.now() : null;
     try {
       const response = await axios.patch(
         `/todo/${item.id}`,
-        {text: item.text, isNew: item.isNew, status: !item.status}
+        {
+          text: item.text,
+          isNew: item.isNew,
+          status: !item.status,
+          done: doneTime
+        }
       );
       return response.data;
     }
