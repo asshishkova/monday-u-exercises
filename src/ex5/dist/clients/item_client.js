@@ -34,6 +34,19 @@ export class ItemClient {
     }
   }
 
+  async changeItemStatus(item) {
+    try {
+      const response = await axios.patch(
+        `/todo/${item.id}`,
+        {text: item.text, isNew: item.isNew, status: !item.status}
+      );
+      return response.data;
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
   async createItem(itemText) {
     try {
       const response = await axios.post(`/todo`, {text: itemText});

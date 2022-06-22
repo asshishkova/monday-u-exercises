@@ -17,7 +17,7 @@
 }
 
 /* Create a custom checkbox */
-.done-checkbox-mark {
+.status-checkbox-mark {
   position: absolute;
   top: 5px;
   left: 7px;
@@ -28,29 +28,29 @@
 }
 
 /* On mouse-over, add a background color */
-/* .todo-item-checkbox:hover input ~ .done-checkbox-mark {
+/* .todo-item-checkbox:hover input ~ .status-checkbox-mark {
   background-color: var(--very-dark-green);
 } */
 
 /* When the checkbox is checked, add a background */
-.todo-item-checkbox input:checked ~ .done-checkbox-mark {
+.todo-item-checkbox input:checked ~ .status-checkbox-mark {
   background-color: var(--dark-green);
 }
 
-/* Create the done-checkbox-mark/indicator (hidden when not checked) */
-.done-checkbox-mark:after {
+/* Create the status-checkbox-mark/indicator (hidden when not checked) */
+.status-checkbox-mark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the done-checkbox-mark when checked */
-.todo-item-checkbox input:checked ~ .done-checkbox-mark:after {
+/* Show the status-checkbox-mark when checked */
+.todo-item-checkbox input:checked ~ .status-checkbox-mark:after {
   display: block;
 }
 
-/* Style the done-checkbox-mark/indicator */
-.todo-item-checkbox .done-checkbox-mark:after {
+/* Style the status-checkbox-mark/indicator */
+.todo-item-checkbox .status-checkbox-mark:after {
   left: 6px;
   top: 2px;
   width: 5px;

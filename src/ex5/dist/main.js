@@ -41,17 +41,17 @@ class Main {
     this.showFooterAndImage();
     for (const [i, todoItem] of this.todos.entries()) {
       if (todoItem.isNew) {
-        const listItem = this.todoList.children.item(i);
-        await this.showTodoWithAnimation(listItem, todoItem);
+        const listElement = this.todoList.children.item(i);
+        await this.showTodoWithAnimation(listElement, todoItem);
       }
     }
   }
 
   async addTodoItem(todoItem) {
-    const listItem = await this.createTodoListElement(todoItem);
-    // this.addEventListenerForTodoText(listItem);
-    this.addEventListenerForDeleteButton(listItem);
-    this.todoList.appendChild(listItem);
+    const listElement = await this.createTodoListElement(todoItem);
+    this.addEventListenerForCheckbox(listElement);
+    this.addEventListenerForDeleteButton(listElement);
+    this.todoList.appendChild(listElement);
   }
 
   async createTodoListElement(todoItem) {
@@ -60,8 +60,8 @@ class Main {
     todoListElement.innerHTML = `<label class="todo-item">
                                     <label class="todo-item-checkbox">
                                       <div class="todo-item-text">${todoItem.text}</div>
-                                      <input type="checkbox" class="done-checkbox">
-                                      <span class="done-checkbox-mark"></span>
+                                      <input type="checkbox" class="status-checkbox" ${todoItem.status? "checked" : ""}>
+                                      <span class="status-checkbox-mark"></span>
                                     </label>
                                 </label>
                                 <button class="delete-todo-button btn"><i class="fa fa-trash"></i></button>`;
@@ -74,15 +74,15 @@ class Main {
     await this.itemClient.markItemAsOld(todoItem);
   }
 
-  // addEventListenerForTodoText(listElement) {
-  //   const todoText = listElement.getElementsByClassName("todo-text")[0];
-  //   todoText.addEventListener('click', ({target}) => {
-  //     this.onTodoTextClicked(target);
-  //   });
-  // }
+  addEventListenerForCheckbox(listElement) {
+    const todoText = listElement.getElementsByClassName("status-checkbox")[0];
+    todoText.addEventListener('click', ({currentTarget}) => {
+      this.onCheckboxClicked(currentTarget);
+    });
+  }
 
-  addEventListenerForDeleteButton(listItem) {
-    const deleteButton = listItem.getElementsByClassName("delete-todo-button")[0];
+  addEventListenerForDeleteButton(listElement) {
+    const deleteButton = listElement.getElementsByClassName("delete-todo-button")[0];
     deleteButton.addEventListener('click', ({currentTarget}) => {
       this.onDeleteButtonClicked(currentTarget);
     });
@@ -122,9 +122,15 @@ class Main {
     document.getElementById(elementId).style.display = this.displayStyle;
   }
 
-  // onTodoTextClicked(clickedTodo) {
-  //   alert(clickedTodo.textContent);
-  // }
+  async onCheckboxClicked(clickedCheckbox) {
+    console.log(clickedCheckbox);
+    const index = Array.prototype.indexOf.call(
+      this.todoList.getElementsByClassName("existing-todo"),
+      clickedCheckbox.parentElement.parentElement.parentElement
+    );
+    const todoItem = this.todos[index];
+    await this.itemClient.changeItemStatus(todoItem);
+  }
 
   async onDeleteButtonClicked(clickedButton) {
     const index = Array.prototype.indexOf.call(this.todoList.getElementsByClassName("existing-todo"), clickedButton.parentElement);
@@ -209,13 +215,13 @@ document.addEventListener("DOMContentLoaded", function () {
 //         const items = await this.itemClient.getItems()
 
 //         items.forEach(item => {
-//             const listItem = document.createElement("li");
-//             listItem.classList.add('list-item');
-//             listItem.innerHTML = item;
+//             const listElement = document.createElement("li");
+//             listElement.classList.add('list-item');
+//             listElement.innerHTML = item;
 
-//             const listItemDeleteButton = this._createDeleteButton(item);
-//             listItem.appendChild(listItemDeleteButton);
-//             list.appendChild(listItem);
+//             const listElementDeleteButton = this._createDeleteButton(item);
+//             listElement.appendChild(listElementDeleteButton);
+//             list.appendChild(listElement);
 //         })
 //     }
 
