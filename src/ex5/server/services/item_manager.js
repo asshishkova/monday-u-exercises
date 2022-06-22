@@ -2,9 +2,12 @@
 
 const { Item } = require('../db/models');
 
+const SORT_OPTIONS = ['id', 'text', 'status']
+
 class ItemManager {
   init() {
-    this.sortBy = "id";
+    this.sortOptionIndex = 0;
+    this.sortBy = SORT_OPTIONS[this.sortOptionIndex];
   }
 
   async addItem(text) {
@@ -49,7 +52,8 @@ class ItemManager {
   }
 
   async sortItems(){
-    return this.sortBy = this.sortBy === "id"? "text" : "id";
+    this.sortOptionIndex = (this.sortOptionIndex + 1) % SORT_OPTIONS.length
+    return this.sortBy = SORT_OPTIONS[this.sortOptionIndex];
   }
 
   async getAll() {
