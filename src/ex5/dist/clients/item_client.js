@@ -23,7 +23,10 @@ export class ItemClient {
 
   async markItemAsOld(item) {
     try {
-      const response = await axios.patch(`/todo/${item.id}`, {isNew: false});
+      const response = await axios.patch(
+        `/todo/${item.id}`,
+        {text: item.text, isNew: false, status: item.status}
+      );
       return response.data;
     }
     catch (error) {

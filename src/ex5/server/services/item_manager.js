@@ -8,10 +8,13 @@ class ItemManager {
   }
 
   async addItem(text) {
-    return await Item.create({
+    const newItem = await Item.create({
       "text": text,
       "isNew": true,
+      "status": false
     });
+    console.log('newItem', newItem);
+    return newItem;
   }
 
   async getItem(itemId) {
@@ -24,8 +27,9 @@ class ItemManager {
 
   async updateItem(itemId, body) {
     return await Item.update({
-      text: body.text, // undefined does not affect anything?
-      isNew: body.isNew
+      text: body.text,
+      isNew: body.isNew,
+      status: body.status
      }, {
       where: { id: itemId }
      })

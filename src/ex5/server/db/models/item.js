@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Item.init({
     text: DataTypes.STRING,
-    isNew: DataTypes.BOOLEAN
+    isNew: DataTypes.BOOLEAN,
+    status: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Item',

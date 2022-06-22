@@ -37,9 +37,25 @@ const createTodoSchema = {
 };
 
 const updateTodoSchema = {
+  text: {
+    isString: {
+      errorMessage: "Todo text should be a string"
+    },
+    isLength: {
+      errorMessage: 'Todo text should be at least 1 characters long',
+      options: { min: 1 },
+    },
+    in: ['body']
+  },
   isNew: {
     isBoolean: {
       errorMessage: 'isNew must be boolean'
+    },
+    in: ['body']
+  },
+  status: {
+    isBoolean: {
+      errorMessage: 'status must be boolean'
     },
     in: ['body']
   }
