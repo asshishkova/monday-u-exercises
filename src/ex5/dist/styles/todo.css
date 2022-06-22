@@ -58,9 +58,11 @@
 
 @keyframes deleting-color {
   0% {
+    opacity: 1;
     background: brown;
   }
   100% {
+    opacity: 0;
     background: antiquewhite;
   }
 }

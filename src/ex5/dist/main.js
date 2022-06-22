@@ -123,7 +123,6 @@ class Main {
   }
 
   async onCheckboxClicked(clickedCheckbox) {
-    console.log(clickedCheckbox);
     const index = Array.prototype.indexOf.call(
       this.todoList.getElementsByClassName("existing-todo"),
       clickedCheckbox.parentElement.parentElement.parentElement
