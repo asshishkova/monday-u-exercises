@@ -60,6 +60,7 @@ class ItemManager {
     return await Item.findAll({
       order: [
         [this.sortBy, "ASC"],
+        ['updatedAt', "ASC" ]
       ]
     });
   }
