@@ -13,7 +13,7 @@ class Main {
     this.todoTextBox = document.getElementById("new-todo-textbox");
     this.todoAmountInfo = document.getElementById("amount-info");
 
-    this.updateTodos();
+    await this.updateTodos();
 
     this.clearAllButton = document.getElementById("clear-all-button");
     this.addTodoForm = document.getElementById("add-todo");
@@ -129,6 +129,7 @@ class Main {
     );
     const todoItem = this.todos[index];
     await this.itemClient.changeItemStatus(todoItem);
+    await this.updateTodos();
   }
 
   async onDeleteButtonClicked(clickedButton) {

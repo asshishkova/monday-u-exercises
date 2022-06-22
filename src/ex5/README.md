@@ -51,3 +51,5 @@ Here is an example how it can look on the client side:
 - [ ] Add index to the Items table (which columns compose the index?)
 - [ ] Add server validation - create a new item only if not exists (Use transaction)
 - [ ] Add edit capabilities to an item.
+- [x] **Also added**:
+  - sort by id, text and status (in UI)
