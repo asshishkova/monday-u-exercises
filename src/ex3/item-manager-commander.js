@@ -4,6 +4,10 @@ const DATA_FILE_NAME = "savedData.json";
 
 export class ItemManagerCommander {
   init() {
+    this.getAll();
+  }
+
+  getAll() {
     try {
       this.items = this.getItemsFromFile();
     } catch (error) {
@@ -16,36 +20,34 @@ export class ItemManagerCommander {
   addItem(text) {
     const itemIndex = this.items.findIndex(item => item.text === text);
     if (itemIndex > -1) {
-      this.items[itemIndex].isNew = true;
+      this.items = this.items.map(oItem =>
+        oItem.text === text ? {text: text, isNew: true} : oItem)
     } else {
-      this.items.push({text: text, isNew: true });
+      this.items = [ ...this.items, {text: text, isNew: true } ]
     }
     this.writeItemsToFile();
-    return this.items;
   }
 
   markItemAsOld(item){
-    item.isNew = false;
+    this.items = this.items.map(oItem =>
+      oItem.text === item.text ? {...item, isNew: false} : oItem)
     this.writeItemsToFile();
-    return this.items;
   }
 
   deleteItem(index) {
-    this.items.splice(index, 1);
+    const item = this.items[index];
+    this.items = this.items.filter(oItem => oItem !== item)
     this.writeItemsToFile();
-    return this.items;
   }
 
   clearAllItems() {
     this.items = [];
     this.writeItemsToFile();
-    return this.items;
   }
 
   sortItems(){
     this.items.sort((a, b) => a.text.localeCompare(b.text));
     this.writeItemsToFile();
-    return this.items;
   }
 
   getItemsFromFile(){
