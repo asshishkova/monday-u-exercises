@@ -1,4 +1,12 @@
-import { ItemClient } from "./clients/item_client.js";
+// browserify dist/main.js -o dist/bundle.js
+
+ItemClient = require("./clients/item_client.js");
+TimeAgo = require('javascript-time-ago')
+en = require('javascript-time-ago/locale/en')
+TimeAgo.addDefaultLocale(en)
+
+// Create formatter (English).
+const timeAgo = new TimeAgo('en-US')
 
 const SHOW = true;
 const HIDE = false;
@@ -55,7 +63,9 @@ class Main {
   }
 
   async createTodoListElement(todoItem) {
-    const doneTime = todoItem.done === null? "" : `Done ${todoItem.done}`;
+    const doneTime = todoItem.done === null? "" : `Done ${timeAgo.format(Date.now() - 2 * 60 * 60 * 1000)}`;
+    // const doneTime = todoItem.done === null? "" : `Done ${timeAgo.format(Date.now() - todoItem.done)}`;
+    console.log(doneTime);
     const todoListElement = document.createElement("li");
     todoListElement.className = "todo-li existing-todo";
     todoListElement.innerHTML = `<label class="todo-item">

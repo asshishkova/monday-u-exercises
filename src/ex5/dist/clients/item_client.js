@@ -1,6 +1,10 @@
 // Create an ItemClient class here.
+
+const { builtinModules } = require("module");
+axios = require("axios");
+
 // This is what makes requests to your express server (your own custom API!)
-export class ItemClient {
+class ItemClient {
   async getItems() {
     try {
       const response = await axios.get("/todo");
@@ -83,3 +87,5 @@ export class ItemClient {
     }
   }
 }
+
+module.exports = ItemClient;
