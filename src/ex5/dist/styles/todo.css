@@ -74,9 +74,23 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .todo-item-text {
   width: 370px;
   overflow: scroll;
+}
+
+.todo-item[info]:hover::after {
+  content: attr(info);
+  position: absolute;
+  color: antiquewhite;
+  background-color: gray;
+  left: 35px;
+  top: 30px;
+  font-size: 14px;
+  border-radius: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }

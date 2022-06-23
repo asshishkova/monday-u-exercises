@@ -58,8 +58,8 @@ class Main {
     const doneTime = todoItem.done === null? "" : `Done at ${todoItem.done.slice(11,16)} ${todoItem.done.slice(0,10)}`;
     const todoListElement = document.createElement("li");
     todoListElement.className = "todo-li existing-todo";
-    todoListElement.innerHTML = `<label class="todo-item">
-                                    <label class="todo-item-checkbox" title="${doneTime}">
+    todoListElement.innerHTML = `<label class="todo-item" info="${doneTime}">
+                                    <label class="todo-item-checkbox">
                                       <div class="todo-item-text">${todoItem.text}</div>
                                       <input type="checkbox" class="status-checkbox" ${todoItem.status? "checked" : ""}>
                                       <span class="status-checkbox-mark"></span>
