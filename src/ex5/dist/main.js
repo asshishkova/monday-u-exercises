@@ -45,6 +45,7 @@ class Main {
         await this.showTodoWithAnimation(listElement, todoItem);
       }
     }
+    this.todos = await this.itemClient.getItems();
   }
 
   async addTodoItem(todoItem) {
@@ -71,7 +72,9 @@ class Main {
 
   async showTodoWithAnimation(todoListElement, todoItem) {
     todoListElement.className = "todo-li animation-add-todo";
-    setTimeout (() => { todoListElement.className = "todo-li existing-todo";}, 700);
+    todoListElement.addEventListener('animationend', () => {
+      todoListElement.className = "todo-li existing-todo";
+    });
     await this.itemClient.markItemAsOld(todoItem);
   }
 
@@ -125,7 +128,7 @@ class Main {
 
   async onCheckboxClicked(clickedCheckbox) {
     const index = Array.prototype.indexOf.call(
-      this.todoList.getElementsByClassName("existing-todo"),
+      this.todoList.getElementsByClassName("todo-li"),
       clickedCheckbox.parentElement.parentElement.parentElement
     );
     const todoItem = this.todos[index];

@@ -48,8 +48,8 @@ Here is an example how it can look on the client side:
 ### Bonus
 
 - [x] Add "Done" timestamp // Show "Done at 11:22 2022-05-23"
-- [ ] Add index to the Items table (which columns compose the index?)
-- [ ] Add server validation - create a new item only if not exists (Use transaction)
+- [x] Add index to the Items table (which columns compose the index?) // text, unique
+- [x] Add server validation - create a new item only if not exists (Use transaction) // based on text-index, try-create, catch-update (without transaction because there is only one operation in try)
 - [ ] Add edit capabilities to an item.
 - [x] **Also added**:
   - sort by id, text and status (in UI)

@@ -1,5 +1,3 @@
-// Define your endpoints here (this is your "controller file")
-
 const ItemManager = require("../services/item_manager.js");
 const PokemonClient = require("../clients/pokemon_client.js");
 

@@ -1,5 +1,3 @@
-// Create an ItemClient class here.
-// This is what makes requests to your express server (your own custom API!)
 export class ItemClient {
   async getItems() {
     try {
@@ -25,7 +23,7 @@ export class ItemClient {
     try {
       const response = await axios.patch(
         `/todo/${item.id}`,
-        {text: item.text, isNew: false, status: item.status}
+        {...item, isNew: false}
       );
       return response.data;
     }
@@ -40,8 +38,7 @@ export class ItemClient {
       const response = await axios.patch(
         `/todo/${item.id}`,
         {
-          text: item.text,
-          isNew: item.isNew,
+          ...item,
           status: !item.status,
           done: doneTime
         }

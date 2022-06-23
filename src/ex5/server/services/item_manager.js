@@ -11,14 +11,20 @@ class ItemManager {
   }
 
   async addItem(text) {
-    const newItem = await Item.create({
-      "text": text,
-      "isNew": true,
-      "status": false,
-      "done": null
-    });
-    console.log('newItem', newItem);
-    return newItem;
+    try {
+      return await Item.create({
+        text: text,
+        isNew: true,
+        status: false,
+        done: null
+      });
+    } catch (error) {
+      return await Item.update({
+        isNew: true,
+      }, {
+        where: { text: text }
+      })
+    }
   }
 
   async getItem(itemId) {
@@ -61,8 +67,7 @@ class ItemManager {
   async getAll() {
     return await Item.findAll({
       order: [
-        [this.sortBy, "ASC"],
-        ['updatedAt', "ASC" ]
+        [this.sortBy, "ASC"]
       ]
     });
   }
