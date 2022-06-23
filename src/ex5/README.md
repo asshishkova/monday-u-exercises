@@ -47,7 +47,7 @@ Here is an example how it can look on the client side:
 
 ### Bonus
 
-- [x] Add "Done" timestamp
+- [x] Add "Done" timestamp // Show "Done at 11:22 2022-05-23" after a second hover (using title)
 - [ ] Add index to the Items table (which columns compose the index?)
 - [ ] Add server validation - create a new item only if not exists (Use transaction)
 - [ ] Add edit capabilities to an item.

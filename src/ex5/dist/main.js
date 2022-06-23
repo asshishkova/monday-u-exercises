@@ -55,7 +55,7 @@ class Main {
   }
 
   async createTodoListElement(todoItem) {
-    const doneTime = todoItem.done === null? "" : `Done ${todoItem.done}`;
+    const doneTime = todoItem.done === null? "" : `Done at ${todoItem.done.slice(11,16)} ${todoItem.done.slice(0,10)}`;
     const todoListElement = document.createElement("li");
     todoListElement.className = "todo-li existing-todo";
     todoListElement.innerHTML = `<label class="todo-item">
