@@ -17,5 +17,5 @@ todoRouter.get('/:id', getTodo);
 todoRouter.post('/', validateSchema(createTodoSchema), createTodo);
 todoRouter.delete('/:id', deleteTodo);
 todoRouter.patch('/:id', validateSchema(updateTodoSchema), updateTodo);
-todoRouter.post('/clearall', clearAll);
+todoRouter.delete('/clearall', clearAll);
 todoRouter.post('/sort', sortTodos);
