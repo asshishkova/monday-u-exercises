@@ -4,7 +4,11 @@ import { ItemManager } from "../services/item_manager.js";
 import { PokemonClient } from "../clients/pokemon_client.js";
 
 const itemManager = new ItemManager();
-itemManager.init();
+try {
+  itemManager.init();
+} catch (error) {
+  throw error;
+}
 const pokemonClient = new PokemonClient;
 
 async function createTodo(req, res) {
@@ -41,14 +45,14 @@ async function addPokemon(text) {
 async function getTodo(req, res) {
   let todoId = Number.parseInt(req.params.id);
   if (isNaN(todoId)){
-    let error = Error();
+    const error = Error();
     error.statusCode = 400;
     error.message = 'Wrong parameters';
     throw error;
   }
   const todo = await itemManager.getItem(todoId);
   if (!todo) {
-    let error = Error();
+    const error = Error();
     error.statusCode = 404;
     error.message = 'Not found';
     throw error;
@@ -65,7 +69,7 @@ async function getAll(req, res) {
 async function deleteTodo(req, res) {
   let todoId = Number.parseInt(req.params.id);
   if (isNaN(todoId)) {
-    let error = Error();
+    const error = Error();
     error.statusCode = 400;
     error.message = 'Wrong parameters';
     throw error;
@@ -77,7 +81,7 @@ async function deleteTodo(req, res) {
 async function updateTodo(req, res) {
   const todoId = Number.parseInt(req.params.id);
   if (isNaN(todoId)) {
-    let error = Error();
+    const error = Error();
     error.statusCode = 400;
     error.message = 'Wrong parameters';
     throw error;
