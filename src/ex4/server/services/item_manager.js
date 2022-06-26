@@ -26,7 +26,12 @@ export class ItemManager {
       data[itemIndex].isNew = true;
       newItem = data[itemIndex];
     } else {
-      const newId = data.reduce((maxId, data) => maxId = maxId > data.id ? maxId : data.id, 0) + 1;
+      // const newId = data.reduce((maxId, data) => maxId = maxId > data.id ? maxId : data.id, 0) + 1;
+      const currentIds = data.map(item => item.id);
+      console.log('-------------');
+      console.log('currentIds', currentIds);
+      const newId = Math.max(...currentIds, 0) + 1;
+      console.log('newId', newId);
       newItem = {id: newId, text: text, isNew: true};
       data.push(newItem);
     }
