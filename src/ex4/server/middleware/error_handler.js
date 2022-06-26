@@ -4,7 +4,7 @@ export function errorHandler(err, req, res, next) {
     if(res.headersSent){
         return next(err)
     }
-    let status = err.statusCode || 500;
+    const status = err.statusCode || 500;
     res.status(status).json({
         "status": status,
         "error": `${err.message || "Something went wrong"}`
