@@ -12,16 +12,17 @@ try {
 const pokemonClient = new PokemonClient;
 
 async function createTodo(req, res) {
+  const todoText = req.body.text;
   let newTodos = [];
-  if (pokemonClient.isPokemon(req.body.text)) {
-    newTodos = await addPokemon(req.body.text.toLowerCase());
+  if (pokemonClient.isPokemon(todoText)) {
+    newTodos = await addPokemon(todoText.toLowerCase());
   } else {
-    const isTextNaN = req.body.text.split(',').map( el => isNaN(el));
+    const isTextNaN = todoText.split(',').map( el => isNaN(el));
     if (isTextNaN.includes(true)) {
-      console.log(`Adding ${req.body.text}`);
-      newTodos.push(await itemManager.addItem(req.body.text));
+      console.log(`Adding ${todoText}`);
+      newTodos.push(await itemManager.addItem(todoText));
     } else {
-      newTodos = await addPokemon(req.body.text);
+      newTodos = await addPokemon(todoText);
     }
   }
   res.status(200).json(newTodos);
