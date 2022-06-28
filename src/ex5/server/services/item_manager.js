@@ -46,6 +46,14 @@ class ItemManager {
      })
   }
 
+  async updateIsNew(itemId, isNew) {
+    return await Item.update({
+      isNew: isNew,
+     }, {
+      where: { id: itemId }
+     })
+  }
+
   async deleteItem(itemId) {
     return await Item.destroy({
       where: { id: itemId },

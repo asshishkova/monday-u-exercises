@@ -72,6 +72,18 @@ async function deleteTodo(req, res) {
   res.status(200).json(data);
 }
 
+async function markTodoAsOld(req, res) {
+  const todoId = Number.parseInt(req.params.id);
+  if (isNaN(todoId)) {
+    const error = Error()
+    error.statusCode = 400;
+    error.message = 'Wrong parameters';
+    throw error;
+  }
+  const data = await itemManager.updateIsNew(todoId, false);
+  res.status(200).json(data);
+}
+
 async function updateTodo(req, res) {
   const todoId = Number.parseInt(req.params.id);
   if (isNaN(todoId)) {
@@ -99,6 +111,7 @@ module.exports = {
   createTodo,
   getTodo,
   deleteTodo,
+  markTodoAsOld,
   updateTodo,
   clearAll,
   sortTodos

@@ -5,6 +5,7 @@ const {
   getTodo,
   getAll,
   deleteTodo,
+  markTodoAsOld,
   updateTodo,
   clearAll,
   sortTodos
@@ -16,7 +17,8 @@ todoRouter.get('/', getAll);
 todoRouter.get('/:id', getTodo);
 todoRouter.post('/', validateSchema(createTodoSchema), createTodo);
 todoRouter.delete('/:id', deleteTodo);
-todoRouter.patch('/:id', validateSchema(updateTodoSchema), updateTodo);
+todoRouter.patch('/:id', updateTodo);
+todoRouter.post('/:id/markold', markTodoAsOld);
 todoRouter.post('/clearall', clearAll);
 todoRouter.post('/sort', sortTodos);
 
