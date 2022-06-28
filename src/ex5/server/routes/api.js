@@ -13,7 +13,6 @@ async function createTodo(req, res) {
   } else {
     const isTextNaN = todoText.split(',').map( el => isNaN(el));
     if (isTextNaN.includes(true)) {
-      console.log(`Adding ${todoText}`);
       newTodos.push(await itemManager.addItem(todoText));
     } else {
       newTodos = await addPokemon(req.body.text);
