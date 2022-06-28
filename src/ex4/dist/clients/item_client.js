@@ -43,7 +43,7 @@ export class ItemClient {
 
   async clearAll() {
     try {
-      const response = await axios.post(`/todo/clearall`);
+      const response = await axios.delete(`/todo`);
       return response.data;
     }
     catch (error) {
