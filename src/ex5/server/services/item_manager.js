@@ -46,12 +46,21 @@ class ItemManager {
      })
   }
 
-  async updateIsNew(itemId, isNew) {
+  async markTodoAsOld(itemId) {
     return await Item.update({
-      isNew: isNew,
-     }, {
+      isNew: false,
+    }, {
       where: { id: itemId }
-     })
+    })
+  }
+
+  async changeTodoStatus(itemId, body) {
+    return await Item.update({
+      status: body.status,
+      done: body.done
+    }, {
+      where: { id: itemId }
+    })
   }
 
   async deleteItem(itemId) {

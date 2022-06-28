@@ -80,11 +80,11 @@ async function markTodoAsOld(req, res) {
     error.message = 'Wrong parameters';
     throw error;
   }
-  const data = await itemManager.updateIsNew(todoId, false);
+  const data = await itemManager.markTodoAsOld(todoId);
   res.status(200).json(data);
 }
 
-async function updateTodo(req, res) {
+async function changeStatus(req, res) {
   const todoId = Number.parseInt(req.params.id);
   if (isNaN(todoId)) {
     const error = Error()
@@ -92,7 +92,7 @@ async function updateTodo(req, res) {
     error.message = 'Wrong parameters';
     throw error;
   }
-  const data = await itemManager.updateItem(todoId, req.body);
+  const data = await itemManager.changeTodoStatus(todoId, req.body);
   res.status(200).json(data);
 }
 
@@ -112,7 +112,7 @@ module.exports = {
   getTodo,
   deleteTodo,
   markTodoAsOld,
-  updateTodo,
+  changeStatus,
   clearAll,
   sortTodos
 };

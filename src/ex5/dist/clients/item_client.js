@@ -32,10 +32,9 @@ export class ItemClient {
   async changeItemStatus(item) {
     const doneTime = item.done === null? Date.now() : null;
     try {
-      const response = await axios.patch(
-        `/todo/${item.id}`,
+      const response = await axios.post(
+        `/todo/${item.id}/changestatus`,
         {
-          ...item,
           status: !item.status,
           done: doneTime
         }
