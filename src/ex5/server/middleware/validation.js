@@ -1,5 +1,9 @@
 const {validationResult, checkSchema} = require('express-validator');
 
+function validateCreateTodoSchema() {
+  return validateSchema(createTodoSchema);
+}
+
 function validateSchema(schema) {
   const validationMiddleware = checkSchema(schema);
   return async (req, res, next) => {
@@ -29,6 +33,5 @@ const createTodoSchema = {
 };
 
 module.exports = {
-  validateSchema,
-  createTodoSchema
+  validateCreateTodoSchema
 };

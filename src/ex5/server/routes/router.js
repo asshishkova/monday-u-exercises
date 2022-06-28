@@ -1,5 +1,5 @@
 const express = require('express');
-const {validateSchema, createTodoSchema} =  require("../middleware/validation.js");
+const { validateCreateTodoSchema } =  require("../middleware/validation.js");
 const {
   createTodo,
   getTodo,
@@ -15,7 +15,7 @@ const todoRouter = express.Router();
 
 todoRouter.get('/', getAll);
 todoRouter.get('/:id', getTodo);
-todoRouter.post('/', validateSchema(createTodoSchema), createTodo);
+todoRouter.post('/', validateCreateTodoSchema(), createTodo);
 todoRouter.delete('/:id', deleteTodo);
 todoRouter.post('/:id/markold', markTodoAsOld);
 todoRouter.post('/:id/changestatus', changeStatus);
