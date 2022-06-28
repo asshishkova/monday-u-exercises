@@ -29,7 +29,7 @@ export class PokemonClient {
   }
 
   handleFailure(error, pokemon) {
-    console.log(`Failed to fetch ${pokemon}: `, error);
+    console.log(`Failed to fetch ${pokemon}.`);
   }
 
   isPokemon(name) {
