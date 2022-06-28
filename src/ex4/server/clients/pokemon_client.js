@@ -1,7 +1,7 @@
 // The Pokemon Client (using axios) goes here
 
 import axios from "axios";
-import { popularPokemons } from "./popular-pokemons.js";
+import { popularPokemons } from "./popular_pokemons.js";
 
 export class PokemonClient {
   constructor() {
