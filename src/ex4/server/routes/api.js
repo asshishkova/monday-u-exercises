@@ -78,7 +78,7 @@ async function deleteTodo(req, res) {
   res.status(200).json(data);
 }
 
-async function updateTodo(req, res) {
+async function markTodoAsOld(req, res) {
   const todoId = Number.parseInt(req.params.id);
   if (isNaN(todoId)) {
     const error = Error();
@@ -86,7 +86,7 @@ async function updateTodo(req, res) {
     error.message = 'Wrong parameters';
     throw error;
   }
-  const data = await itemManager.updateItem(todoId, req.body);
+  const data = await itemManager.updateItem(todoId, {isNew: false});
   res.status(200).json(data);
 }
 
@@ -105,7 +105,7 @@ export {
   createTodo,
   getTodo,
   deleteTodo,
-  updateTodo,
+  markTodoAsOld,
   clearAll,
   sortTodos
 };

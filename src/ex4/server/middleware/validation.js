@@ -37,15 +37,6 @@ export const createTodoSchema = {
   }
 };
 
-export const updateTodoSchema = {
-  isNew: {
-    isBoolean: {
-      errorMessage: 'isNew must be boolean'
-    },
-    in: ['body']
-  }
-};
-
 // https://stackoverflow.com/questions/58938169/express-validator-fail-on-unknown-key
 function checkIfExtraFields (validators, req) {
   const allowedFields = validators.reduce((fields, rule) => {
