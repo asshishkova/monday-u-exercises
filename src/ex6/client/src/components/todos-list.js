@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { TodoElement } from "./todo-element.js";
 import { ItemClient } from "../item_client.js";
 
@@ -6,15 +6,21 @@ export function TodosList() {
 
   const [todos, setTodos] = useState([]);
 
-  const itemClient = new ItemClient();
+  // const itemClient = new ItemClient();
+  const itemClient = useMemo( () => {
+    return new ItemClient();
+  },[])
 
-  const getTodos = async () => {
+  const getTodos = useCallback(async () => {
     setTodos(await itemClient.getItems());
-  }
+  },[itemClient])
+  // const getTodos = async () => {
+  //   setTodos(await itemClient.getItems());
+  // }
 
   useEffect(() => {
     getTodos();
-  }, []);
+  }, [getTodos]);
 
 
 
