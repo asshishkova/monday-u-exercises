@@ -1,6 +1,11 @@
 import {validationResult, checkSchema} from 'express-validator';
 
-export function validateSchema(schema) {
+
+export function validateCreateTodoSchema() {
+  return validateSchema(createTodoSchema);
+}
+
+function validateSchema(schema) {
   const validationMiddleware = checkSchema(schema);
   return async (req, res, next) => {
 
@@ -24,7 +29,7 @@ export function validateSchema(schema) {
   };
 }
 
-export const createTodoSchema = {
+const createTodoSchema = {
   text: {
     isString: {
       errorMessage: "Todo text should be a string"
@@ -32,15 +37,6 @@ export const createTodoSchema = {
     isLength: {
       errorMessage: 'Todo text should be at least 1 characters long',
       options: { min: 1 },
-    },
-    in: ['body']
-  }
-};
-
-export const updateTodoSchema = {
-  isNew: {
-    isBoolean: {
-      errorMessage: 'isNew must be boolean'
     },
     in: ['body']
   }

@@ -4,20 +4,25 @@ import { ItemManager } from "../services/item_manager.js";
 import { PokemonClient } from "../clients/pokemon_client.js";
 
 const itemManager = new ItemManager();
-itemManager.init();
+try {
+  itemManager.init();
+} catch (error) {
+  throw error;
+}
 const pokemonClient = new PokemonClient;
 
 async function createTodo(req, res) {
+  const todoText = req.body.text;
   let newTodos = [];
-  if (pokemonClient.isPokemon(req.body.text)) {
-    newTodos = await addPokemon(req.body.text.toLowerCase());
+  if (pokemonClient.isPokemon(todoText)) {
+    newTodos = await addPokemon(todoText.toLowerCase());
   } else {
-    const isTextNaN = req.body.text.split(',').map( el => isNaN(el));
+    const isTextNaN = todoText.split(',').map( el => isNaN(el));
     if (isTextNaN.includes(true)) {
-      console.log(`Adding ${req.body.text}`);
-      newTodos.push(await itemManager.addItem(req.body.text));
+      console.log(`Adding ${todoText}`);
+      newTodos.push(await itemManager.addItem(todoText));
     } else {
-      newTodos = await addPokemon(req.body.text);
+      newTodos = await addPokemon(todoText);
     }
   }
   res.status(200).json(newTodos);
@@ -26,14 +31,14 @@ async function createTodo(req, res) {
 async function addPokemon(text) {
   const pokemons = await pokemonClient.fetchPokemon(text);
   const newItems = [];
-  try {
-    for (const pokemon of pokemons) {
-      const catchPokemonTodo = `Catch ${pokemon.name} with id ${pokemon.id} and type ${pokemon.type}`;
-      newItems.push(await itemManager.addItem(catchPokemonTodo));
+  for (const pokemon of pokemons) {
+    let catchPokemonTodo;
+    if (pokemon.success) {
+      catchPokemonTodo = `Catch ${pokemon.name} with id ${pokemon.id} and type ${pokemon.type}`;
+    } else {
+      catchPokemonTodo = `${pokemon.name}`
     }
-  } catch (error) {
-    newItems.push(await itemManager.addItem(`Failed to fetch ${text}`));
-    console.log("Todo was not added: ", error);
+    newItems.push(await itemManager.addItem(catchPokemonTodo));
   }
   return newItems;
 }
@@ -41,14 +46,14 @@ async function addPokemon(text) {
 async function getTodo(req, res) {
   let todoId = Number.parseInt(req.params.id);
   if (isNaN(todoId)){
-    let error = Error();
+    const error = Error();
     error.statusCode = 400;
     error.message = 'Wrong parameters';
     throw error;
   }
   const todo = await itemManager.getItem(todoId);
   if (!todo) {
-    let error = Error();
+    const error = Error();
     error.statusCode = 404;
     error.message = 'Not found';
     throw error;
@@ -65,7 +70,7 @@ async function getAll(req, res) {
 async function deleteTodo(req, res) {
   let todoId = Number.parseInt(req.params.id);
   if (isNaN(todoId)) {
-    let error = Error();
+    const error = Error();
     error.statusCode = 400;
     error.message = 'Wrong parameters';
     throw error;
@@ -74,15 +79,15 @@ async function deleteTodo(req, res) {
   res.status(200).json(data);
 }
 
-async function updateTodo(req, res) {
+async function markTodoAsOld(req, res) {
   const todoId = Number.parseInt(req.params.id);
   if (isNaN(todoId)) {
-    let error = Error();
+    const error = Error();
     error.statusCode = 400;
     error.message = 'Wrong parameters';
     throw error;
   }
-  const data = await itemManager.updateItem(todoId, req.body);
+  const data = await itemManager.updateItem(todoId, {isNew: false});
   res.status(200).json(data);
 }
 
@@ -101,7 +106,7 @@ export {
   createTodo,
   getTodo,
   deleteTodo,
-  updateTodo,
+  markTodoAsOld,
   clearAll,
   sortTodos
 };

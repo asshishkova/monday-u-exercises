@@ -1,8 +1,6 @@
 // The ItemManager should go here. Remember that you have to export it.
 
-import { promises as fs } from 'fs';
-
-const DATA_FILE_NAME = "savedData.json";
+import { getItems, insertItems } from "../data_access/data_access.js";
 
 const UNSORTED = Symbol("unsorted");
 const SORTED_ASC = Symbol("sortedAsc");
@@ -12,25 +10,27 @@ export class ItemManager {
   init() {
     this.sortOrder = UNSORTED;
     try {
-      this.getItemsFromFile();
+      getItems();
     } catch (error) {
-      this.writeItemsToFile([]);
+      insertItems([]);
     }
   }
 
   async addItem(text) {
-    const data = await this.getItemsFromFile();
+    const data = await getItems();
     const itemIndex = data.findIndex(item => item.text === text);
     let newItem;
     if (itemIndex > -1) {
       data[itemIndex].isNew = true;
       newItem = data[itemIndex];
     } else {
-      const newId = data.reduce((maxId, data) => maxId = maxId > data.id ? maxId : data.id, 0) + 1;
+      const currentIds = data.map(item => item.id);
+      const newId = Math.max(...currentIds, 0) + 1;
+      console.log('newId', newId);
       newItem = {id: newId, text: text, isNew: true};
       data.push(newItem);
     }
-    await this.writeItemsToFile(data);
+    await insertItems(data);
     return newItem;
   }
 
@@ -46,7 +46,7 @@ export class ItemManager {
     });
     const item = data[index];
     Object.assign(item, body);
-    await this.writeItemsToFile(data);
+    await insertItems(data);
     return item;
   }
 
@@ -55,12 +55,12 @@ export class ItemManager {
     const itemIndex = data.findIndex(item => item.id === id);
     const deletedTodo = data[itemIndex]
     data.splice(itemIndex, 1);
-    await this.writeItemsToFile(data);
+    await insertItems(data);
     return deletedTodo;
   }
 
   async clearAll(){
-    await this.writeItemsToFile([]);
+    await insertItems([]);
     return [];
   }
 
@@ -73,22 +73,11 @@ export class ItemManager {
       data.reverse();
       this.sortOrder = SORTED_DESC;
     }
-    await this.writeItemsToFile(data);
+    await insertItems(data);
     return data;
   }
 
   async getAll() {
-    return await this.getItemsFromFile();
-  }
-
-  async getItemsFromFile(){
-    const data = await fs.readFile(DATA_FILE_NAME);
-    return JSON.parse(data);
-  }
-
-  async writeItemsToFile(data){
-    await fs.writeFile(DATA_FILE_NAME, JSON.stringify(data, null, 2), err => {
-      if (err) throw err;
-    });
+    return await getItems();
   }
 }
