@@ -10,7 +10,7 @@ export function MainWindow() {
         <button type="submit" id="add-todo-button" className="btn">+</button>
       </form>
       <div id="no-todos-placeholder">
-        <img src="../../public/pointer.png" width="100%" height="100%" alt="Add a new todo"/>
+        <img src="/pointer.png" width="100%" height="100%" alt="Add a new todo"/>
       </div>
       <ul id="todos-list">
       </ul>
