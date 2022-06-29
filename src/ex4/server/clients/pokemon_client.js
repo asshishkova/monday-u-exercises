@@ -11,22 +11,21 @@ export class PokemonClient {
   async fetchPokemon(pokemonText) {
     let pokemons = pokemonText.split(',').map( el => el.trim() );
     pokemons = pokemons.filter(element => element.length > 0);
-    const promises = pokemons.map(pokemon => {
-      return axios.get(`${this.API_BASE}/${pokemon}/`)
-      .then(response => {
+    const promises = pokemons.map(async (pokemon) => {
+      try {
+        const response = await axios.get(`${this.API_BASE}/${pokemon}/`)
         return {
           success: true,
           name: response.data.forms[0].name,
           type: response.data.types[0].type.name,
           id: response.data.id
         }
-      })
-      .catch(error => {
+      } catch (error) {
         return {
           success: false,
           name: `Failed to fetch ${pokemon}`
         }
-      })
+      }
     });
     return await Promise.all(promises);
   }
