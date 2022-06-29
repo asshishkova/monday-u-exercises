@@ -31,14 +31,14 @@ async function createTodo(req, res) {
 async function addPokemon(text) {
   const pokemons = await pokemonClient.fetchPokemon(text);
   const newItems = [];
-  try {
-    for (const pokemon of pokemons) {
-      const catchPokemonTodo = `Catch ${pokemon.name} with id ${pokemon.id} and type ${pokemon.type}`;
-      newItems.push(await itemManager.addItem(catchPokemonTodo));
+  for (const pokemon of pokemons) {
+    let catchPokemonTodo;
+    if (pokemon.success) {
+      catchPokemonTodo = `Catch ${pokemon.name} with id ${pokemon.id} and type ${pokemon.type}`;
+    } else {
+      catchPokemonTodo = `${pokemon.name}`
     }
-  } catch (error) {
-    newItems.push(await itemManager.addItem(`Failed to fetch ${text}`));
-    console.log("Todo was not added: ", error);
+    newItems.push(await itemManager.addItem(catchPokemonTodo));
   }
   return newItems;
 }
