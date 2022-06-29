@@ -1,3 +1,6 @@
+# Result
+![](../assets/result-5.png)
+
 # Exercise 5 - Sequelize ORM
 
 It is not persisted until you persist it!
