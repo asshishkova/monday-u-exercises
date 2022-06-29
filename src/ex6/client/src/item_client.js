@@ -1,9 +1,11 @@
 import axios from "axios";
 
+const SERVER_URL = "http://localhost:8080";
+
 export class ItemClient {
   async getItems() {
     try {
-      const response = await axios.get("/todo");
+      const response = await axios.get(`${SERVER_URL}/todo`);
       return response.data;
     }
     catch (error) {
@@ -13,7 +15,7 @@ export class ItemClient {
 
   async deleteItem(item) {
     try {
-      const response = await axios.delete(`/todo/${item.id}`);
+      const response = await axios.delete(`${SERVER_URL}/todo/${item.id}`);
       return response.data;
     }
     catch (error) {
@@ -23,7 +25,7 @@ export class ItemClient {
 
   async markItemAsOld(item) {
     try {
-      const response = await axios.post(`/todo/${item.id}/markold`);
+      const response = await axios.post(`${SERVER_URL}/todo/${item.id}/markold`);
       return response.data;
     }
     catch (error) {
@@ -35,7 +37,7 @@ export class ItemClient {
     const doneTime = item.done === null? Date.now() : null;
     try {
       const response = await axios.post(
-        `/todo/${item.id}/changestatus`,
+        `${SERVER_URL}/todo/${item.id}/changestatus`,
         {
           status: !item.status,
           done: doneTime
@@ -50,7 +52,7 @@ export class ItemClient {
 
   async createItem(itemText) {
     try {
-      const response = await axios.post(`/todo`, {text: itemText});
+      const response = await axios.post(`${SERVER_URL}/todo`, {text: itemText});
       return response.data;
     }
     catch (error) {
@@ -60,7 +62,7 @@ export class ItemClient {
 
   async clearAll() {
     try {
-      const response = await axios.post(`/todo/clearall`);
+      const response = await axios.post(`${SERVER_URL}/todo/clearall`);
       return response.data;
     }
     catch (error) {
@@ -70,7 +72,7 @@ export class ItemClient {
 
   async sortItems() {
     try {
-      const response = await axios.post(`/todo/sort`);
+      const response = await axios.post(`${SERVER_URL}/todo/sort`);
       return response.data;
     }
     catch (error) {
