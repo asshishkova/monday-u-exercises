@@ -3,6 +3,7 @@ import { Command } from "commander";
 import { MainCommander } from "./main-commander.js";
 import { ItemManagerCommander } from "./item-manager-commander.js";
 import { PokemonClient } from "./pokemon-client-commander.js";
+
 import Package from "./package.json" assert {type: "json"};
 // call node --no-warnings commander.js
 // to avoid this message:

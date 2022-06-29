@@ -18,12 +18,12 @@ You can use your existing project (copy+paste then refactor), or use the boilerp
 
 ### The requirements:
 
-- [ ] Create your express backend (include separate `dist` and `server` folders)
-- [ ] Your `server.js` file should have all the express boilerplate and host your `dist` directory to any client that requests it (hint: you'll need to `.use` the `express.static` method)
-- [ ] Create an `api.js` file that acts as the 'controller' of your backend, handling all the routes (endpoints)
-- [ ] Create separate endpoints for (1) fetching all the todo items, (2) creating a new one, and (3) deleting an existing one (hint: don't forget `bodyParser`)
-- [ ] Move the pokemon fetching code to the backend - use `axios` instead of `fetch` for your requests
-- [ ] On app load (i.e. when a user enters the page) it should fetch all the todo items and render them
+- [x] Create your express backend (include separate `dist` and `server` folders)
+- [x] Your `server.js` file should have all the express boilerplate and host your `dist` directory to any client that requests it (hint: you'll need to `.use` the `express.static` method)
+- [x] Create an `api.js` file that acts as the 'controller' of your backend, handling all the routes (endpoints)
+- [x] Create separate endpoints for (1) fetching all the todo items, (2) creating a new one, and (3) deleting an existing one (hint: don't forget `bodyParser`) // express.json parses the body, and there are also endpoints for (4) get all, (5) update todo, (6) clear all, (7) sort.
+- [x] Move the pokemon fetching code to the backend - use `axios` instead of `fetch` for your requests
+- [x] On app load (i.e. when a user enters the page) it should fetch all the todo items and render them
 
 In terms of the front end, it will look the same as before:
 ![](../assets/hw-2.gif)
@@ -32,7 +32,10 @@ But now when you refresh the page **the data should still be there**
 
 ### Bonus
 
-- [ ] Create a [middleware](https://expressjs.com/en/guide/using-middleware.html) that makes a log each time a user accesses any of the routes (you can just do a `console.log`)
+- [x] Create a [middleware](https://expressjs.com/en/guide/using-middleware.html) that makes a log each time a user accesses any of the routes (you can just do a `console.log`)
 - [ ] Handle server errors elegantly. Specifically, if anything goes wrong the user should see an error message (ideally, not an alert) with an explanation of what went wrong instead of crashing the page
-- [ ] Add a loder/spinner to the page that indicates the client is waiting for an async operation (e.g. a call to the server) to finish
-- [ ] Add simple caching to your server. If a user requests for the same pokemon ID three times in the same minute, for example, it should only make a request to the Pokemon API once. You can use a simple in-memory data structure for your cache
+- [ ] Add a loder/spinner to the page that indicates the client is waiting for an async operation (e.g. a call to the server) to finish _**// it does not load long to show any spinner...**_
+- [ ] Add simple caching to your server. If a user requests for the same pokemon ID three times in the same minute, for example, it should only make a request to the Pokemon API once. You can use a simple in-memory data structure for your cache. _**// did not have enough time to check it out :(**_
+- [x] **Also added**:
+  - endpoints for get all, update todo, sort, clear all (can be called both from Postman and UI);
+  - validation for post and patch (checks necessary fields and does not allow extra fields).
