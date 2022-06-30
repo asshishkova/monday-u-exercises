@@ -53,7 +53,7 @@ export function MainWindow() {
       <article className="todos-content">
         <AddTodoForm createTodo={createTodo} updateTodos={updateTodos}/>
         {todos.length === 0 && <NoTodosPlaceholder/>}
-        {todos.length > 0 && <TodosList todos={todos} updateTodos={updateTodos} deleteTodo={deleteTodo} changeStatus={changeStatus} markAsOld={markAsOld} isDeleting={isDeleting} />}
+        {todos.length > 0 && <TodosList todos={todos} updateTodos={updateTodos} deleteTodo={deleteTodo} changeStatus={changeStatus} markAsOld={markAsOld} isDeleting={isDeleting} setIsDeleting={setIsDeleting} />}
         <Footer sortTodos={sortTodos} updateTodos={updateTodos} amount={todos.length} clearAll={clearAll}/>
       </article>
     </main>

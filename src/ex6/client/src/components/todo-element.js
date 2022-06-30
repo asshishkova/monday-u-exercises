@@ -25,7 +25,7 @@ export function TodoElement(props) {
     if (props.isDeleting) {
       setTodoClassName("todo-li animation-delete-todo");
     }
-  }, [props.isDeleting])
+  }, [props])
 
   const onCheckboxClicked = async (e) => {
     await props.changeStatus(todo);
@@ -36,6 +36,7 @@ export function TodoElement(props) {
     if (todoClassName === "todo-li animation-add-todo") {
       setTodoClassName("todo-li existing-todo")
     } else {
+      props.setIsDeleting(false);
       await props.updateTodos();
     }
   }
