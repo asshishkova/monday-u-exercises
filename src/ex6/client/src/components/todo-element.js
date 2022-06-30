@@ -21,13 +21,11 @@ export function TodoElement(props) {
     }
   },[props, todo])
 
-  const activateDeleteAnimation = async (todoLi) => {
-    todoLi.classList.remove("existing-todo");
-    todoLi.classList.add("animation-delete-todo");
-    todoLi.addEventListener('animationend', () => {
-      this.renderTodos();
-    });
-  }
+  useEffect(() => {
+    if (props.isDeleting) {
+      setTodoClassName("todo-li animation-delete-todo");
+    }
+  }, [props.isDeleting])
 
   const onCheckboxClicked = async (e) => {
     await props.changeStatus(todo);

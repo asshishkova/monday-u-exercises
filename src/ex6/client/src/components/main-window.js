@@ -6,8 +6,8 @@ import { Footer } from "./footer.js";
 import { ItemClient } from "../item_client.js";
 
 export function MainWindow() {
-
   const [todos, setTodos] = useState([]);
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const itemClient = useMemo( () => {
     return new ItemClient();
@@ -21,8 +21,9 @@ export function MainWindow() {
     await itemClient.deleteItem(todo);
   },[itemClient])
 
-  const clearAll = useCallback(async (todo) => {
+  const clearAll = useCallback(async () => {
     await itemClient.clearAll();
+    setIsDeleting(true);
   },[itemClient])
 
   const createTodo = useCallback(async (text) => {
@@ -45,13 +46,14 @@ export function MainWindow() {
     updateTodos();
   }, [updateTodos]);
 
+
   return (
     <main className="window">
       <h1 className="title">TODOOPS</h1>
       <article className="todos-content">
         <AddTodoForm createTodo={createTodo} updateTodos={updateTodos}/>
         {todos.length === 0 && <NoTodosPlaceholder/>}
-        {todos.length > 0 && <TodosList todos={todos} updateTodos={updateTodos} deleteTodo={deleteTodo} changeStatus={changeStatus} markAsOld={markAsOld}/>}
+        {todos.length > 0 && <TodosList todos={todos} updateTodos={updateTodos} deleteTodo={deleteTodo} changeStatus={changeStatus} markAsOld={markAsOld} isDeleting={isDeleting} />}
         <Footer sortTodos={sortTodos} updateTodos={updateTodos} amount={todos.length} clearAll={clearAll}/>
       </article>
     </main>

@@ -11,7 +11,7 @@ export function Footer(props) {
 
   const onClearAllButtonClicked = async () => {
     await props.clearAll();
-    await props.updateTodos();
+    // await props.updateTodos();
   }
 
   let tasks = "tasks";
