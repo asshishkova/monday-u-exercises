@@ -1,5 +1,6 @@
 import React from "react";
 import { TodoElement } from "./todo-element.js";
+import PropTypes from 'prop-types';
 
 export function TodosList(props) {
 
@@ -12,4 +13,9 @@ export function TodosList(props) {
       }
     </ul>
   )
+}
+
+TodosList.propTypes = {
+  updateTodos: PropTypes.func,
+  todos: PropTypes.array
 }

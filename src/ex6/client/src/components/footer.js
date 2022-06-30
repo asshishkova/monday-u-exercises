@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { sortItems, clearAllItems } from "../item_client.js";
+import PropTypes from 'prop-types';
 
 export function Footer(props) {
 
@@ -11,8 +12,10 @@ export function Footer(props) {
   }
 
   const onClearAllButtonClicked = async () => {
-    await clearAllItems();
-    await props.updateTodos();
+    if (window.confirm('Are you sure?')) {
+      await clearAllItems();
+      await props.updateTodos();
+    }
   }
 
   let tasks = "tasks";
@@ -30,4 +33,9 @@ export function Footer(props) {
       { props.amount > 1 && clearAllButton }
     </footer>
   )
+}
+
+Footer.propTypes = {
+  updateTodos: PropTypes.func,
+  amount: PropTypes.number
 }

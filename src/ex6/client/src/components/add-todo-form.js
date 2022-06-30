@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createItem } from "../item_client.js";
+import PropTypes from 'prop-types';
 
 export function AddTodoForm(props) {
 
@@ -21,4 +22,8 @@ export function AddTodoForm(props) {
       <button type="submit" id="add-todo-button" className="btn">+</button>
     </form>
   )
+}
+
+AddTodoForm.propTypes = {
+  updateTodos: PropTypes.func
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { deleteItem, markItemAsOld, changeItemStatus } from "../item_client.js";
+import PropTypes from 'prop-types';
 
 export function TodoElement(props) {
   const [todoClassName, setTodoClassName] = useState("todo-li existing-todo")
@@ -51,4 +52,9 @@ export function TodoElement(props) {
       {deleteButton}
     </li>
   )
+}
+
+TodoElement.propTypes = {
+  updateTodos: PropTypes.func,
+  todo: PropTypes.object
 }
