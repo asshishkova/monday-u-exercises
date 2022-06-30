@@ -2,22 +2,23 @@ import React, { useEffect, useState } from "react";
 // import { ItemClient } from "../item_client.js";
 
 export function TodoElement(props) {
-  const [itemClassName, setItemClassName] = useState("todo-li")
+  const [todoClassName, setTodoClassName] = useState("todo-li existing-todo")
 
   const todo = props.todo;
   const doneTime = todo.done === null? "" : `Done at ${todo.done.slice(11,16)} ${todo.done.slice(0,10)}`;
   const checked = todo.status? "checked" : "";
 
   const onDeleteButtonClicked = async (e) => {
+    setTodoClassName("todo-li animation-delete-todo");
     await props.deleteTodo(todo);
-    await props.updateTodos();
+    // updateTodos runs in animationEndHandler
   }
 
   useEffect(() => {
     if (todo.isNew) {
-      setItemClassName("todo-li animation-add-todo");
+      setTodoClassName("todo-li animation-add-todo");
+      props.markAsOld(todo);
     }
-    props.markAsOld(todo);
   },[props, todo])
 
   const activateDeleteAnimation = async (todoLi) => {
@@ -33,6 +34,14 @@ export function TodoElement(props) {
     await props.updateTodos();
   }
 
+  const animationEndHandler = async () => {
+    if (todoClassName === "todo-li animation-add-todo") {
+      setTodoClassName("todo-li existing-todo")
+    } else {
+      await props.updateTodos();
+    }
+  }
+
   const todoItem =  <label className="todo-item" info={doneTime}>
                       <label className="todo-item-checkbox">
                         <div className="todo-item-text">{todo.text}</div>
@@ -45,7 +54,7 @@ export function TodoElement(props) {
                           <i className="fa fa-trash"></i></button>
 
   return (
-    <li className={itemClassName} onAnimationEnd={() => setItemClassName("todo-li existing-todo")}>
+    <li className={todoClassName} onAnimationEnd={animationEndHandler}>
       {todoItem}
       {deleteButton}
     </li>
