@@ -22,13 +22,16 @@
 
 .todo-li {
   list-style-type: none;
-  background-color: rgba(128, 128, 128, 0.2);
   margin-top: 10px;
   border-radius: 4px;
   display: flex;
 }
 
-.todo-li:hover {
+.existing-todo {
+  background-color: rgba(128, 128, 128, 0.2);
+}
+
+.existing-todo:hover {
   background-color: rgba(128, 128, 128, 0.4);
   /* cursor: pointer; */
 }

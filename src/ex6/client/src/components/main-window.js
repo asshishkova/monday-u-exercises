@@ -7,10 +7,11 @@ import { getItems } from "../item_client.js";
 
 export function MainWindow() {
   const [todos, setTodos] = useState([]);
+  const [loaded, setLoaded] = useState(false)
 
   const updateTodos = useCallback(async () => {
     setTodos(await getItems());
-    console.log('updateTodos');
+    setLoaded(true);
   },[])
 
   useEffect(() => {
@@ -20,12 +21,14 @@ export function MainWindow() {
   return (
     <main className="window">
       <h1 className="title">TODOOPS</h1>
-      <article className="todos-content">
+      { loaded &&
+        <article className="todos-content">
         <AddTodoForm updateTodos={updateTodos}/>
         {todos.length === 0 && <NoTodosPlaceholder/>}
         {todos.length > 0 && <TodosList todos={todos} updateTodos={updateTodos} />}
         <Footer updateTodos={updateTodos} amount={todos.length}/>
       </article>
+      }
     </main>
   )
 }

@@ -10,16 +10,16 @@ export function TodoElement(props) {
 
   useEffect(() => {
     if (todo.isNew) {
-      setTodoClassName("todo-li animation-add-todo");
+      setTodoClassName("todo-li existing-todo animation-add-todo");
       markItemAsOld(todo);
     }
-  },[props, todo])
+  },[todo])
 
-  const animationEndHandler = () => {
-    if (todoClassName === "todo-li animation-add-todo") {
+  const animationEndHandler = async () => {
+    if (todoClassName === "todo-li existing-todo animation-add-todo") {
       setTodoClassName("todo-li existing-todo")
     } else {
-      props.updateTodos();
+      await props.updateTodos();
     }
   }
 
@@ -46,7 +46,7 @@ export function TodoElement(props) {
                           <i className="fa fa-trash"></i></button>
 
   return (
-    <li className={todoClassName} onAnimationEnd={animationEndHandler}>
+    <li className={todoClassName} onAnimationEnd={animationEndHandler} >
       {todoItem}
       {deleteButton}
     </li>
