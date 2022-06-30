@@ -19,10 +19,15 @@ export function TodoElement(props) {
     });
   }
 
+  const onCheckboxClicked = async (e) => {
+    await props.changeStatus(todo);
+    await props.updateTodos();
+  }
+
   const todoItem =  <label className="todo-item" info={doneTime}>
                       <label className="todo-item-checkbox">
                         <div className="todo-item-text">{todo.text}</div>
-                        <input type="checkbox" className="status-checkbox" defaultChecked={checked} />
+                        <input type="checkbox" className="status-checkbox" defaultChecked={checked} onClick={onCheckboxClicked} />
                         <span className="status-checkbox-mark"></span>
                       </label>
                     </label>
