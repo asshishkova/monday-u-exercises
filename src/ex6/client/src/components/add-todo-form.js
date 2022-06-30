@@ -4,13 +4,6 @@ export function AddTodoForm(props) {
 
   const [todoText, setTodoText] = useState("")
 
-  // this.todoTextBox.addEventListener("keypress", (event) => {
-  //   if (event.key === "Enter") {
-  //     event.preventDefault();
-  //     document.getElementById('add-todo-button').click();
-  //   }
-  // });
-
   const onAddTodoFormSubmitted = async (event) => {
     event.preventDefault();
     const text = todoText;
