@@ -7,7 +7,7 @@ export function TodosList(props) {
     <ul id="todos-list">
       {
         props.todos.map(todo => {
-          return <TodoElement key={todo.id} text={todo.text} status={todo.status} done={todo.done}/>
+          return <TodoElement key={todo.id} todo={todo} updateTodos={props.updateTodos} deleteTodo={props.deleteTodo}/>
         })
       }
     </ul>

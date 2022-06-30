@@ -17,6 +17,10 @@ export function MainWindow() {
     setTodos(await itemClient.getItems());
   },[itemClient])
 
+  const deleteTodo = useCallback(async (todo) => {
+    await itemClient.deleteItem(todo);
+  },[itemClient])
+
   const sortTodos = useCallback(async () => {
     return await itemClient.sortItems();
   },[itemClient])
@@ -31,7 +35,7 @@ export function MainWindow() {
       <article className="todos-content">
         <AddTodoForm />
         {todos.length === 0 && <NoTodosPlaceholder/>}
-        {todos.length > 0 && <TodosList todos={todos} />}
+        {todos.length > 0 && <TodosList todos={todos} updateTodos={updateTodos} deleteTodo={deleteTodo}/>}
         <Footer sortTodos={sortTodos} updateTodos={updateTodos} amount={todos.length}/>
       </article>
     </main>
