@@ -1,51 +1,55 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { AddTodoForm } from "./add-todo-form.js";
 import { NoTodosPlaceholder } from "./no-todos-placeholder.js";
 import { TodosList } from "./todos-list.js";
 import { Footer } from "./footer.js";
-import { ItemClient } from "../item_client.js";
+import {
+  getItems,
+  deleteItem,
+  markItemAsOld,
+  changeItemStatus,
+  createItem,
+  clearAllItems,
+  sortItems
+} from "../item_client.js";
 
 export function MainWindow() {
   const [todos, setTodos] = useState([]);
   const [isDeleting, setIsDeleting] = useState(false)
 
-  const itemClient = useMemo( () => {
-    return new ItemClient();
+  const updateTodos = useCallback(async () => {
+    setTodos(await getItems());
+    console.log('updateTodos');
   },[])
 
-  const updateTodos = useCallback(async () => {
-    setTodos(await itemClient.getItems());
-  },[itemClient])
-
   const deleteTodo = useCallback(async (todo) => {
-    await itemClient.deleteItem(todo);
-  },[itemClient])
+    await deleteItem(todo);
+  },[])
 
   const clearAll = useCallback(async () => {
-    await itemClient.clearAll();
+    await clearAllItems();
     setIsDeleting(true);
-  },[itemClient])
+  },[])
 
   const createTodo = useCallback(async (text) => {
-    await itemClient.createItem(text)
-  },[itemClient])
+    await createItem(text)
+  },[])
 
   const markAsOld = useCallback(async (todo) => {
-    await itemClient.markItemAsOld(todo);
-  },[itemClient])
+    await markItemAsOld(todo);
+  },[])
 
   const changeStatus = useCallback(async (todo) => {
-    await itemClient.changeItemStatus(todo);
-  },[itemClient])
+    await changeItemStatus(todo);
+  },[])
 
   const sortTodos = useCallback(async () => {
-    return await itemClient.sortItems();
-  },[itemClient])
+    return await sortItems();
+  },[])
 
   useEffect(() => {
     updateTodos();
   }, [updateTodos]);
-
 
   return (
     <main className="window">

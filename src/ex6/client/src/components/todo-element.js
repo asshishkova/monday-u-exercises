@@ -9,8 +9,8 @@ export function TodoElement(props) {
   const checked = todo.status? "checked" : "";
 
   const onDeleteButtonClicked = async (e) => {
-    setTodoClassName("todo-li animation-delete-todo");
     await props.deleteTodo(todo);
+    setTodoClassName("todo-li animation-delete-todo");
     // updateTodos runs in animationEndHandler
   }
 
@@ -32,12 +32,12 @@ export function TodoElement(props) {
     await props.updateTodos();
   }
 
-  const animationEndHandler = async () => {
+  const animationEndHandler = () => {
     if (todoClassName === "todo-li animation-add-todo") {
       setTodoClassName("todo-li existing-todo")
     } else {
       props.setIsDeleting(false);
-      await props.updateTodos();
+      props.updateTodos();
     }
   }
 
