@@ -1,26 +1,27 @@
 import React, { useState } from "react";
 
 export function Footer(props) {
+
   const [sortBy, setSortBy] = useState('Sort by');
 
   const onSortListButtonClicked = async () => {
-    // this.sortListButton.innerHTML = `
-    //   {await this.itemClient.sortItems()}
-    //   <i class="fa fa-caret-down"></i>
-    // `;
     setSortBy(await props.sortTodos());
     await props.updateTodos();
   }
 
+  let tasks = "tasks";
+  if (props.amount === 1) tasks = "task";
+  const amountInfo = <p id="amount-info">{props.amount} pending {tasks}</p>
+  const clearAllButton = <button id="clear-all-button" className="btn">Clear all</button>
+  const sortListButton =  <button id="sort-list-button" className="btn" onClick={onSortListButtonClicked}>
+                            {sortBy} <i className="fa fa-caret-down"></i>
+                          </button>
+
   return (
     <footer id="footer">
-      <button id="sort-list-button" className="btn" onClick={onSortListButtonClicked}>
-        {sortBy} <i className="fa fa-caret-down"></i>
-      </button>
-      <p id="amount-info"></p>
-      <button id="clear-all-button" className="btn">Clear all</button>
+      { props.amount > 1 && sortListButton }
+      { props.amount > 0 && amountInfo }
+      { props.amount > 1 && clearAllButton }
     </footer>
   )
 }
-
-// style={{display:'none'}

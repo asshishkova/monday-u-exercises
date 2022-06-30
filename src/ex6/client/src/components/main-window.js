@@ -30,9 +30,9 @@ export function MainWindow() {
       <h1 className="title">TODOOPS</h1>
       <article className="todos-content">
         <AddTodoForm />
-        <NoTodosPlaceholder />
-        <TodosList todos={todos} />
-        <Footer sortTodos={sortTodos} updateTodos={updateTodos} />
+        {todos.length === 0 && <NoTodosPlaceholder/>}
+        {todos.length > 0 && <TodosList todos={todos} />}
+        <Footer sortTodos={sortTodos} updateTodos={updateTodos} amount={todos.length}/>
       </article>
     </main>
   )
