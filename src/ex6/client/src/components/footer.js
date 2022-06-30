@@ -1,17 +1,18 @@
 import React, { useState } from "react";
+import { sortItems, clearAllItems } from "../item_client.js";
 
 export function Footer(props) {
 
   const [sortBy, setSortBy] = useState('Sort by');
 
   const onSortListButtonClicked = async () => {
-    setSortBy(await props.sortTodos());
+    setSortBy(await sortItems());
     await props.updateTodos();
   }
 
   const onClearAllButtonClicked = async () => {
-    await props.clearAll();
-    // await props.updateTodos();
+    await clearAllItems();
+    await props.updateTodos();
   }
 
   let tasks = "tasks";

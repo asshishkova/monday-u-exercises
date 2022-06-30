@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createItem } from "../item_client.js";
 
 export function AddTodoForm(props) {
 
@@ -8,7 +9,7 @@ export function AddTodoForm(props) {
     event.preventDefault();
     const text = todoText;
     setTodoText("");
-    await props.createTodo(text);
+    await createItem(text);
     await props.updateTodos();
   }
 
