@@ -9,7 +9,7 @@ import { todoRouter } from "./server/routes/router.js";
 const port = 8080;
 const app = express();
 
-app.use([logger, compression(), express.json()]);
+app.use([express.json(), logger, compression()]);
 app.use(express.static('dist'));
 app.use('/todo', todoRouter);
 app.use(errorHandler);
