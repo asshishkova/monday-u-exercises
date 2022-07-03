@@ -1,5 +1,3 @@
-// The ItemManager should go here. Remember that you have to export it.
-
 const { Item } = require('../db/models');
 
 const SORT_OPTIONS = ['id', 'text', 'status']

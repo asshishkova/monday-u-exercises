@@ -1,5 +1,3 @@
-// The Pokemon Client (using axios) goes here
-
 const axios = require("axios");
 const popularPokemons = require("./popular_pokemons.js")
 
