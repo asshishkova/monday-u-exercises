@@ -1,6 +1,6 @@
 const axios = require("axios");
 const popularPokemons = require("./popular_pokemons.js")
-API_BASE = 'https://pokeapi.co/api/v2/pokemon';
+const API_BASE = 'https://pokeapi.co/api/v2/pokemon';
 
 class PokemonClient {
   async fetchPokemon(pokemonText) {
