@@ -1,17 +1,14 @@
 const axios = require("axios");
 const popularPokemons = require("./popular_pokemons.js")
+API_BASE = 'https://pokeapi.co/api/v2/pokemon';
 
 class PokemonClient {
-  constructor() {
-    this.API_BASE = 'https://pokeapi.co/api/v2/pokemon';
-  }
-
   async fetchPokemon(pokemonText) {
     let pokemons = pokemonText.split(',').map( el => el.trim() );
     pokemons = pokemons.filter(element => element.length > 0);
     const promises = pokemons.map(async (pokemon) => {
       try {
-        const response = await axios.get(`${this.API_BASE}/${pokemon}/`)
+        const response = await axios.get(`${API_BASE}/${pokemon}/`)
         return {
           success: true,
           name: response.data.forms[0].name,
