@@ -1,10 +1,8 @@
 import axios from "axios";
 
-const SERVER_URL = "http://localhost:8080";
-
 async function getItems() {
   try {
-    const response = await axios.get(`${SERVER_URL}/todo`);
+    const response = await axios.get(`/todo`);
     return response.data;
   }
   catch (error) {
@@ -14,7 +12,7 @@ async function getItems() {
 
 async function deleteItem(item) {
   try {
-    const response = await axios.delete(`${SERVER_URL}/todo/${item.id}`);
+    const response = await axios.delete(`/todo/${item.id}`);
     return response.data;
   }
   catch (error) {
@@ -24,7 +22,7 @@ async function deleteItem(item) {
 
 async function markItemAsOld(item) {
   try {
-    const response = await axios.post(`${SERVER_URL}/todo/${item.id}/markold`);
+    const response = await axios.post(`/todo/${item.id}/markold`);
     return response.data;
   }
   catch (error) {
@@ -36,7 +34,7 @@ async function changeItemStatus(item) {
   const doneTime = item.done === null? Date.now() : null;
   try {
     const response = await axios.post(
-      `${SERVER_URL}/todo/${item.id}/changestatus`,
+      `/todo/${item.id}/changestatus`,
       {
         status: !item.status,
         done: doneTime
@@ -51,7 +49,7 @@ async function changeItemStatus(item) {
 
 async function createItem(itemText) {
   try {
-    const response = await axios.post(`${SERVER_URL}/todo`, {text: itemText});
+    const response = await axios.post(`/todo`, {text: itemText});
     return response.data;
   }
   catch (error) {
@@ -61,7 +59,7 @@ async function createItem(itemText) {
 
 async function clearAllItems() {
   try {
-    const response = await axios.post(`${SERVER_URL}/todo/clearall`);
+    const response = await axios.post(`/todo/clearall`);
     return response.data;
   }
   catch (error) {
@@ -71,7 +69,7 @@ async function clearAllItems() {
 
 async function sortItems() {
   try {
-    const response = await axios.post(`${SERVER_URL}/todo/sort`);
+    const response = await axios.post(`/todo/sort`);
     return response.data;
   }
   catch (error) {
