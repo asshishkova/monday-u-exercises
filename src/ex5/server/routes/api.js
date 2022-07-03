@@ -38,12 +38,7 @@ async function addPokemon(text) {
 
 async function getTodo(req, res) {
   let todoId = Number.parseInt(req.params.id);
-  if (isNaN(todoId)){
-    const error = Error()
-    error.statusCode = 400;
-    error.message = 'Wrong parameters';
-    throw error;
-  }
+  ErrorIfNaN(todoId);
   const todo = await itemManager.getItem(todoId);
   if (!todo) {
     const error = Error()
@@ -62,36 +57,21 @@ async function getAll(req, res) {
 
 async function deleteTodo(req, res) {
   let todoId = Number.parseInt(req.params.id);
-  if (isNaN(todoId)) {
-    const error = Error()
-    error.statusCode = 400;
-    error.message = 'Wrong parameters';
-    throw error;
-  }
+  ErrorIfNaN(todoId);
   const data = await itemManager.deleteItem(todoId);
   res.status(200).json(data);
 }
 
 async function markTodoAsOld(req, res) {
   const todoId = Number.parseInt(req.params.id);
-  if (isNaN(todoId)) {
-    const error = Error()
-    error.statusCode = 400;
-    error.message = 'Wrong parameters';
-    throw error;
-  }
+  ErrorIfNaN(todoId);
   const data = await itemManager.markTodoAsOld(todoId);
   res.status(200).json(data);
 }
 
 async function changeStatus(req, res) {
   const todoId = Number.parseInt(req.params.id);
-  if (isNaN(todoId)) {
-    const error = Error()
-    error.statusCode = 400;
-    error.message = 'Wrong parameters';
-    throw error;
-  }
+  ErrorIfNaN(todoId);
   const data = await itemManager.changeTodoStatus(todoId, req.body);
   res.status(200).json(data);
 }
@@ -104,6 +84,15 @@ async function clearAll(req, res) {
 async function sortTodos(req, res) {
   const data = await itemManager.sortItems();
   res.status(200).json(data);
+}
+
+function ErrorIfNaN(todoId) {
+  if (isNaN(todoId)) {
+    const error = Error()
+    error.statusCode = 400;
+    error.message = 'Wrong parameters';
+    throw error;
+  }
 }
 
 module.exports = {
