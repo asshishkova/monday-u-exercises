@@ -11,9 +11,11 @@ This is going to be so much fun! Here are a few general details:
 
 **Exercise 2** - [In depth JS, Async JS, MVC](https://github.com/asshishkova/monday-u-exercises/tree/main/src/ex2)
 
-**Exercise 3** - [Node.js, CLI](https://github.com/asshishkova/monday-u-exercises/tree/main/src/ex3)
+**Exercise 3** - [Advance Node.js, CLI](https://github.com/asshishkova/monday-u-exercises/tree/main/src/ex3)
 
-**Exercise 4** - [Express.js](https://github.com/asshishkova/monday-u-exercises/tree/main/src/ex4)
+**Exercise 4** - [Express.js](https://github.com/asshishkova/monday-u-exercises/tree/ex5/main/ex4)
+
+**Exercise 5** - [Sequelize ORM](https://github.com/asshishkova/monday-u-exercises/tree/ex5/src/ex5)
 
 # Submitting your tasks
 Create a pull request in your forked repository and send to your mentor when it's ready.
