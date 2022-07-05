@@ -5,9 +5,10 @@ import "../styles/todo-element.css";
 
 
 export function TodoElement(props) {
+  const {todo, updateTodos} = props;
+
   const [todoClassName, setTodoClassName] = useState("todo-li existing-todo")
 
-  const todo = props.todo;
   const doneTime = todo.done === null? "" : `Done at ${todo.done.slice(11,16)} ${todo.done.slice(0,10)}`;
   const checked = todo.status? "checked" : "";
 
@@ -22,7 +23,7 @@ export function TodoElement(props) {
     if (todoClassName === "todo-li existing-todo animation-add-todo") {
       setTodoClassName("todo-li existing-todo")
     } else {
-      await props.updateTodos();
+      await updateTodos();
     }
   }
 
@@ -34,7 +35,7 @@ export function TodoElement(props) {
 
   const onCheckboxClicked = async (e) => {
     await changeItemStatus(todo);
-    await props.updateTodos();
+    await updateTodos();
   }
 
   const todoItem =  <label className="todo-item" info={doneTime}>

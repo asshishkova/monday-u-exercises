@@ -6,6 +6,7 @@ import "../styles/add-todo-form.css";
 
 export function AddTodoForm(props) {
 
+  const {updateTodos} = props;
   const [todoText, setTodoText] = useState("")
 
   const onAddTodoFormSubmitted = async (event) => {
@@ -13,7 +14,7 @@ export function AddTodoForm(props) {
     const text = todoText;
     setTodoText("");
     await createItem(text);
-    await props.updateTodos();
+    await updateTodos();
   }
 
   return (
