@@ -85,7 +85,7 @@
   overflow: scroll;
 }
 
-.todo-item[info]:hover::after {
+.todo-item[info]:hover::after, .todo-item[info]:after {
   content: attr(info);
   position: absolute;
   color: antiquewhite;
@@ -96,4 +96,13 @@
   border-radius: 4px;
   padding-left: 5px;
   padding-right: 5px;
+}
+
+.todo-item[info]:after {
+  opacity: 0;
+  transition: 0s all;
+}
+.todo-item[info]:hover::after {
+  opacity: 1;
+  transition-delay: 1s;
 }
