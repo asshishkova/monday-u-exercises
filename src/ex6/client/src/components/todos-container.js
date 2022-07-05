@@ -4,6 +4,7 @@ import { NoTodosPlaceholder } from "./no-todos-placeholder.js";
 import { TodosList } from "./todos-list.js";
 import { Footer } from "./footer.js";
 import { getItems } from "../item-client.js";
+import "../styles/todos-container.css";
 
 export function TodosContainer() {
   const [todos, setTodos] = useState([]);

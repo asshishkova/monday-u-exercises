@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { deleteItem, markItemAsOld, changeItemStatus } from "../item-client.js";
-import PropTypes from 'prop-types';
+import "../styles/todo-element.css";
+
 
 export function TodoElement(props) {
   const [todoClassName, setTodoClassName] = useState("todo-li existing-todo")

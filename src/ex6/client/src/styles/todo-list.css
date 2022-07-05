@@ -1,0 +1,11 @@
+#todos-list {
+  padding-left: 0px;
+  border-radius: 4px;
+  font-family: 'Caveat', cursive;
+}
+
+#no-todos-placeholder {
+  width: 100px;
+  margin-top: 5px;
+  margin-left: 5px;
+}

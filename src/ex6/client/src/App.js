@@ -1,9 +1,9 @@
-import './App.css';
 import { TodosContainer } from "./components/todos-container";
+import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <TodosContainer/>
     </div>
   );

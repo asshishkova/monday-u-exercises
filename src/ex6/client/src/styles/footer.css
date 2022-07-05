@@ -1,0 +1,33 @@
+#footer {
+  display: flex;
+  justify-content: center;
+}
+
+#sort-list-button {
+  background-color: var(--light-green);
+  color: var(--very-dark-green);
+  width: 115px;
+  display: flex;
+  justify-content: space-between;
+  padding: 1px 8px;
+}
+
+.fa-caret-down {
+  margin-top: 5px;
+}
+
+#footer p {
+  margin: 0;
+  width: 230px;
+  padding: auto;
+  text-align: center;
+}
+
+#amount-info {
+  margin: auto;
+}
+
+#clear-all-button {
+  background-color: var(--dark-green);
+  width: 115px;
+}

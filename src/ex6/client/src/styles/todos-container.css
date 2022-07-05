@@ -16,24 +16,15 @@
   font-family: 'Caveat', cursive;
 }
 
-#footer {
-  display: flex;
-  justify-content: center;
+.btn {
+  cursor: pointer;
+  border-radius: 4px;
+  border: 0px;
+  color: antiquewhite;
+  font-size: 24px;
 }
 
-#amount-info {
-  margin: auto;
-}
-
-#footer p {
-  margin: 0;
-  width: 230px;
-  padding: auto;
-  text-align: center;
-}
-
-#no-todos-placeholder {
-  width: 100px;
-  margin-top: 5px;
-  margin-left: 5px;
+.todos-content {
+  padding: 20px;
+  font-size: 24px;
 }

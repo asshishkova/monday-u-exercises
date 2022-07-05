@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { TodoElement } from "./todo-element.js";
-import PropTypes from 'prop-types';
+import "../styles/todo-list.css";
 
 export function TodosList(props) {
 
