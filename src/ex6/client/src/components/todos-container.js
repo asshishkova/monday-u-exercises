@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { ThreeDots } from  'react-loader-spinner'
 import { AddTodoForm } from "./add-todo-form.js";
 import { TodosList } from "./todos-list.js";
-import { Footer } from "./footer.js";
 import { getItems } from "../item-client.js";
 import "../styles/todos-container.css";
 
@@ -21,13 +21,15 @@ export function TodosContainer() {
   return (
     <main className="window">
       <h1 className="title">TODOOPS</h1>
-      { loaded &&
         <article className="todos-content">
-          <AddTodoForm updateTodos={updateTodos}/>
-          <TodosList todos={todos} updateTodos={updateTodos} />
-          <Footer todos={todos} updateTodos={updateTodos}/>
+          <AddTodoForm updateTodos={updateTodos} setLoaded={setLoaded}/>
+          { !loaded &&
+            <div className="loader">
+              <ThreeDots color="#21825B" height={20} width={60} />
+            </div>
+          }
+          <TodosList todos={todos} updateTodos={updateTodos} loaded={loaded} />
         </article>
-      }
     </main>
   )
 }

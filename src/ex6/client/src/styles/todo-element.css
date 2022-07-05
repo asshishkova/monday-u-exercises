@@ -90,5 +90,5 @@
 }
 .todo-item[info]:hover::after {
   opacity: 1;
-  transition-delay: 2s;
+  transition-delay: 1.5s;
 }

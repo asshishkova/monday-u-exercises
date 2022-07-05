@@ -5,16 +5,17 @@ import "../styles/add-todo-form.css";
 
 export function AddTodoForm(props) {
 
-  const {updateTodos} = props;
+  const {updateTodos, setLoaded} = props;
   const [todoText, setTodoText] = useState("")
 
   const onAddTodoFormSubmitted = useCallback(async (event) => {
+    setLoaded(false);
     event.preventDefault();
     const text = todoText;
     setTodoText("");
     await createItem(text);
     await updateTodos();
-  },[updateTodos, todoText]);
+  },[updateTodos, todoText,setLoaded]);
 
   return (
     <form id="add-todo" onSubmit={onAddTodoFormSubmitted}>
@@ -27,5 +28,6 @@ export function AddTodoForm(props) {
 }
 
 AddTodoForm.propTypes = {
-  updateTodos: PropTypes.func
+  updateTodos: PropTypes.func,
+  setLoaded: PropTypes.func
 }

@@ -27,4 +27,15 @@
 .todos-content {
   padding: 20px;
   font-size: 24px;
+  position: relative;
+  min-height: 216px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  position: absolute;
+  top: 65px;
+  left: 220px;
 }
