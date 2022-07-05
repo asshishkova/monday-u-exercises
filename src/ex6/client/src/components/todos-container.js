@@ -25,7 +25,7 @@ export function TodosContainer() {
         <article className="todos-content">
           <AddTodoForm updateTodos={updateTodos}/>
           <TodosList todos={todos} updateTodos={updateTodos} />
-          <Footer updateTodos={updateTodos} amount={todos.length}/>
+          <Footer todos={todos} updateTodos={updateTodos}/>
         </article>
       }
     </main>
