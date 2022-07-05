@@ -10,7 +10,7 @@ export function TodoElement(props) {
   const [todoClassName, setTodoClassName] = useState("todo-li existing-todo")
 
   const doneTime = todo.done === null? "" : `Done at ${todo.done.slice(11,16)} ${todo.done.slice(0,10)}`;
-  const checked = todo.status? "checked" : "";
+  const checkedDefaultValue = todo.status? "checked" : "";
 
   useEffect(() => {
     if (todo.isNew) {
@@ -41,7 +41,7 @@ export function TodoElement(props) {
   const todoItem =  <label className="todo-item" info={doneTime}>
                       <label className="todo-item-checkbox">
                         <div className="todo-item-text">{todo.text}</div>
-                        <input type="checkbox" className="status-checkbox" defaultChecked={checked} onClick={onCheckboxClicked} />
+                        <input type="checkbox" className="status-checkbox" defaultChecked={checkedDefaultValue} onClick={onCheckboxClicked} />
                         <span className="status-checkbox-mark"></span>
                       </label>
                     </label>
