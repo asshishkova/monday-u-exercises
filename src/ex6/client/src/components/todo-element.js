@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { deleteItem, markItemAsOld, changeItemStatus } from "../item_client.js";
+import { deleteItem, markItemAsOld, changeItemStatus } from "../item-client.js";
 import PropTypes from 'prop-types';
 
 export function TodoElement(props) {

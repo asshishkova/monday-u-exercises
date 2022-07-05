@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { sortItems, clearAllItems } from "../item_client.js";
+import { sortItems, clearAllItems } from "../item-client.js";
 import PropTypes from 'prop-types';
 
 export function Footer(props) {

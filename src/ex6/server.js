@@ -1,8 +1,8 @@
 const express = require('express');
 const compression = require('compression');
 require('express-async-errors');
-const requestLoggerMiddleware = require("./server/middleware/request_logger.js");
-const errorHandler = require("./server/middleware/error_handler.js");
+const requestLoggerMiddleware = require("./server/middleware/request-logger.js");
+const errorHandler = require("./server/middleware/error-handler.js");
 const todoRouter = require("./server/routes/router.js");
 const port = 3001;
 const app = express();

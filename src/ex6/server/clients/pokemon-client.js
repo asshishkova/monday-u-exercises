@@ -1,5 +1,5 @@
 const axios = require("axios");
-const popularPokemons = require("./popular_pokemons.js")
+const popularPokemons = require("./popular-pokemons.js")
 const API_BASE = 'https://pokeapi.co/api/v2/pokemon';
 
 class PokemonClient {

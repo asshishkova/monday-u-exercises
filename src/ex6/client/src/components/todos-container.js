@@ -3,9 +3,9 @@ import { AddTodoForm } from "./add-todo-form.js";
 import { NoTodosPlaceholder } from "./no-todos-placeholder.js";
 import { TodosList } from "./todos-list.js";
 import { Footer } from "./footer.js";
-import { getItems } from "../item_client.js";
+import { getItems } from "../item-client.js";
 
-export function MainWindow() {
+export function TodosContainer() {
   const [todos, setTodos] = useState([]);
   const [loaded, setLoaded] = useState(false)
 

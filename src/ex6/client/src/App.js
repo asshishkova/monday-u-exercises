@@ -1,10 +1,10 @@
 import './App.css';
-import { MainWindow } from "./components/main-window.js";
+import { TodosContainer } from "./components/todos-container";
 
 function App() {
   return (
     <div className="App">
-      <MainWindow/>
+      <TodosContainer/>
     </div>
   );
 }

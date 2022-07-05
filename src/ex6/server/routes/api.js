@@ -1,5 +1,5 @@
-const ItemManager = require("../services/item_manager.js");
-const PokemonClient = require("../clients/pokemon_client.js");
+const ItemManager = require("../services/item-manager.js");
+const PokemonClient = require("../clients/pokemon-client.js");
 
 const itemManager = new ItemManager();
 itemManager.init();
