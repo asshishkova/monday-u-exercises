@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { createItem } from "../item-client.js";
 import "../styles/add-todo-form.css";
-
 
 export function AddTodoForm(props) {
 
   const {updateTodos} = props;
   const [todoText, setTodoText] = useState("")
 
-  const onAddTodoFormSubmitted = async (event) => {
+  const onAddTodoFormSubmitted = useCallback(async (event) => {
     event.preventDefault();
     const text = todoText;
     setTodoText("");
     await createItem(text);
     await updateTodos();
-  }
+  },[updateTodos, todoText]);
 
   return (
     <form id="add-todo" onSubmit={onAddTodoFormSubmitted}>
