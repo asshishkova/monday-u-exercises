@@ -17,8 +17,8 @@ export function Footer(props) {
     }
   }
 
-  const amountInfo = <p id="amount-info">Tasks: {amountPending} pending, {amountDone} done.</p>
-  const clearAllButton = <button id="clear-all-button" className="btn" onClick={onClearAllButtonClicked}>Clear all</button>
+  const amountInfo = <p id="amount-info">Tasks: {amountPending} pending, {amountDone} done.</p>;
+  const clearAllButton = <button id="clear-all-button" className="btn" onClick={onClearAllButtonClicked}>Clear all</button>;
 
   return (
     <footer id="footer">

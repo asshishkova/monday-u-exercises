@@ -1,0 +1,27 @@
+.filter-radio-buttons {
+  margin: 30px 0px 0px 5px;
+}
+
+.filter-radio-buttons input[type="radio"] {
+  display: none;
+}
+.filter-radio-buttons label {
+  display: inline-block;
+  text-align: space-between;
+  padding: 0px 10px 0px 10px;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 10px;
+  min-width: 70px;
+  border-radius: 4px;
+  background-color: rgba(128, 128, 128, 0.1);
+}
+.filter-radio-buttons input[type="radio"]:checked+label {
+  color: var(--very-dark-green);
+  box-shadow: 0px 0px 5px var(--very-dark-green);
+  background-color: rgba(128, 128, 128, 0.2);
+}
+
+.filter-radio-buttons label:hover {
+  box-shadow: 0px 0px 5px var(--very-dark-green);
+}
