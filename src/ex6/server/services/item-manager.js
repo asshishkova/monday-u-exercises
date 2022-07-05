@@ -1,13 +1,6 @@
 const { Item } = require('../db/models');
 
-const SORT_OPTIONS = ['id', 'text', 'status']
-
 class ItemManager {
-  init() {
-    this.sortOptionIndex = 0;
-    this.sortBy = SORT_OPTIONS[this.sortOptionIndex];
-  }
-
   async addItem(text) {
     try {
       return await Item.create({
@@ -74,17 +67,8 @@ class ItemManager {
     });
   }
 
-  async sortItems(){
-    this.sortOptionIndex = (this.sortOptionIndex + 1) % SORT_OPTIONS.length
-    return this.sortBy = SORT_OPTIONS[this.sortOptionIndex];
-  }
-
   async getAll() {
-    return await Item.findAll({
-      order: [
-        [this.sortBy, "ASC"]
-      ]
-    });
+    return await Item.findAll();
   }
 }
 

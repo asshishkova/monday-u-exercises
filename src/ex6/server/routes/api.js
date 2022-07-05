@@ -2,7 +2,6 @@ const ItemManager = require("../services/item-manager.js");
 const PokemonClient = require("../clients/pokemon-client.js");
 
 const itemManager = new ItemManager();
-itemManager.init();
 const pokemonClient = new PokemonClient;
 
 async function createTodo(req, res) {
@@ -81,11 +80,6 @@ async function clearAll(req, res) {
   res.status(200).json(data);
 }
 
-async function sortTodos(req, res) {
-  const data = await itemManager.sortItems();
-  res.status(200).json(data);
-}
-
 function ErrorIfNaN(todoId) {
   if (isNaN(todoId)) {
     const error = Error()
@@ -102,6 +96,5 @@ module.exports = {
   deleteTodo,
   markTodoAsOld,
   changeStatus,
-  clearAll,
-  sortTodos
+  clearAll
 };

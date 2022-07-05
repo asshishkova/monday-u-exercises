@@ -67,16 +67,6 @@ async function clearAllItems() {
   }
 }
 
-async function sortItems() {
-  try {
-    const response = await axios.post(`/todo/sort`);
-    return response.data;
-  }
-  catch (error) {
-    console.error(error);
-  }
-}
-
 export {
   getItems,
   deleteItem,
@@ -84,5 +74,4 @@ export {
   changeItemStatus,
   createItem,
   clearAllItems,
-  sortItems
 }

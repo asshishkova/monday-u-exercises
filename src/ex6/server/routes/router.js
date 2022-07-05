@@ -7,8 +7,7 @@ const {
   deleteTodo,
   markTodoAsOld,
   changeStatus,
-  clearAll,
-  sortTodos
+  clearAll
 } = require("./api.js");
 
 const todoRouter = express.Router();
@@ -20,6 +19,5 @@ todoRouter.delete('/:id', deleteTodo);
 todoRouter.post('/:id/markold', markTodoAsOld);
 todoRouter.post('/:id/changestatus', changeStatus);
 todoRouter.post('/clearall', clearAll);
-todoRouter.post('/sort', sortTodos);
 
 module.exports = todoRouter;
