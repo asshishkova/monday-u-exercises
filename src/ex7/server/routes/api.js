@@ -56,20 +56,35 @@ async function getAll(req, res) {
 
 async function getAllPending(req, res) {
   let data = await itemManager.getAllPending();
-  if (!data) data = [];
-  res.status(200).json(data);
+  if (data.length === 0) {
+    data = notFoundPlaceholder("There are no pending todos")
+  }  res.status(200).json(data);
 }
 
 async function getAllDone(req, res) {
   let data = await itemManager.getAllDone();
-  if (!data) data = [];
+  if (data.length === 0) {
+    data = notFoundPlaceholder("There are no done todos");
+  }
   res.status(200).json(data);
 }
 
 async function getAllWhere(req, res) {
-  let data = await itemManager.getAllWhere(req.params.text);
-  if (!data) data = [];
+  const text = req.params.text;
+  let data = await itemManager.getAllWhere(text);
+  if (data.length === 0) {
+    data = notFoundPlaceholder(`Todo "${text}" is not in the list yet`);
+  }
   res.status(200).json(data);
+}
+
+function notFoundPlaceholder(text) {
+  return [{
+    id: -1,
+    text: text,
+    done: null,
+    status: false
+  }];
 }
 
 async function deleteTodo(req, res) {
