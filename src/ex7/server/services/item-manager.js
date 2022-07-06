@@ -1,4 +1,7 @@
 const { Item } = require('../db/models');
+const Sequelize = require('sequelize');
+
+const Op = Sequelize.Op;
 
 class ItemManager {
   async addItem(text) {
@@ -77,6 +80,10 @@ class ItemManager {
 
   async getAllDone() {
     return await Item.findAll({ where: {status: true}});
+  }
+
+  async getAllWhere(text) {
+    return await Item.findAll({ where: { text: { [Op.like]: `%${text}%` } }});
   }
 }
 

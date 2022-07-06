@@ -66,6 +66,12 @@ async function getAllDone(req, res) {
   res.status(200).json(data);
 }
 
+async function getAllWhere(req, res) {
+  let data = await itemManager.getAllWhere(req.params.text);
+  if (!data) data = [];
+  res.status(200).json(data);
+}
+
 async function deleteTodo(req, res) {
   let todoId = Number.parseInt(req.params.id);
   ErrorIfNaN(todoId);
@@ -105,6 +111,7 @@ module.exports = {
   getAll,
   getAllPending,
   getAllDone,
+  getAllWhere,
   createTodo,
   getTodo,
   deleteTodo,

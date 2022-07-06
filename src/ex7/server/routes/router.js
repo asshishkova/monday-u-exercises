@@ -6,6 +6,7 @@ const {
   getAll,
   getAllDone,
   getAllPending,
+  getAllWhere,
   deleteTodo,
   markTodoAsOld,
   changeStatus,
@@ -17,6 +18,7 @@ const todoRouter = express.Router();
 todoRouter.get('/todo', getAll);
 todoRouter.get('/pending', getAllPending);
 todoRouter.get('/done', getAllDone);
+todoRouter.get('/search/:text', getAllWhere);
 todoRouter.get('/todo/:id', getTodo);
 todoRouter.post('/todo', validateCreateTodoSchema(), createTodo);
 todoRouter.delete('/todo/:id', deleteTodo);

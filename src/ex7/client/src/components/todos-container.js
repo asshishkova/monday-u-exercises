@@ -22,7 +22,7 @@ export function TodosContainer() {
     <main className="window">
       <h1 className="title">TODOOPS</h1>
         <article className="todos-content">
-          <AddTodoForm updateTodos={updateTodos} setLoaded={setLoaded}/>
+          <AddTodoForm updateTodos={updateTodos} setLoaded={setLoaded} setTodos={setTodos}/>
           { !loaded &&
             <div className="loader">
               <ThreeDots color="#21825B" height={20} width={60} />

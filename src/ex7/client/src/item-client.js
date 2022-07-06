@@ -30,6 +30,17 @@ async function getItemsDone() {
   }
 }
 
+async function getItemsWhere(searchText) {
+  console.log('itemText', searchText);
+  try {
+    const response = await axios.get(`/search/${searchText}`);
+    return response.data;
+  }
+  catch (error) {
+    console.error(error);
+  }
+}
+
 async function deleteItem(item) {
   try {
     const response = await axios.delete(`/todo/${item.id}`);
@@ -69,7 +80,7 @@ async function changeItemStatus(item) {
 
 async function createItem(itemText) {
   try {
-    const response = await axios.post(`/todo`, {text: itemText});
+    const response = await axios.post(`/todo`, { text: itemText });
     return response.data;
   }
   catch (error) {
@@ -91,6 +102,7 @@ export {
   getItems,
   getItemsPending,
   getItemsDone,
+  getItemsWhere,
   deleteItem,
   markItemAsOld,
   changeItemStatus,
