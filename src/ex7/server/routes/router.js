@@ -12,12 +12,12 @@ const {
 
 const todoRouter = express.Router();
 
-todoRouter.get('/', getAll);
-todoRouter.get('/:id', getTodo);
-todoRouter.post('/', validateCreateTodoSchema(), createTodo);
-todoRouter.delete('/:id', deleteTodo);
-todoRouter.post('/:id/markold', markTodoAsOld);
-todoRouter.post('/:id/changestatus', changeStatus);
-todoRouter.post('/clearall', clearAll);
+todoRouter.get('/todo', getAll);
+todoRouter.get('/todo/:id', getTodo);
+todoRouter.post('/todo', validateCreateTodoSchema(), createTodo);
+todoRouter.delete('/todo/:id', deleteTodo);
+todoRouter.post('/todo/:id/markold', markTodoAsOld);
+todoRouter.post('/todo/:id/changestatus', changeStatus);
+todoRouter.delete('/clearall', clearAll);
 
 module.exports = todoRouter;

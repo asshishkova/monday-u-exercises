@@ -10,6 +10,16 @@ async function getItems() {
   }
 }
 
+// async function getItemsWhere(status) {
+//   try {
+//     const response = await axios.get(`/todo/${status}`);
+//     return response.data;
+//   }
+//   catch (error) {
+//     console.error(error);
+//   }
+// }
+
 async function deleteItem(item) {
   try {
     const response = await axios.delete(`/todo/${item.id}`);
@@ -59,7 +69,7 @@ async function createItem(itemText) {
 
 async function clearAllItems() {
   try {
-    const response = await axios.post(`/todo/clearall`);
+    const response = await axios.delete(`/clearall`);
     return response.data;
   }
   catch (error) {

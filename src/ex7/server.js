@@ -7,8 +7,8 @@ const todoRouter = require("./server/routes/router.js");
 const port = 3001;
 const app = express();
 app.use([express.json(), requestLoggerMiddleware, compression()]);
-// app.use(express.static('dist'));
-app.use('/todo', todoRouter);
+// app.use('/todo', todoRouter);
+app.use('/', todoRouter);
 app.use(errorHandler);
 
 
