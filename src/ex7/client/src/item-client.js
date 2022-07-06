@@ -83,7 +83,7 @@ async function createItem(itemText) {
     return response.data;
   }
   catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 }
 

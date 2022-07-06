@@ -41,3 +41,8 @@
   top: 65px;
   left: 220px;
 }
+
+#error-message {
+  text-align: center;
+  color: brown;
+}

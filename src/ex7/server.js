@@ -13,15 +13,15 @@ app.use(errorHandler);
 
 
 process.on('unhandledRejection', (reason, promise) => {
-    console.log("Unhandled Rejection", reason.message);
-    throw reason;
+  console.log("Unhandled Rejection", reason.message);
+  throw reason;
 });
 
 process.on('uncaughtException', (error) => {
-    console.log("Uncaught Exception", error.message);
-    process.exit(1);
+  console.log("Uncaught Exception", error.message);
+  process.exit(1);
 });
 
 app.listen(port, () => {
-    console.log("Server started on port", port);
+  console.log("Server started on port", port);
 });

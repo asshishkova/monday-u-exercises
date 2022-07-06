@@ -5,24 +5,34 @@ import "../styles/add-todo-form.css";
 
 export function AddTodoForm(props) {
 
-  const {updateTodos, setLoaded, setTodos} = props;
-  const [todoText, setTodoText] = useState("")
+  const {updateTodos, setLoaded, setTodos, setSwerverErrorMessage} = props;
+  const [todoText, setTodoText] = useState("");
 
   const onAddTodoFormSubmitted = useCallback(async (event) => {
+    setSwerverErrorMessage("");
     setLoaded(false);
     event.preventDefault();
     const text = todoText;
     setTodoText("");
-    await createItem(text);
-    await updateTodos();
-  },[updateTodos, todoText, setLoaded]);
+    try {
+      await createItem(text);
+      await updateTodos();
+    } catch (error) {
+      setSwerverErrorMessage(`Error: ${error.message}`);
+    }
+  },[updateTodos, todoText, setLoaded, setSwerverErrorMessage]);
 
   const onTextChange = useCallback (async (text) => {
+    setSwerverErrorMessage("");
     setLoaded(false);
     setTodoText(text);
-    text.trim().length > 0 ? setTodos(await getItemsWhere(text)) : updateTodos();
+    try {
+      text.trim().length > 0 ? setTodos(await getItemsWhere(text)) : await updateTodos();
+    } catch (error) {
+      setSwerverErrorMessage(`Error: ${error.message}`);
+    }
     setLoaded(true);
-  },[setLoaded, setTodos, updateTodos])
+  },[setLoaded, setTodos, updateTodos, setSwerverErrorMessage])
 
   return (
     <form id="add-todo" onSubmit={onAddTodoFormSubmitted}>
@@ -37,5 +47,6 @@ export function AddTodoForm(props) {
 AddTodoForm.propTypes = {
   updateTodos: PropTypes.func,
   setLoaded: PropTypes.func,
-  setTodos: PropTypes.func
+  setTodos: PropTypes.func,
+  setSwerverErrorMessage: PropTypes.func
 }

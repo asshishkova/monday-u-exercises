@@ -8,6 +8,7 @@ import "../styles/todos-container.css";
 export function TodosContainer() {
   const [todos, setTodos] = useState([]);
   const [loaded, setLoaded] = useState(false)
+  const [serverErrorMessage, setSwerverErrorMessage] = useState("");
 
   const updateTodos = useCallback(async () => {
     setTodos(await getItems());
@@ -22,7 +23,8 @@ export function TodosContainer() {
     <main className="window">
       <h1 className="title">TODOOPS</h1>
         <article className="todos-content">
-          <AddTodoForm updateTodos={updateTodos} setLoaded={setLoaded} setTodos={setTodos}/>
+          <AddTodoForm updateTodos={updateTodos} setLoaded={setLoaded} setTodos={setTodos}
+                        setSwerverErrorMessage={setSwerverErrorMessage}/>
           { !loaded &&
             <div className="loader">
               <ThreeDots color="#21825B" height={20} width={60} />
@@ -30,6 +32,11 @@ export function TodosContainer() {
           }
           <TodosList todos={todos} updateTodos={updateTodos} loaded={loaded}
                     setLoaded={setLoaded} setTodos={setTodos} />
+          { serverErrorMessage.length > 0 &&
+            <p id="error-message">
+              {serverErrorMessage}
+            </p>
+          }
         </article>
     </main>
   )
