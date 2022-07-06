@@ -50,14 +50,18 @@ export function TodoElement(props) {
     todoClassName = "todo-li animation-delete-todo";
   }
 
-
-  const todoItem =  <label className="todo-item" info={doneTime}>
-                      <label className="todo-item-checkbox">
-                        <div className="todo-item-text">{todo.text}</div>
-                        <input type="checkbox" className="status-checkbox" defaultChecked={checkedDefaultValue} onClick={onCheckboxClicked} />
-                        <span className="status-checkbox-mark"></span>
-                      </label>
-                    </label>
+  let todoItem;
+  if (todo.id === -1) { // placeholder "todo not found"
+    todoItem = <div className="notfound-placeholder">{todo.text}</div>
+  } else {
+    todoItem =  <label className="todo-item" info={doneTime}>
+                  <label className="todo-item-checkbox">
+                    <div className="todo-item-text">{todo.text}</div>
+                    <input type="checkbox" className="status-checkbox" defaultChecked={checkedDefaultValue} onClick={onCheckboxClicked} />
+                    <span className="status-checkbox-mark"></span>
+                  </label>
+                </label>
+  }
 
   const deleteButton = <button className="delete-todo-button btn" onClick={onDeleteButtonClicked}>
                           <i className="fa fa-trash"></i></button>
@@ -65,7 +69,7 @@ export function TodoElement(props) {
   return (
     <li className={todoClassName} onAnimationEnd={animationEndHandler} >
       {todoItem}
-      {deleteButton}
+      {todo.id !== -1 && deleteButton}
     </li>
   )
 }

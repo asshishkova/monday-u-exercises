@@ -3,7 +3,7 @@
   justify-content: space-between;
 }
 
-#amount-info {
+#amount-info, #restore-deleted {
   text-align: left;
   margin: 0px 0px 0px 10px;
 }
@@ -11,4 +11,9 @@
 #clear-all-button {
   background-color: var(--dark-green);
   width: 115px;
+}
+
+#restore-deleted {
+  cursor: pointer;
+  color: brown;
 }

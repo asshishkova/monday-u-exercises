@@ -1,5 +1,9 @@
-.filter-radio-buttons {
+@import 'checkbox.css';
+
+.filters {
   margin: 30px 0px 0px 5px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .filter-radio-buttons input[type="radio"] {
@@ -24,4 +28,12 @@
 
 .filter-radio-buttons label:hover {
   box-shadow: 0px 0px 5px var(--very-dark-green);
+}
+
+.search-filter, .search-checkbox {
+  cursor: pointer;
+}
+
+input[type=checkbox] {
+  accent-color: var(--very-dark-green);
 }

@@ -31,7 +31,6 @@ async function getItemsDone() {
 }
 
 async function getItemsWhere(searchText) {
-  console.log('itemText', searchText);
   try {
     const response = await axios.get(`/search/${searchText}`);
     return response.data;

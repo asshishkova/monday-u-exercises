@@ -10,6 +10,7 @@ const DONE = "DONE";
 export function Filter(props) {
   const {todos, setLoaded, setTodos} = props;
   const [filter, setFilter] = useState(ALL);
+  const [searchOn, setSearchOn] = useState(true)
 
   const filterTodos = useCallback( async (status) => {
     setLoaded(false);
@@ -23,6 +24,10 @@ export function Filter(props) {
     }
     setLoaded(true);
   },[setLoaded, setTodos]);
+
+  const onCheckboxClicked = useCallback ( async () => {
+    setSearchOn(!searchOn);
+  },[searchOn]);
 
   const createFilterInput = (value) => {
     return (
@@ -44,7 +49,15 @@ export function Filter(props) {
     <div>
       {
         todos.length > 0 &&
-        filterRadioButtons
+        <div className="filters">
+          { filterRadioButtons }
+          <label className="search-filter">
+            Search
+            <input type="checkbox" className="search-checkbox" defaultChecked={searchOn} onClick={onCheckboxClicked} />
+            <span className="search-checkbox-mark"></span>
+          </label>
+        </div>
+
       }
     </div>
   )

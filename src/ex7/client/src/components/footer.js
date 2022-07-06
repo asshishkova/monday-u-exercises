@@ -17,12 +17,19 @@ export function Footer(props) {
     }
   }
 
+  const restoreDeletedTodo = async () => {
+    console.log('Restore deleted');
+  }
+
   const amountInfo = <p id="amount-info">Tasks: {amountPending} pending, {amountDone} done.</p>;
   const clearAllButton = <button id="clear-all-button" className="btn" onClick={onClearAllButtonClicked}>Clear all</button>;
+  const restoreDeletedIcon = <p id="restore-deleted" onClick={restoreDeletedTodo}><i class="fa fa-undo" aria-hidden="true"></i>
+  </p>
 
   return (
     <footer id="footer">
       { amount > 0 && amountInfo }
+      { amount === 2 && restoreDeletedIcon }
       { amount > 0 && clearAllButton }
     </footer>
   )
