@@ -31,7 +31,8 @@ export function TodosContainer() {
             </div>
           }
           <TodosList todos={todos} updateTodos={updateTodos} loaded={loaded}
-                    setLoaded={setLoaded} setTodos={setTodos} />
+                    setLoaded={setLoaded} setTodos={setTodos}
+                    setSwerverErrorMessage={setSwerverErrorMessage}/>
           { serverErrorMessage.length > 0 &&
             <p id="error-message">
               {serverErrorMessage}

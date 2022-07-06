@@ -8,7 +8,7 @@ const ADDING_ANIMATION = Symbol("adding animation");
 const DELETING_ANIMATION = Symbol("deleting animation");
 
 export function TodoElement(props) {
-  const {todo, updateTodos} = props;
+  const {todo, updateTodos, setSwerverErrorMessage} = props;
 
   const [currentAnimation, setCurrentAnimation] = useState(NO_ANIMATION)
 
@@ -18,27 +18,45 @@ export function TodoElement(props) {
   useEffect(() => {
     if (todo.isNew) {
       setCurrentAnimation(ADDING_ANIMATION);
-      markItemAsOld(todo);
+      try {
+        markItemAsOld(todo);
+      } catch (error) {
+        setSwerverErrorMessage(`Error: ${error.message}`);
+      }
     }
-  },[todo])
+  },[todo, setSwerverErrorMessage])
 
   const animationEndHandler = async () => {
     if (currentAnimation === ADDING_ANIMATION) {
       setCurrentAnimation(NO_ANIMATION)
     } else { // if currentAnimation === DELETONG_ANIMATION
-      await updateTodos();
+      try {
+        await updateTodos();
+      } catch (error) {
+        setSwerverErrorMessage(`Error: ${error.message}`);
+      }
     }
   }
 
   const onDeleteButtonClicked = async (e) => {
-    await deleteItem(todo);
-    setCurrentAnimation(DELETING_ANIMATION);
-    // updateTodos runs in animationEndHandler
+    setSwerverErrorMessage("");
+    try {
+      await deleteItem(todo);
+      setCurrentAnimation(DELETING_ANIMATION);
+      // updateTodos runs in animationEndHandler
+    } catch (error) {
+      setSwerverErrorMessage(`Error: ${error.message}`);
+    }
   }
 
   const onCheckboxClicked = async (e) => {
-    await changeItemStatus(todo);
-    await updateTodos();
+    setSwerverErrorMessage("");
+    try {
+      await changeItemStatus(todo);
+      await updateTodos();
+    } catch (error) {
+      setSwerverErrorMessage(`Error: ${error.message}`);
+    }
   }
 
   let todoClassName;
@@ -76,5 +94,6 @@ export function TodoElement(props) {
 
 TodoElement.propTypes = {
   updateTodos: PropTypes.func,
-  todo: PropTypes.object
+  todo: PropTypes.object,
+  setSwerverErrorMessage: PropTypes.func
 }

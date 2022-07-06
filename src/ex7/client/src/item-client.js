@@ -6,7 +6,7 @@ async function getItems() {
     return response.data;
   }
   catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 }
 
@@ -16,7 +16,7 @@ async function getItemsPending() {
     return response.data;
   }
   catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 }
 
@@ -26,7 +26,7 @@ async function getItemsDone() {
     return response.data;
   }
   catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 }
 
@@ -36,7 +36,7 @@ async function getItemsWhere(searchText) {
     return response.data;
   }
   catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 }
 
@@ -46,7 +46,7 @@ async function deleteItem(item) {
     return response.data;
   }
   catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 }
 
@@ -56,7 +56,7 @@ async function markItemAsOld(item) {
     return response.data;
   }
   catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 }
 
@@ -73,7 +73,7 @@ async function changeItemStatus(item) {
     return response.data;
   }
   catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 }
 
@@ -93,7 +93,7 @@ async function clearAllItems() {
     return response.data;
   }
   catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 }
 

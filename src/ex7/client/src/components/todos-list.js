@@ -7,17 +7,22 @@ import { Footer } from "./footer.js";
 import "../styles/todo-list.css";
 
 export function TodosList(props) {
-  const {todos, updateTodos, loaded, setTodos, setLoaded} = props;
+  const {todos, updateTodos, setTodos,
+        loaded, setLoaded,
+        setSwerverErrorMessage} = props;
   return (
     <div>
       { todos.length === 0 && loaded && <NoTodosPlaceholder/> }
-      <Filter todos={todos} setTodos={setTodos} setLoaded={setLoaded}/>
+      <Filter todos={todos} setTodos={setTodos} setLoaded={setLoaded}
+              setSwerverErrorMessage={setSwerverErrorMessage}/>
       { todos.length > 0 &&
         <ul id="todos-list">
-          { todos.map(todo => <TodoElement key={todo.id} todo={todo} updateTodos={updateTodos}/>) }
+          { todos.map(todo => <TodoElement key={todo.id} todo={todo}
+                                updateTodos={updateTodos}
+                                setSwerverErrorMessage={setSwerverErrorMessage}/>) }
         </ul>
       }
-      <Footer todos={todos} updateTodos={updateTodos}/>
+      <Footer todos={todos} updateTodos={updateTodos} setSwerverErrorMessage={setSwerverErrorMessage}/>
     </div>
   )
 }
@@ -27,5 +32,6 @@ TodosList.propTypes = {
   setTodos: PropTypes.func,
   setLoaded: PropTypes.func,
   todos: PropTypes.array,
-  loaded: PropTypes.bool
+  loaded: PropTypes.bool,
+  setSwerverErrorMessage: PropTypes.func
 }

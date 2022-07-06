@@ -8,22 +8,27 @@ const PENDING = "PENDING";
 const DONE = "DONE";
 
 export function Filter(props) {
-  const {todos, setLoaded, setTodos} = props;
+  const {todos, setLoaded, setTodos, setSwerverErrorMessage} = props;
   const [filter, setFilter] = useState(ALL);
   const [searchOn, setSearchOn] = useState(true)
 
   const filterTodos = useCallback( async (status) => {
     setLoaded(false);
     setFilter(status);
-    if (status === ALL) {
-      setTodos(await getItems());
-    } else if (status === PENDING) {
-      setTodos(await getItemsPending());
-    } else { // status === DONE
-      setTodos(await getItemsDone());
+    setSwerverErrorMessage("");
+    try {
+      if (status === ALL) {
+        setTodos(await getItems());
+      } else if (status === PENDING) {
+        setTodos(await getItemsPending());
+      } else { // status === DONE
+        setTodos(await getItemsDone());
+      }
+    } catch (error) {
+      setSwerverErrorMessage(`Error: ${error.message}`);
     }
     setLoaded(true);
-  },[setLoaded, setTodos]);
+  },[setLoaded, setTodos, setSwerverErrorMessage]);
 
   const onCheckboxClicked = useCallback ( async () => {
     setSearchOn(!searchOn);
@@ -45,17 +50,19 @@ export function Filter(props) {
                                 {createFilterInput(DONE)}
                                 <label htmlFor={DONE}>done</label>
                               </div>;
+  const searchCheckbox =  <label className="search-filter">
+                            Search
+                            <input type="checkbox" className="search-checkbox" defaultChecked={searchOn} onClick={onCheckboxClicked} />
+                            <span className="search-checkbox-mark"></span>
+                          </label>;
+
   return (
     <div>
       {
         todos.length > 0 &&
         <div className="filters">
           { filterRadioButtons }
-          <label className="search-filter">
-            Search
-            <input type="checkbox" className="search-checkbox" defaultChecked={searchOn} onClick={onCheckboxClicked} />
-            <span className="search-checkbox-mark"></span>
-          </label>
+          { searchCheckbox }
         </div>
 
       }
@@ -67,5 +74,6 @@ Filter.propTypes = {
   updateTodos: PropTypes.func,
   setTodos: PropTypes.func,
   setLoaded: PropTypes.func,
-  todos: PropTypes.array
+  todos: PropTypes.array,
+  setSwerverErrorMessage: PropTypes.func
 }

@@ -5,26 +5,39 @@ import "../styles/footer.css";
 
 
 export function Footer(props) {
-  const {updateTodos, todos} = props;
+  const {updateTodos, todos, setSwerverErrorMessage} = props;
   const amount = todos.length;
   const amountDone = todos.filter((todo) => todo.status).length;
   const amountPending = amount - amountDone;
 
   const onClearAllButtonClicked = async () => {
+    setSwerverErrorMessage("");
     if (window.confirm('Are you sure?')) {
-      await clearAllItems();
-      await updateTodos();
+      try {
+        await clearAllItems();
+        await updateTodos();
+      } catch (error) {
+        setSwerverErrorMessage(`Error: ${error.message}`)
+      }
     }
   }
 
   const restoreDeletedTodo = async () => {
-    console.log('Restore deleted');
+    setSwerverErrorMessage("");
+    try {
+      console.log('Restore the last deleted todo');
+    } catch (error) {
+      setSwerverErrorMessage(`Error: ${error.message}`)
+    }
   }
 
   const amountInfo = <p id="amount-info">Tasks: {amountPending} pending, {amountDone} done.</p>;
-  const clearAllButton = <button id="clear-all-button" className="btn" onClick={onClearAllButtonClicked}>Clear all</button>;
-  const restoreDeletedIcon = <p id="restore-deleted" onClick={restoreDeletedTodo}><i className="fa fa-undo" aria-hidden="true"></i>
-  </p>
+  const clearAllButton =  <button id="clear-all-button" className="btn"
+                            onClick={onClearAllButtonClicked}>Clear all
+                          </button>;
+  const restoreDeletedIcon =  <button id="restore-deleted" className="btn"
+                                onClick={restoreDeletedTodo}><i className="fa fa-undo" aria-hidden="true"></i>
+                              </button>
 
   return (
     <footer id="footer">
@@ -37,5 +50,6 @@ export function Footer(props) {
 
 Footer.propTypes = {
   updateTodos: PropTypes.func,
-  todos: PropTypes.array
+  todos: PropTypes.array,
+  setSwerverErrorMessage: PropTypes.func
 }

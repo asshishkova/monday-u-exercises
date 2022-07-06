@@ -15,5 +15,10 @@
 
 #restore-deleted {
   cursor: pointer;
-  color: brown;
+  color: antiquewhite;
+  background-color: brown;
+  text-align: center;
+  font-size: 20px;
+  height: 37px;
+  width: 37px;
 }
