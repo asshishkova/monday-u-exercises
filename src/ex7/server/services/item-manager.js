@@ -70,6 +70,14 @@ class ItemManager {
   async getAll() {
     return await Item.findAll();
   }
+
+  async getAllPending() {
+    return await Item.findAll({ where: {status: false}});
+  }
+
+  async getAllDone() {
+    return await Item.findAll({ where: {status: true}});
+  }
 }
 
 module.exports = ItemManager;

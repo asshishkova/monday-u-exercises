@@ -15,7 +15,7 @@ export function AddTodoForm(props) {
     setTodoText("");
     await createItem(text);
     await updateTodos();
-  },[updateTodos, todoText,setLoaded]);
+  },[updateTodos, todoText, setLoaded]);
 
   return (
     <form id="add-todo" onSubmit={onAddTodoFormSubmitted}>

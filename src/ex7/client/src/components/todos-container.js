@@ -28,7 +28,8 @@ export function TodosContainer() {
               <ThreeDots color="#21825B" height={20} width={60} />
             </div>
           }
-          <TodosList todos={todos} updateTodos={updateTodos} loaded={loaded} />
+          <TodosList todos={todos} updateTodos={updateTodos} loaded={loaded}
+                    setLoaded={setLoaded} setTodos={setTodos} />
         </article>
     </main>
   )

@@ -7,11 +7,11 @@ import { Footer } from "./footer.js";
 import "../styles/todo-list.css";
 
 export function TodosList(props) {
-  const {todos, updateTodos, loaded} = props;
+  const {todos, updateTodos, loaded, setTodos, setLoaded} = props;
   return (
     <div>
       { todos.length === 0 && loaded && <NoTodosPlaceholder/> }
-      <Filter todos={todos} updateTodos={updateTodos}/>
+      <Filter todos={todos} setTodos={setTodos} setLoaded={setLoaded}/>
       { todos.length > 0 &&
         <ul id="todos-list">
           { todos.map(todo => <TodoElement key={todo.id} todo={todo} updateTodos={updateTodos}/>) }
@@ -24,6 +24,8 @@ export function TodosList(props) {
 
 TodosList.propTypes = {
   updateTodos: PropTypes.func,
+  setTodos: PropTypes.func,
+  setLoaded: PropTypes.func,
   todos: PropTypes.array,
   loaded: PropTypes.bool
 }

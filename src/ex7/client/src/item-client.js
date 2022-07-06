@@ -10,15 +10,25 @@ async function getItems() {
   }
 }
 
-// async function getItemsWhere(status) {
-//   try {
-//     const response = await axios.get(`/todo/${status}`);
-//     return response.data;
-//   }
-//   catch (error) {
-//     console.error(error);
-//   }
-// }
+async function getItemsPending() {
+  try {
+    const response = await axios.get(`/pending`);
+    return response.data;
+  }
+  catch (error) {
+    console.error(error);
+  }
+}
+
+async function getItemsDone() {
+  try {
+    const response = await axios.get(`/done`);
+    return response.data;
+  }
+  catch (error) {
+    console.error(error);
+  }
+}
 
 async function deleteItem(item) {
   try {
@@ -79,6 +89,8 @@ async function clearAllItems() {
 
 export {
   getItems,
+  getItemsPending,
+  getItemsDone,
   deleteItem,
   markItemAsOld,
   changeItemStatus,

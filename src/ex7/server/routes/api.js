@@ -54,6 +54,18 @@ async function getAll(req, res) {
   res.status(200).json(data);
 }
 
+async function getAllPending(req, res) {
+  let data = await itemManager.getAllPending();
+  if (!data) data = [];
+  res.status(200).json(data);
+}
+
+async function getAllDone(req, res) {
+  let data = await itemManager.getAllDone();
+  if (!data) data = [];
+  res.status(200).json(data);
+}
+
 async function deleteTodo(req, res) {
   let todoId = Number.parseInt(req.params.id);
   ErrorIfNaN(todoId);
@@ -91,6 +103,8 @@ function ErrorIfNaN(todoId) {
 
 module.exports = {
   getAll,
+  getAllPending,
+  getAllDone,
   createTodo,
   getTodo,
   deleteTodo,
