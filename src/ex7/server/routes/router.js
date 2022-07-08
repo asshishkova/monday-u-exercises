@@ -15,7 +15,7 @@ const {
 const todoRouter = express.Router();
 
 todoRouter.get('/todo', getAll);
-todoRouter.get('/search/:text', getAllWhere);
+todoRouter.get('/search', getAllWhere);
 todoRouter.get('/todo/:id', getTodo);
 todoRouter.post('/todo', validateCreateTodoSchema(), createTodo);
 todoRouter.post('/restore', validateCreateTodoSchema(), restoreTodo);

@@ -15,6 +15,8 @@ const ACTIONS = {
 
   // Set todos
   SET_TODOS: "SET_TODOS",
+  ADD_TODOS: "ADD_TODOS",
+  DELETE_TODO: "DELETE_TODO",
 
   // Set error message
   SET_SERVER_ERROR_MESSAGE: "SET_SERVER_ERROR_MESSAGE",

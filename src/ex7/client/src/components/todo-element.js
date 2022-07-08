@@ -8,9 +8,10 @@ const ADDING_ANIMATION = Symbol("adding animation");
 const DELETING_ANIMATION = Symbol("deleting animation");
 
 export function TodoElement({ todo,
+                              deleteTodoAction,
                               setServerErrorMessageAction,
                               saveDeletedItemAction,
-                              updateTodos }) {
+                            }) {
 
   const [currentAnimation, setCurrentAnimation] = useState(NO_ANIMATION)
 
@@ -28,25 +29,24 @@ export function TodoElement({ todo,
     }
   },[todo, setServerErrorMessageAction])
 
-  const animationEndHandler = async () => {
-    if (currentAnimation === ADDING_ANIMATION) {
-      setCurrentAnimation(NO_ANIMATION)
-    } else { // if currentAnimation === DELETONG_ANIMATION
+  const animationEndHandler = async (todo) => {
+    if (currentAnimation === DELETING_ANIMATION) {
       try {
-        await updateTodos();
+        deleteTodoAction(todo);
+        saveDeletedItemAction(todo);
       } catch (error) {
         setServerErrorMessageAction(`Error: ${error.message}`);
       }
     }
+    setCurrentAnimation(NO_ANIMATION);
   }
 
   const onDeleteButtonClicked = async (e) => {
     setServerErrorMessageAction("");
     try {
       await deleteItem(todo);
-      saveDeletedItemAction(todo);
       setCurrentAnimation(DELETING_ANIMATION);
-      // setTodosAction runs in animationEndHandler
+      // setTodosAction and saveDeletedItemAction runs in animationEndHandler
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
@@ -56,7 +56,7 @@ export function TodoElement({ todo,
     setServerErrorMessageAction("");
     try {
       await changeItemStatus(todo);
-      await updateTodos();
+      // await updateTodos();
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
@@ -85,7 +85,7 @@ export function TodoElement({ todo,
                           <i className="fa fa-trash"></i></button>
 
   return (
-    <li className={todoClassName} onAnimationEnd={animationEndHandler} >
+    <li className={todoClassName} onAnimationEnd={() => animationEndHandler(todo)} >
       { todoItem }
       { deleteButton }
     </li>
@@ -93,6 +93,5 @@ export function TodoElement({ todo,
 }
 
 TodoElement.propTypes = {
-  updateTodos: PropTypes.func,
   todo: PropTypes.object,
 }

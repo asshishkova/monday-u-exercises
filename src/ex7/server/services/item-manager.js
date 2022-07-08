@@ -13,10 +13,13 @@ class ItemManager {
         done: null
       });
     } catch (error) {
-      return await Item.update({
+      await Item.update({
         isNew: true,
       }, {
         where: { text: text }
+      })
+      return await Item.findOne({
+        where: {text: text}
       })
     }
   }

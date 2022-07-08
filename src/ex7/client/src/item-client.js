@@ -32,7 +32,7 @@ async function getItemsDone() {
 
 async function getItemsWhere(searchText) {
   try {
-    const response = await axios.get(`/search/${searchText}`);
+    const response = await axios.get(`/search?text=${encodeURIComponent(searchText)}`);
     return response.data;
   }
   catch (error) {
@@ -87,7 +87,8 @@ async function createItem(itemText) {
   }
 }
 
-async function restoreItem(text, status, done) {
+async function restoreItem(item) {
+  const {text, status, done} = item;
   try {
     const response = await axios.post(`/restore`,
                                       { text: text, status: status, done: done });

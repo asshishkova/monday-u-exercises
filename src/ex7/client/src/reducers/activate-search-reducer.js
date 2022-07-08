@@ -4,7 +4,7 @@ const initialState = {
   searchIsActive: true
 };
 
-const activateSearchReduser = (state = initialState, action) => {
+const activateSearchReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTIONS.ACTIVATE_SEARCH:
       return { searchIsActive: true };
@@ -14,4 +14,4 @@ const activateSearchReduser = (state = initialState, action) => {
       return state;
   }
 };
-export default activateSearchReduser;
+export default activateSearchReducer;

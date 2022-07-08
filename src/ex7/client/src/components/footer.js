@@ -1,23 +1,24 @@
 import React from "react";
-import { clearAllItems, getItems, restoreItem } from "../item-client.js";
+import { clearAllItems, restoreItem } from "../item-client.js";
 import "../styles/footer.css";
 
 export function Footer({  lastDeletedItem, todos,
                           setServerErrorMessageAction,
                           saveDeletedItemAction,
                           setTodosAction,
-                          updateTodos }) {
+                          addTodosAction }) {
 
-                            const amount = todos.length;
+  const amount = todos.length;
   const amountDone = todos.filter((todo) => todo.status).length;
   const amountPending = amount - amountDone;
 
   const onClearAllButtonClicked = async () => {
     setServerErrorMessageAction("");
+    saveDeletedItemAction(null);
     if (window.confirm('Are you sure?')) {
       try {
         await clearAllItems();
-        setTodosAction(await getItems());
+        setTodosAction([]);
       } catch (error) {
         setServerErrorMessageAction(`Error: ${error.message}`)
       }
@@ -27,9 +28,9 @@ export function Footer({  lastDeletedItem, todos,
   const restoreDeletedTodo = async () => {
     setServerErrorMessageAction("");
     try {
-      await restoreItem(lastDeletedItem.text, lastDeletedItem.status, lastDeletedItem.done)
+      await restoreItem(lastDeletedItem);
       saveDeletedItemAction(null);
-      await updateTodos();
+      addTodosAction([lastDeletedItem]);
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`)
     }
@@ -44,9 +45,9 @@ export function Footer({  lastDeletedItem, todos,
                               </button>
   return (
     <footer id="footer">
-      { amount > 0 && amountInfo }
+      { amountInfo }
       { lastDeletedItem && restoreDeletedIcon }
-      { amount > 0 && clearAllButton }
+      { clearAllButton }
     </footer>
   )
 }

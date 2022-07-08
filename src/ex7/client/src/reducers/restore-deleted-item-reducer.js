@@ -9,7 +9,7 @@ const restoreDeletedItemReducer = (state = initialState, action) => {
     case ACTIONS.SAVE_DELETED:
       return { lastDeletedItem: action.item };
     case ACTIONS.RESTORE_DELETED:
-      return { lastDeletedItem: null}
+      return { lastDeletedItem: null};
     default:
       return state;
   }

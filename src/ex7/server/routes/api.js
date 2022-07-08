@@ -61,7 +61,7 @@ async function getAll(req, res) {
 }
 
 async function getAllWhere(req, res) {
-  const text = req.params.text;
+  const text = req.query.text;
   let data = await itemManager.getAllWhere(text);
   res.status(200).json(data);
 }

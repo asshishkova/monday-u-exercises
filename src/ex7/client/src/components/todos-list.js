@@ -6,20 +6,19 @@ import TodoElementConnector from "../connectors/todo-element-connector";
 import FooterConnector from "../connectors/footer-connector.js";
 import "../styles/todo-list.css";
 
-export function TodosList({loaded, todos, filter, updateTodos}) {
-
+export function TodosList({loaded, todos, filter}) {
+  const amount = todos.length;
   return (
     <div>
-      { todos.length === 0 && loaded && <NoTodosPlaceholder/> }
-      { todos.length > 0 && < FilterConnector /> }
-      { todos.length > 0 &&
+      { amount === 0 && loaded && <NoTodosPlaceholder/> }
+      { amount > 0 && < FilterConnector /> }
+      { amount > 0 &&
         <ul id="todos-list">
           { todos.filter(filter)
-                 .map(todo => <TodoElementConnector key={todo.id} todo={todo}
-                                                    updateTodos={updateTodos} />) }
+                 .map(todo => <TodoElementConnector key={todo.id} todo={todo}/>) }
         </ul>
       }
-      <FooterConnector updateTodos={updateTodos}/>
+      { amount > 0 && <FooterConnector/> }
     </div>
   )
 }

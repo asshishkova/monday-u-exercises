@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import deletedItem from "./restore-deleted-item-reducer";
-import search from "./activate-search-reduser";
+import search from "./activate-search-reducer";
 import filter from "./filter-todos-reducer";
 import todos from "./todos-reducer";
 import serverError from "./server-error-message-reducer";

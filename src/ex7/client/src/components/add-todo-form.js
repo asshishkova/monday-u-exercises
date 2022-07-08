@@ -1,13 +1,12 @@
 import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import { createItem, getItemsWhere } from "../item-client.js";
+import { createItem, getItemsWhere, getItems } from "../item-client.js";
 import "../styles/add-todo-form.css";
 
 export function AddTodoForm({ searchStatus,
                               setTodosAction,
+                              addTodosAction,
                               setServerErrorMessageAction,
-                              setLoadedAction,
-                              updateTodos }) {
+                              setLoadedAction }) {
 
   const [todoText, setTodoText] = useState("");
 
@@ -18,12 +17,14 @@ export function AddTodoForm({ searchStatus,
     const text = todoText;
     setTodoText("");
     try {
-      await createItem(text);
-      await updateTodos();
+      const newTodos = await createItem(text);
+      addTodosAction(newTodos);
+      setTodosAction(await getItems());
+      setLoadedAction(true);
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
-  },[updateTodos, todoText, setLoadedAction, setServerErrorMessageAction]);
+  },[addTodosAction, todoText, setLoadedAction, setServerErrorMessageAction, setTodosAction]);
 
   const onTextChange = useCallback (async (text) => {
     setTodoText(text);
@@ -31,13 +32,13 @@ export function AddTodoForm({ searchStatus,
       setServerErrorMessageAction("");
       setLoadedAction(false);
       try {
-        text.trim().length > 0 ? setTodosAction(await getItemsWhere(text)) : await updateTodos();
+        text.trim().length > 0 ? setTodosAction(await getItemsWhere(text)) : setTodosAction(await getItems());
       } catch (error) {
         setServerErrorMessageAction(`Error: ${error.message}`);
       }
       setLoadedAction(true);
     }
-  },[setLoadedAction, setTodosAction, updateTodos, setServerErrorMessageAction, searchStatus])
+  },[setLoadedAction, setTodosAction, setServerErrorMessageAction, searchStatus])
 
   return (
     <form id="add-todo" onSubmit={onAddTodoFormSubmitted}>
@@ -47,8 +48,4 @@ export function AddTodoForm({ searchStatus,
       <button type="submit" id="add-todo-button" className="btn">+</button>
     </form>
   )
-}
-
-AddTodoForm.propTypes = {
-  updateTodos: PropTypes.func,
 }
