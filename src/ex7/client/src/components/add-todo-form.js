@@ -3,14 +3,17 @@ import PropTypes from "prop-types";
 import { createItem, getItemsWhere } from "../item-client.js";
 import "../styles/add-todo-form.css";
 
-export function AddTodoForm(props) {
+export function AddTodoForm({ searchStatus,
+                              setTodosAction,
+                              setServerErrorMessageAction,
+                              setLoadedAction,
+                              updateTodos }) {
 
-  const {updateTodos, setLoaded, setTodos, setSwerverErrorMessage} = props;
   const [todoText, setTodoText] = useState("");
 
   const onAddTodoFormSubmitted = useCallback(async (event) => {
-    setSwerverErrorMessage("");
-    setLoaded(false);
+    setServerErrorMessageAction("");
+    setLoadedAction(false);
     event.preventDefault();
     const text = todoText;
     setTodoText("");
@@ -18,21 +21,23 @@ export function AddTodoForm(props) {
       await createItem(text);
       await updateTodos();
     } catch (error) {
-      setSwerverErrorMessage(`Error: ${error.message}`);
+      setServerErrorMessageAction(`Error: ${error.message}`);
     }
-  },[updateTodos, todoText, setLoaded, setSwerverErrorMessage]);
+  },[updateTodos, todoText, setLoadedAction, setServerErrorMessageAction]);
 
   const onTextChange = useCallback (async (text) => {
-    setSwerverErrorMessage("");
-    setLoaded(false);
     setTodoText(text);
-    try {
-      text.trim().length > 0 ? setTodos(await getItemsWhere(text)) : await updateTodos();
-    } catch (error) {
-      setSwerverErrorMessage(`Error: ${error.message}`);
+    if (searchStatus) {
+      setServerErrorMessageAction("");
+      setLoadedAction(false);
+      try {
+        text.trim().length > 0 ? setTodosAction(await getItemsWhere(text)) : await updateTodos();
+      } catch (error) {
+        setServerErrorMessageAction(`Error: ${error.message}`);
+      }
+      setLoadedAction(true);
     }
-    setLoaded(true);
-  },[setLoaded, setTodos, updateTodos, setSwerverErrorMessage])
+  },[setLoadedAction, setTodosAction, updateTodos, setServerErrorMessageAction, searchStatus])
 
   return (
     <form id="add-todo" onSubmit={onAddTodoFormSubmitted}>
@@ -46,7 +51,4 @@ export function AddTodoForm(props) {
 
 AddTodoForm.propTypes = {
   updateTodos: PropTypes.func,
-  setLoaded: PropTypes.func,
-  setTodos: PropTypes.func,
-  setSwerverErrorMessage: PropTypes.func
 }

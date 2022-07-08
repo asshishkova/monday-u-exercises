@@ -1,11 +1,11 @@
-import { TodosContainer } from "./components/todos-container";
+import TodosContainerConnector from "./connectors/todos-container-connector";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import './App.css';
 
 function App() {
   return (
     <div>
-      <TodosContainer/>
+      <TodosContainerConnector/>
     </div>
   );
 }

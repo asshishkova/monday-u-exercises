@@ -87,6 +87,17 @@ async function createItem(itemText) {
   }
 }
 
+async function restoreItem(text, status, done) {
+  try {
+    const response = await axios.post(`/restore`,
+                                      { text: text, status: status, done: done });
+    return response.data;
+  }
+  catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 async function clearAllItems() {
   try {
     const response = await axios.delete(`/clearall`);
@@ -107,4 +118,5 @@ export {
   changeItemStatus,
   createItem,
   clearAllItems,
+  restoreItem
 }

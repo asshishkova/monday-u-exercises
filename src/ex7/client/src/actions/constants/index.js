@@ -1,4 +1,26 @@
 const ACTIONS = {
+
+  // Restore deleted item types
+  SAVE_DELETED: "SAVE_DELETED",
+  RESTORE_DELETED: "RESTORE_DELETED",
+
+  // Activate search
+  ACTIVATE_SEARCH: "ACTIVATE_SEARCH",
+  DEACTIVATE_SEARCH: "DEACTIVATE_SEARCH",
+
+  // Show todos
+  SHOW_ALL: "SHOW_ALL",
+  SHOW_PENDING: "SHOW_PENDING",
+  SHOW_DONE: "SHOW_DONE",
+
+  // Set todos
+  SET_TODOS: "SET_TODOS",
+
+  // Set error message
+  SET_SERVER_ERROR_MESSAGE: "SET_SERVER_ERROR_MESSAGE",
+
+  // Loaded
+  SET_IS_LOADED: "SET_IS_LOADED"
 };
 
 export default ACTIONS;

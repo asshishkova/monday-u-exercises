@@ -1,33 +1,37 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { clearAllItems } from "../item-client.js";
+import { clearAllItems, getItems, restoreItem } from "../item-client.js";
 import "../styles/footer.css";
 
+export function Footer({  lastDeletedItem, todos,
+                          setServerErrorMessageAction,
+                          saveDeletedItemAction,
+                          setTodosAction,
+                          updateTodos }) {
 
-export function Footer(props) {
-  const {updateTodos, todos, setSwerverErrorMessage} = props;
-  const amount = todos.length;
+                            const amount = todos.length;
   const amountDone = todos.filter((todo) => todo.status).length;
   const amountPending = amount - amountDone;
 
   const onClearAllButtonClicked = async () => {
-    setSwerverErrorMessage("");
+    setServerErrorMessageAction("");
     if (window.confirm('Are you sure?')) {
       try {
         await clearAllItems();
-        await updateTodos();
+        setTodosAction(await getItems());
       } catch (error) {
-        setSwerverErrorMessage(`Error: ${error.message}`)
+        setServerErrorMessageAction(`Error: ${error.message}`)
       }
     }
   }
 
   const restoreDeletedTodo = async () => {
-    setSwerverErrorMessage("");
+    setServerErrorMessageAction("");
     try {
-      console.log('Restore the last deleted todo');
+      restoreItem(lastDeletedItem.text, lastDeletedItem.status, lastDeletedItem.done)
+      saveDeletedItemAction(null);
+      await updateTodos();
     } catch (error) {
-      setSwerverErrorMessage(`Error: ${error.message}`)
+      setServerErrorMessageAction(`Error: ${error.message}`)
     }
   }
 
@@ -38,18 +42,11 @@ export function Footer(props) {
   const restoreDeletedIcon =  <button id="restore-deleted" className="btn"
                                 onClick={restoreDeletedTodo}><i className="fa fa-undo" aria-hidden="true"></i>
                               </button>
-
   return (
     <footer id="footer">
       { amount > 0 && amountInfo }
-      { amount === 2 && restoreDeletedIcon }
+      { lastDeletedItem && restoreDeletedIcon }
       { amount > 0 && clearAllButton }
     </footer>
   )
-}
-
-Footer.propTypes = {
-  updateTodos: PropTypes.func,
-  todos: PropTypes.array,
-  setSwerverErrorMessage: PropTypes.func
 }

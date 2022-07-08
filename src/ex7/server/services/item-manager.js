@@ -21,6 +21,23 @@ class ItemManager {
     }
   }
 
+  async restoreItem(text, status, done) {
+    try {
+      return await Item.create({
+        text: text,
+        isNew: true,
+        status: status,
+        done: done
+      });
+    } catch (error) {
+      return await Item.update({
+        isNew: true,
+      }, {
+        where: { text: text }
+      })
+    }
+  }
+
   async getItem(itemId) {
     return await Item.findAll({
       where: {
@@ -72,14 +89,6 @@ class ItemManager {
 
   async getAll() {
     return await Item.findAll();
-  }
-
-  async getAllPending() {
-    return await Item.findAll({ where: {status: false}});
-  }
-
-  async getAllDone() {
-    return await Item.findAll({ where: {status: true}});
   }
 
   async getAllWhere(text) {

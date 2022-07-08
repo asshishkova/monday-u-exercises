@@ -1,38 +1,36 @@
 import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import { getItems, getItemsPending, getItemsDone } from "../item-client.js";
 import "../styles/filter.css";
 
 const ALL = "ALL";
 const PENDING = "PENDING";
 const DONE = "DONE";
 
-export function Filter(props) {
-  const {todos, setLoaded, setTodos, setSwerverErrorMessage} = props;
-  const [filter, setFilter] = useState(ALL);
+export function Filter({activateSearchAction, deactivateSearchAction,
+                        showAllAction, showDoneAction, showPendingAction,
+                        setServerErrorMessageAction }) {
+
+                          const [filter, setFilter] = useState(ALL);
   const [searchOn, setSearchOn] = useState(true)
 
   const filterTodos = useCallback( async (status) => {
-    setLoaded(false);
     setFilter(status);
-    setSwerverErrorMessage("");
     try {
       if (status === ALL) {
-        setTodos(await getItems());
+        showAllAction();
       } else if (status === PENDING) {
-        setTodos(await getItemsPending());
+        showPendingAction();
       } else { // status === DONE
-        setTodos(await getItemsDone());
+        showDoneAction();
       }
     } catch (error) {
-      setSwerverErrorMessage(`Error: ${error.message}`);
+      setServerErrorMessageAction(`Error: ${error.message}`);
     }
-    setLoaded(true);
-  },[setLoaded, setTodos, setSwerverErrorMessage]);
+  },[showAllAction, showDoneAction, showPendingAction, setServerErrorMessageAction]);
 
   const onCheckboxClicked = useCallback ( async () => {
     setSearchOn(!searchOn);
-  },[searchOn]);
+    !searchOn ? activateSearchAction() : deactivateSearchAction();
+  },[searchOn, activateSearchAction, deactivateSearchAction]);
 
   const createFilterInput = (value) => {
     return (
@@ -57,23 +55,9 @@ export function Filter(props) {
                           </label>;
 
   return (
-    <div>
-      {
-        todos.length > 0 &&
-        <div className="filters">
-          { filterRadioButtons }
-          { searchCheckbox }
-        </div>
-
-      }
+    <div className="filters">
+      { filterRadioButtons }
+      { searchCheckbox }
     </div>
   )
-}
-
-Filter.propTypes = {
-  updateTodos: PropTypes.func,
-  setTodos: PropTypes.func,
-  setLoaded: PropTypes.func,
-  todos: PropTypes.array,
-  setSwerverErrorMessage: PropTypes.func
 }

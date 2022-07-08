@@ -20,6 +20,12 @@ async function createTodo(req, res) {
   res.status(200).json(newTodos);
 }
 
+async function restoreTodo(req, res) {
+  const { text, status, done } = req.body;
+  const restoredTodo = await itemManager.restoreItem(text, status, done);
+  res.status(200).json(restoredTodo);
+}
+
 async function addPokemon(text) {
   const pokemons = await pokemonClient.fetchPokemon(text);
   const newItems = [];
@@ -54,37 +60,10 @@ async function getAll(req, res) {
   res.status(200).json(data);
 }
 
-async function getAllPending(req, res) {
-  let data = await itemManager.getAllPending();
-  if (data.length === 0) {
-    data = notFoundPlaceholder("There are no pending todos")
-  }  res.status(200).json(data);
-}
-
-async function getAllDone(req, res) {
-  let data = await itemManager.getAllDone();
-  if (data.length === 0) {
-    data = notFoundPlaceholder("There are no done todos");
-  }
-  res.status(200).json(data);
-}
-
 async function getAllWhere(req, res) {
   const text = req.params.text;
   let data = await itemManager.getAllWhere(text);
-  if (data.length === 0) {
-    data = notFoundPlaceholder(`Todo "${text}" is not in the list yet`);
-  }
   res.status(200).json(data);
-}
-
-function notFoundPlaceholder(text) {
-  return [{
-    id: -1,
-    text: text,
-    done: null,
-    status: false
-  }];
 }
 
 async function deleteTodo(req, res) {
@@ -124,13 +103,12 @@ function ErrorIfNaN(todoId) {
 
 module.exports = {
   getAll,
-  getAllPending,
-  getAllDone,
   getAllWhere,
   createTodo,
   getTodo,
   deleteTodo,
   markTodoAsOld,
   changeStatus,
-  clearAll
+  clearAll,
+  restoreTodo
 };

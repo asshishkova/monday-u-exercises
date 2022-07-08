@@ -92,9 +92,3 @@
   opacity: 1;
   transition-delay: 1.5s;
 }
-
-.notfound-placeholder {
-  margin-left: 30px;
-  padding: 5px;
-  font-family: 'Indie Flower', cursive;;
-}
