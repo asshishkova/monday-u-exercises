@@ -27,7 +27,7 @@ export function Footer({  lastDeletedItem, todos,
   const restoreDeletedTodo = async () => {
     setServerErrorMessageAction("");
     try {
-      restoreItem(lastDeletedItem.text, lastDeletedItem.status, lastDeletedItem.done)
+      await restoreItem(lastDeletedItem.text, lastDeletedItem.status, lastDeletedItem.done)
       saveDeletedItemAction(null);
       await updateTodos();
     } catch (error) {
