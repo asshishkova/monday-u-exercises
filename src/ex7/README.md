@@ -39,12 +39,12 @@ This will make your project:
 * **"Common"** - Redux is wildly used in the community and has tons of info about different use-cases you may encounter while developing
 
 ### The requirements:
-- [ ] Use redux actions for communicating with the server (fetching items, adding a new item, etc.)
-- [ ] Move the items from local component's state into the store
-- [ ] Handle failure of requests from the server
-- [ ] Handle loading
-- [ ] Add search
-- [ ] Add the ability to hide items that were marked as done or to show only them
+- [x] Use redux actions for communicating with the server (fetching items, adding a new item, etc.)
+- [x] Move the items from local component's state into the store
+- [x] Handle failure of requests from the server
+- [x] Handle loading
+- [x] Add search
+- [x] Add the ability to hide items that were marked as done or to show only them
 
 #### Your todo app is now:
 - Very easy to maintain and scale
@@ -52,7 +52,7 @@ This will make your project:
 - More performant out of the box
 
 ### Bonus
-- [ ] \* Debounce search
-- [ ] \* Implement an option to restore the last item that was deleted
+- [x] \* Debounce search
+- [x] \* Implement an option to restore the last item that was deleted
 - [ ] ** Make your application accessible, i.e. keyboard navigation (ctrl+Enter create new, tab navigation)
 - [ ] Add redux logger middleware to your application
