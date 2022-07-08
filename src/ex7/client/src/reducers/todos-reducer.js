@@ -9,20 +9,26 @@ const todosReducer = (state = initialState, action) => {
     case ACTIONS.SET_TODOS:
       return { items: action.items };
     case ACTIONS.ADD_TODOS:
-      const newItems = state.items;
+      const updatedItems = state.items;
       action.items.forEach(item => {
-        const updatingItemIndex = newItems.findIndex( oldItem => oldItem.text === item.text )
+        const updatingItemIndex = updatedItems.findIndex( oldItem => oldItem.text === item.text )
         if (updatingItemIndex > -1) {
-          newItems[updatingItemIndex] = {...newItems[updatingItemIndex], isNew: true}
+          updatedItems[updatingItemIndex] = {...updatedItems[updatingItemIndex], isNew: true}
         } else {
-          newItems.push(item);
+          updatedItems.push(item);
         }
       });
-      return { items: newItems.slice() };
+      return { items: updatedItems.slice() };
     case ACTIONS.DELETE_TODO:
       const deletingItem = action.item;
-      const updatedItems = state.items.filter(item => item.id !== deletingItem.id);
-      return { items: updatedItems };
+      const itemsWithoutDeleted = state.items.filter(item => item.id !== deletingItem.id);
+      return { items: itemsWithoutDeleted };
+    case ACTIONS.MARK_OLD:
+      const allItems = state.items;
+      const oldItem = action.item;
+      const oldItemIndex = allItems.findIndex( item => item.id === oldItem.id )
+      allItems[oldItemIndex] = {...allItems[oldItemIndex], isNew: false}
+      return { items: allItems };
     default:
       return state;
   }

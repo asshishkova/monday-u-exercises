@@ -2,13 +2,13 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getLoaded } from "../selectors/loaded-selector";
 import { getTodos } from "../selectors/todos-selector";
-import { getFilter } from "../selectors/filter-todos-selector";
+import { getFilterFunction } from "../selectors/filter-todos-selector";
 import { TodosList } from "../components/todos-list";
 
 const mapStateToProps = (state, ownProps) => {
   const loaded = getLoaded(state);
   const todos = getTodos(state);
-  const filter = getFilter(state);
+  const filter = getFilterFunction(state);
   return { loaded, todos, filter };
 };
 

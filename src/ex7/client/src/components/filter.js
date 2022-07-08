@@ -9,7 +9,7 @@ export function Filter({activateSearchAction, deactivateSearchAction,
                         showAllAction, showDoneAction, showPendingAction,
                         setServerErrorMessageAction }) {
 
-                          const [filter, setFilter] = useState(ALL);
+  const [filter, setFilter] = useState(ALL);
   const [searchOn, setSearchOn] = useState(true)
 
   const filterTodos = useCallback( async (status) => {

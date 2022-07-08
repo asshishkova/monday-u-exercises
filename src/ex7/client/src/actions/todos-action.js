@@ -15,6 +15,11 @@ const deleteTodo = item => ({
   item: item
 });
 
+const markOld = item => ({
+  type: ACTIONS.MARK_OLD,
+  item: item
+});
+
 export const setTodosAction = (items) => {
   return dispatch => {
       dispatch(setTodos(items));
@@ -30,5 +35,11 @@ export const addTodosAction = (items) => {
 export const deleteTodoAction = (item) => {
   return dispatch => {
       dispatch(deleteTodo(item));
+  }
+};
+
+export const markOldAction = (item) => {
+  return dispatch => {
+      dispatch(markOld(item));
   }
 };

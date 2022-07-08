@@ -10,12 +10,28 @@ export function AddTodoForm({ searchStatus,
 
   const [todoText, setTodoText] = useState("");
 
+  const onTextChange = useCallback (async (text) => {
+    setTodoText(text);
+    if (searchStatus) {
+      setServerErrorMessageAction("");
+      // setLoadedAction(false); // is very annoying in this case
+      try {
+        setTodosAction(await getItemsWhere(text));
+      } catch (error) {
+        setServerErrorMessageAction(`Error: ${error.message}`);
+      }
+      // setLoadedAction(true);
+    }
+  },[setTodosAction, setServerErrorMessageAction, searchStatus])
+
+
   const onAddTodoFormSubmitted = useCallback(async (event) => {
+    event.preventDefault();
+    setTodoText("");
     setServerErrorMessageAction("");
     setLoadedAction(false);
-    event.preventDefault();
+    // showAllAction();
     const text = todoText;
-    setTodoText("");
     try {
       const newTodos = await createItem(text);
       addTodosAction(newTodos);
@@ -25,20 +41,6 @@ export function AddTodoForm({ searchStatus,
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
   },[addTodosAction, todoText, setLoadedAction, setServerErrorMessageAction, setTodosAction]);
-
-  const onTextChange = useCallback (async (text) => {
-    setTodoText(text);
-    if (searchStatus) {
-      setServerErrorMessageAction("");
-      setLoadedAction(false);
-      try {
-        text.trim().length > 0 ? setTodosAction(await getItemsWhere(text)) : setTodosAction(await getItems());
-      } catch (error) {
-        setServerErrorMessageAction(`Error: ${error.message}`);
-      }
-      setLoadedAction(true);
-    }
-  },[setLoadedAction, setTodosAction, setServerErrorMessageAction, searchStatus])
 
   return (
     <form id="add-todo" onSubmit={onAddTodoFormSubmitted}>

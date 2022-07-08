@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { getItems } from "../item-client.js";
 import { deleteItem, markItemAsOld, changeItemStatus } from "../item-client.js";
 import "../styles/todo-element.css";
 
@@ -11,6 +12,8 @@ export function TodoElement({ todo,
                               deleteTodoAction,
                               setServerErrorMessageAction,
                               saveDeletedItemAction,
+                              setTodosAction,
+                              markOldAction
                             }) {
 
   const [currentAnimation, setCurrentAnimation] = useState(NO_ANIMATION)
@@ -19,26 +22,26 @@ export function TodoElement({ todo,
   const checkedDefaultValue = todo.status? "checked" : "";
 
   useEffect(() => {
+    const markItemAsOldEffect = async () => {
+      try {
+        await markItemAsOld(todo);
+        markOldAction(todo);
+      } catch (error) {
+        setServerErrorMessageAction(`Error: ${error.message}`);
+      }
+    }
     if (todo.isNew) {
       setCurrentAnimation(ADDING_ANIMATION);
-      try {
-        markItemAsOld(todo);
-      } catch (error) {
-        setServerErrorMessageAction(`Error: ${error.message}`);
-      }
+      markItemAsOldEffect();
     }
-  },[todo, setServerErrorMessageAction])
+  },[todo, setServerErrorMessageAction, markOldAction])
 
   const animationEndHandler = async (todo) => {
-    if (currentAnimation === DELETING_ANIMATION) {
-      try {
-        deleteTodoAction(todo);
-        saveDeletedItemAction(todo);
-      } catch (error) {
-        setServerErrorMessageAction(`Error: ${error.message}`);
-      }
-    }
     setCurrentAnimation(NO_ANIMATION);
+    if (currentAnimation === DELETING_ANIMATION) {
+      deleteTodoAction(todo);
+      saveDeletedItemAction(todo);
+    }
   }
 
   const onDeleteButtonClicked = async (e) => {
@@ -56,7 +59,7 @@ export function TodoElement({ todo,
     setServerErrorMessageAction("");
     try {
       await changeItemStatus(todo);
-      // await updateTodos();
+      setTodosAction(await getItems());
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }

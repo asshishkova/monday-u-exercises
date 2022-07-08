@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getSearchStatus } from "../selectors/activate-search-selector";
+import { getFilterFunction, getFilterName } from "../selectors/filter-todos-selector";
 import { setServerErrorMessageAction } from "../actions/server-error-message";
 import { activateSearchAction, deactivateSearchAction  } from "../actions/activate-search-actions";
 import { showAllAction, showDoneAction, showPendingAction} from "../actions/filter-todos-action";
@@ -9,7 +10,9 @@ import { Filter } from "../components/filter";
 
 const mapStateToProps = (state, ownProps) => {
   const searchStatus = getSearchStatus(state);
-  return { searchStatus };
+  const filterFunction = getFilterFunction(state);
+  const filterName = getFilterName(state);
+  return { searchStatus, filterFunction, filterName};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

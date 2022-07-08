@@ -28,7 +28,7 @@ class ItemManager {
     try {
       return await Item.create({
         text: text,
-        isNew: true,
+        isNew: false,
         status: status,
         done: done
       });

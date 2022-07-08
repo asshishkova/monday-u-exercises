@@ -5,19 +5,20 @@ const pendingFilter = (todo) => todo.status === false;
 const doneFilter = (todo) => todo.status === true;
 
 const initialState = {
-  filter: noFilter
+  filterFunction: noFilter,
 };
 
 const setFilterReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTIONS.SHOW_ALL:
-      return { filter: noFilter};
+      return { filterFunction: noFilter };
     case ACTIONS.SHOW_PENDING:
-      return { filter: pendingFilter };
+      return { filterFunction: pendingFilter };
     case ACTIONS.SHOW_DONE:
-      return { filter: doneFilter};
+      return { filterFunction: doneFilter };
     default:
       return state;
   }
 };
+
 export default setFilterReducer;
