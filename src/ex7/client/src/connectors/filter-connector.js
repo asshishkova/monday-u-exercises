@@ -3,7 +3,7 @@ import { bindActionCreators } from "redux";
 import { getSearchStatus } from "../selectors/activate-search-selector";
 import { getFilterFunction, getFilterName } from "../selectors/filter-todos-selector";
 import { setServerErrorMessageAction } from "../actions/server-error-message";
-import { activateSearchAction, deactivateSearchAction  } from "../actions/activate-search-actions";
+import { updateSearchStatusAction  } from "../actions/activate-search-actions";
 import { showAllAction, showDoneAction, showPendingAction} from "../actions/filter-todos-action";
 import { Filter } from "../components/filter";
 
@@ -16,7 +16,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return bindActionCreators({ activateSearchAction, deactivateSearchAction,
+  return bindActionCreators({ updateSearchStatusAction,
                               showAllAction, showDoneAction, showPendingAction,
                               setServerErrorMessageAction }, dispatch);
 };

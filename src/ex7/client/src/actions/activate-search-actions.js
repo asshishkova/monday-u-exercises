@@ -1,21 +1,13 @@
 import ACTIONS from "./constants";
 
-const activateSearch = () => ({
-  type: ACTIONS.ACTIVATE_SEARCH,
+const updateSearchStatus = (searchIsActive) => ({
+  type: ACTIONS.UPDATE_SEARCH_STATUS,
+  searchIsActive: searchIsActive
 });
 
-const deactivateSearch = () => ({
-  type: ACTIONS.DEACTIVATE_SEARCH,
-});
 
-export const activateSearchAction = () => {
+export const updateSearchStatusAction = (searchIsActive) => {
   return dispatch => {
-    dispatch(activateSearch());
-  }
-};
-
-export const deactivateSearchAction = () => {
-  return dispatch => {
-    dispatch(deactivateSearch());
+    dispatch(updateSearchStatus(searchIsActive));
   }
 };

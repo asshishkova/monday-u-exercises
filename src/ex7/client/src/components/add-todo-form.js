@@ -14,13 +14,13 @@ export function AddTodoForm({ searchStatus,
     setTodoText(text);
     if (searchStatus) {
       setServerErrorMessageAction("");
-      // setLoadedAction(false); // is very annoying in this case
+      setLoadedAction(false);
       try {
         setTodosAction(await getItemsWhere(text));
       } catch (error) {
         setServerErrorMessageAction(`Error: ${error.message}`);
       }
-      // setLoadedAction(true);
+      setLoadedAction(true);
     }
   },[setTodosAction, setServerErrorMessageAction, searchStatus])
 

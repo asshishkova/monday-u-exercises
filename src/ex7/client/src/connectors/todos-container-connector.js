@@ -5,7 +5,6 @@ import { getServerErrorMessage } from "../selectors/server-error-message-selecto
 import { getTodos } from "../selectors/todos-selector";
 import { setLoadedAction } from "../actions/loaded-action";
 import { setTodosAction } from "../actions/todos-action";
-import { activateSearchAction, deactivateSearchAction  } from "../actions/activate-search-actions";
 import { TodosContainer } from "../components/todos-container";
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,8 +15,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return bindActionCreators({ activateSearchAction, deactivateSearchAction,
-                              setTodosAction,
+  return bindActionCreators({ setTodosAction,
                               setLoadedAction}, dispatch);
 };
 

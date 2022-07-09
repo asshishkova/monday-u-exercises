@@ -5,12 +5,11 @@ const ALL = "ALL";
 const PENDING = "PENDING";
 const DONE = "DONE";
 
-export function Filter({activateSearchAction, deactivateSearchAction,
-                        showAllAction, showDoneAction, showPendingAction,
-                        setServerErrorMessageAction }) {
+export function Filter({ searchStatus, updateSearchStatusAction,
+                          showAllAction, showDoneAction, showPendingAction,
+                          setServerErrorMessageAction }) {
 
   const [filter, setFilter] = useState(ALL);
-  const [searchOn, setSearchOn] = useState(true)
 
   const filterTodos = useCallback( async (status) => {
     setFilter(status);
@@ -28,9 +27,8 @@ export function Filter({activateSearchAction, deactivateSearchAction,
   },[showAllAction, showDoneAction, showPendingAction, setServerErrorMessageAction]);
 
   const onCheckboxClicked = useCallback ( async () => {
-    setSearchOn(!searchOn);
-    !searchOn ? activateSearchAction() : deactivateSearchAction();
-  },[searchOn, activateSearchAction, deactivateSearchAction]);
+    updateSearchStatusAction(!searchStatus);
+  },[updateSearchStatusAction, searchStatus]);
 
   const createFilterInput = (value) => {
     return (
@@ -50,7 +48,8 @@ export function Filter({activateSearchAction, deactivateSearchAction,
                               </div>;
   const searchCheckbox =  <label className="search-filter">
                             Search
-                            <input type="checkbox" className="search-checkbox" defaultChecked={searchOn} onClick={onCheckboxClicked} />
+                            <input type="checkbox" className="search-checkbox"
+                                  defaultChecked={searchStatus} onClick={onCheckboxClicked} />
                             <span className="search-checkbox-mark"></span>
                           </label>;
 

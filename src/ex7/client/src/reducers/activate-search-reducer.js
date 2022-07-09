@@ -1,15 +1,13 @@
 import ACTIONS from "../actions/constants";
 
 const initialState = {
-  searchIsActive: true
+  searchIsActive: false
 };
 
 const activateSearchReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTIONS.ACTIVATE_SEARCH:
-      return { searchIsActive: true };
-    case ACTIONS.DEACTIVATE_SEARCH:
-      return { searchIsActive: false };
+    case ACTIONS.UPDATE_SEARCH_STATUS:
+      return { searchIsActive: action.searchIsActive };
     default:
       return state;
   }
