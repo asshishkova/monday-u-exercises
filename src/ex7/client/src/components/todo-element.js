@@ -10,6 +10,7 @@ const DELETING_ANIMATION = Symbol("deleting animation");
 
 export function TodoElement({ todo,
                               deleteTodoAction,
+                              addTodosAction,
                               setServerErrorMessageAction,
                               saveDeletedItemAction,
                               setTodosAction,
@@ -40,18 +41,20 @@ export function TodoElement({ todo,
     if (currentAnimation === DELETING_ANIMATION) {
       deleteTodoAction(todo);
       saveDeletedItemAction(todo);
+      try {
+        await deleteItem(todo);
+        // setTodosAction and saveDeletedItemAction runs in animationEndHandler
+      } catch (error) {
+        addTodosAction([todo]);
+        saveDeletedItemAction(null);
+        setServerErrorMessageAction(`Error: ${error.message}`);
+      }
     }
   }
 
   const onDeleteButtonClicked = async (e) => {
     setServerErrorMessageAction("");
-    try {
-      await deleteItem(todo);
-      setCurrentAnimation(DELETING_ANIMATION);
-      // setTodosAction and saveDeletedItemAction runs in animationEndHandler
-    } catch (error) {
-      setServerErrorMessageAction(`Error: ${error.message}`);
-    }
+    setCurrentAnimation(DELETING_ANIMATION);
   }
 
   const onCheckboxClicked = async (e) => {

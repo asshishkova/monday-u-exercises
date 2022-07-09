@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { setTodosAction, deleteTodoAction, markOldAction } from "../actions/todos-action";
+import { setTodosAction, deleteTodoAction, addTodosAction, markOldAction } from "../actions/todos-action";
 import { setServerErrorMessageAction } from "../actions/server-error-message";
 import { saveDeletedItemAction  } from "../actions/restore-deleted-item-actions";
 import { TodoElement } from "../components/todo-element";
@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators({ setTodosAction,
                               setServerErrorMessageAction,
                               saveDeletedItemAction,
-                              deleteTodoAction,
+                              deleteTodoAction, addTodosAction,
                               markOldAction
                             }, dispatch);
 };

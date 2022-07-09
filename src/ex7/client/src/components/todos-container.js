@@ -5,14 +5,21 @@ import AddTodoFormConnector from "../connectors/add-todo-form-connector";
 import TodosListConnector from "../connectors/todos-list-connector";
 import "../styles/todos-container.css";
 
-export function TodosContainer({loaded, serverErrorMessage,
+export function TodosContainer({loaded,
+                                serverErrorMessage, setServerErrorMessageAction,
                                 setTodosAction,
                                 setLoadedAction }) {
 
   const updateTodos = useCallback(async () => {
-    setTodosAction(await getItems());
-    setLoadedAction(true);
-  },[setTodosAction, setLoadedAction])
+    setServerErrorMessageAction("");
+    try {
+      setTodosAction(await getItems());
+      setLoadedAction(true);
+    } catch (error) {
+      setServerErrorMessageAction(`Error: ${error.message}`);
+    }
+
+  },[setTodosAction, setLoadedAction, setServerErrorMessageAction])
 
   useEffect(() => {
     updateTodos();
