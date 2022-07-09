@@ -1,12 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { NoTodosPlaceholder } from "./no-todos-placeholder.js";
 import FilterConnector from "../connectors/filter-connector";
 import TodoElementConnector from "../connectors/todo-element-connector";
 import FooterConnector from "../connectors/footer-connector.js";
 import "../styles/todo-list.css";
 
-export function TodosList({loaded, todos, filterFunction}) {
+export function TodosList({ loaded, todos, filterFunction }) {
   const amount = todos.length;
   return (
     <div>
@@ -21,8 +20,4 @@ export function TodosList({loaded, todos, filterFunction}) {
       { amount > 0 && <FooterConnector/> }
     </div>
   )
-}
-
-TodosList.propTypes = {
-  updateTodos: PropTypes.func,
 }

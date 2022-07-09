@@ -13,8 +13,7 @@ export function TodoElement({ todo,
                               setServerErrorMessageAction,
                               saveDeletedItemAction,
                               setTodosAction,
-                              markOldAction
-                            }) {
+                              markOldAction }) {
 
   const [currentAnimation, setCurrentAnimation] = useState(NO_ANIMATION)
 

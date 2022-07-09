@@ -5,10 +5,9 @@ import AddTodoFormConnector from "../connectors/add-todo-form-connector";
 import TodosListConnector from "../connectors/todos-list-connector";
 import "../styles/todos-container.css";
 
-export function TodosContainer({loaded,
+export function TodosContainer({loaded, serverErrorMessage,
                                 setTodosAction,
-                                setLoadedAction,
-                                serverErrorMessage}) {
+                                setLoadedAction }) {
 
   const updateTodos = useCallback(async () => {
     setTodosAction(await getItems());

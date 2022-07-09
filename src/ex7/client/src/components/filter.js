@@ -12,8 +12,7 @@ const filters = {
 }
 
 export function Filter({  searchStatus, updateSearchStatusAction,
-                          filterName, updateFilterAction,
-                        }) {
+                          filterName, updateFilterAction }) {
 
   const filterTodos = useCallback( async (filterName) => {
     updateFilterAction(filterName, filters[filterName]);

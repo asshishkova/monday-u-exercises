@@ -13,8 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const updateTodos = ownProps.updateTodos;
-  return bindActionCreators({ updateTodos }, dispatch);
+  return bindActionCreators({ }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosList);

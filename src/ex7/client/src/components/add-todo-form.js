@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { createItem, getItemsWhere, getItems } from "../item-client.js";
+import { createItem, getItemsWhere } from "../item-client.js";
 import "../styles/add-todo-form.css";
 
 export function AddTodoForm({ searchStatus,
@@ -30,17 +30,15 @@ export function AddTodoForm({ searchStatus,
     setTodoText("");
     setServerErrorMessageAction("");
     setLoadedAction(false);
-    // showAllAction();
     const text = todoText;
     try {
       const newTodos = await createItem(text);
       addTodosAction(newTodos);
-      setTodosAction(await getItems());
       setLoadedAction(true);
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
-  },[addTodosAction, todoText, setLoadedAction, setServerErrorMessageAction, setTodosAction]);
+  },[addTodosAction, todoText, setLoadedAction, setServerErrorMessageAction]);
 
   return (
     <form id="add-todo" onSubmit={onAddTodoFormSubmitted}>
