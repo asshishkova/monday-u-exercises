@@ -7,10 +7,8 @@ const ACTIONS = {
   // Activate and deactivate search
   UPDATE_SEARCH_STATUS: "UPDATE_SEARCH_STATUS",
 
-  // Show todos
-  SHOW_ALL: "SHOW_ALL",
-  SHOW_PENDING: "SHOW_PENDING",
-  SHOW_DONE: "SHOW_DONE",
+  // Filter todos
+  UPDATE_FILTER: "UPDATE_FILTER",
 
   // Set todos
   SET_TODOS: "SET_TODOS",

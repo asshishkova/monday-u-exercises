@@ -1,31 +1,13 @@
 import ACTIONS from "./constants";
 
-const showAll = () => ({
-  type: ACTIONS.SHOW_ALL,
+const updateFilter = (filterName, filterFunction) => ({
+  type: ACTIONS.UPDATE_FILTER,
+  filterFunction: filterFunction,
+  filterName: filterName
 });
 
-const showPending = () => ({
-  type: ACTIONS.SHOW_PENDING,
-});
-
-const showDone = () => ({
-  type: ACTIONS.SHOW_DONE,
-});
-
-export const showAllAction = () => {
+export const updateFilterAction = (filterName, filterFunction) => {
   return dispatch => {
-    dispatch(showAll());
-  }
-};
-
-export const showPendingAction = () => {
-  return dispatch => {
-      dispatch(showPending());
-  }
-};
-
-export const showDoneAction = () => {
-  return dispatch => {
-      dispatch(showDone());
+    dispatch(updateFilter(filterName, filterFunction));
   }
 };

@@ -6,7 +6,7 @@ import TodoElementConnector from "../connectors/todo-element-connector";
 import FooterConnector from "../connectors/footer-connector.js";
 import "../styles/todo-list.css";
 
-export function TodosList({loaded, todos, filter}) {
+export function TodosList({loaded, todos, filterFunction}) {
   const amount = todos.length;
   return (
     <div>
@@ -14,7 +14,7 @@ export function TodosList({loaded, todos, filter}) {
       { amount > 0 && < FilterConnector /> }
       { amount > 0 &&
         <ul id="todos-list">
-          { todos.filter(filter)
+          { todos.filter(filterFunction)
                  .map(todo => <TodoElementConnector key={todo.id} todo={todo}/>) }
         </ul>
       }

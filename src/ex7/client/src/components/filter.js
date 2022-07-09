@@ -1,30 +1,23 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import "../styles/filter.css";
 
 const ALL = "ALL";
 const PENDING = "PENDING";
 const DONE = "DONE";
 
-export function Filter({ searchStatus, updateSearchStatusAction,
-                          showAllAction, showDoneAction, showPendingAction,
-                          setServerErrorMessageAction }) {
+const filters = {
+  ALL: (todo) => todo,
+  PENDING: (todo) => todo.status === false,
+  DONE: (todo) => todo.status === true
+}
 
-  const [filter, setFilter] = useState(ALL);
+export function Filter({  searchStatus, updateSearchStatusAction,
+                          filterName, updateFilterAction,
+                        }) {
 
-  const filterTodos = useCallback( async (status) => {
-    setFilter(status);
-    try {
-      if (status === ALL) {
-        showAllAction();
-      } else if (status === PENDING) {
-        showPendingAction();
-      } else { // status === DONE
-        showDoneAction();
-      }
-    } catch (error) {
-      setServerErrorMessageAction(`Error: ${error.message}`);
-    }
-  },[showAllAction, showDoneAction, showPendingAction, setServerErrorMessageAction]);
+  const filterTodos = useCallback( async (filterName) => {
+    updateFilterAction(filterName, filters[filterName]);
+  },[updateFilterAction]);
 
   const onCheckboxClicked = useCallback ( async () => {
     updateSearchStatusAction(!searchStatus);
@@ -34,7 +27,7 @@ export function Filter({ searchStatus, updateSearchStatusAction,
     return (
       <input type="radio" id={value} name="radios" value={value}
         onChange={(e) => filterTodos(e.target.value)}
-        checked = {filter === value} />)
+        checked = {filterName === value} />)
   }
 
   const filterRadioButtons =  <div className="filter-radio-buttons">

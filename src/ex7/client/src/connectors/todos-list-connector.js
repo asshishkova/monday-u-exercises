@@ -8,8 +8,8 @@ import { TodosList } from "../components/todos-list";
 const mapStateToProps = (state, ownProps) => {
   const loaded = getLoaded(state);
   const todos = getTodos(state);
-  const filter = getFilterFunction(state);
-  return { loaded, todos, filter };
+  const filterFunction = getFilterFunction(state);
+  return { loaded, todos, filterFunction };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

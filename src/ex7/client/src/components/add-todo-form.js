@@ -22,7 +22,7 @@ export function AddTodoForm({ searchStatus,
       }
       setLoadedAction(true);
     }
-  },[setTodosAction, setServerErrorMessageAction, searchStatus])
+  },[setTodosAction, setServerErrorMessageAction, searchStatus, setLoadedAction])
 
 
   const onAddTodoFormSubmitted = useCallback(async (event) => {
