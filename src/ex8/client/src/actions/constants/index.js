@@ -1,25 +1,26 @@
 const ACTIONS = {
-    FETCH_ITEMS_REQUEST: 'fetch_items_request',
-    FETCH_ITEMS_SUCCESS: 'fetch_items_success',
-    FETCH_ITEMS_FAILURE: 'fetch_items_failure',
 
-    ADD_ITEM_REQUEST: 'add_item_request',
-    ADD_ITEM_SUCCESS: 'add_item_success',
-    ADD_ITEM_FAILURE: 'add_item_failure',
+  // Restore deleted item types
+  SAVE_DELETED: "SAVE_DELETED",
+  RESTORE_DELETED: "RESTORE_DELETED",
 
-    REMOVE_ITEM_REQUEST: 'remove_item_request',
-    REMOVE_ITEM_SUCCESS: 'remove_item_success',
-    REMOVE_ITEM_FAILURE: 'remove_item_failure',
+  // Activate and deactivate search
+  UPDATE_SEARCH_STATUS: "UPDATE_SEARCH_STATUS",
 
-    TOGGLE_ITEM_REQUEST: 'toggle_item_request',
-    TOGGLE_ITEM_SUCCESS: 'toggle_item_success',
-    TOGGLE_ITEM_FAILURE: 'toggle_item_failure',
+  // Filter todos
+  UPDATE_FILTER: "UPDATE_FILTER",
 
-    SEARCH: 'search',
+  // Set todos
+  SET_TODOS: "SET_TODOS",
+  ADD_TODOS: "ADD_TODOS",
+  DELETE_TODO: "DELETE_TODO",
+  MARK_OLD: "MARK_OLD",
 
-    FILTER_BY_STATUS: 'filter_by_status',
+  // Set error message
+  SET_SERVER_ERROR_MESSAGE: "SET_SERVER_ERROR_MESSAGE",
 
-    RESTORE_LAST_DELETED_ITEM: 'restore_last_deleted_item'
+  // Loaded
+  SET_IS_LOADED: "SET_IS_LOADED"
 };
 
 export default ACTIONS;
