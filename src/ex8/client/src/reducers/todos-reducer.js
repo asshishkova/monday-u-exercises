@@ -9,7 +9,7 @@ const todosReducer = (state = initialState, action) => {
     case ACTIONS.SET_TODOS:
       return { items: action.items };
     case ACTIONS.ADD_TODOS:
-      const updatedItems = state.items;
+      const updatedItems = [...state.items];
       action.items.forEach(item => {
         const updatingItemIndex = updatedItems.findIndex( oldItem => oldItem.text === item.text )
         if (updatingItemIndex > -1) {
