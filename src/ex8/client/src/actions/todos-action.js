@@ -1,21 +1,21 @@
 import ACTIONS from "./constants";
 
-const setTodos = items => ({
+export const setTodos = items => ({
   type: ACTIONS.SET_TODOS,
   items: items
 });
 
-const addTodos = items => ({
+export const addTodos = items => ({
   type: ACTIONS.ADD_TODOS,
   items: items
 });
 
-const deleteTodo = item => ({
+export const deleteTodo = item => ({
   type: ACTIONS.DELETE_TODO,
   item: item
 });
 
-const markOld = item => ({
+export const markOld = item => ({
   type: ACTIONS.MARK_OLD,
   item: item
 });
