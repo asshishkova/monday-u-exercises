@@ -14,11 +14,10 @@ export function TodosContainer({loaded,
     setServerErrorMessageAction("");
     try {
       setTodosAction(await getItems());
-      setLoadedAction(true);
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
-
+    setLoadedAction(true);
   },[setTodosAction, setLoadedAction, setServerErrorMessageAction])
 
   useEffect(() => {

@@ -39,11 +39,10 @@ export function TodoElement({ todo,
   const animationEndHandler = async (todo) => {
     setCurrentAnimation(NO_ANIMATION);
     if (currentAnimation === DELETING_ANIMATION) {
-      deleteTodoAction(todo);
+      deleteTodoAction(todo); // redux optimistic deleting
       saveDeletedItemAction(todo);
       try {
         await deleteItem(todo);
-        // setTodosAction and saveDeletedItemAction runs in animationEndHandler
       } catch (error) {
         addTodosAction([todo]);
         saveDeletedItemAction(null);
@@ -54,7 +53,7 @@ export function TodoElement({ todo,
 
   const onDeleteButtonClicked = async (e) => {
     setServerErrorMessageAction("");
-    setCurrentAnimation(DELETING_ANIMATION);
+    setCurrentAnimation(DELETING_ANIMATION); // redux optimistic deleting
   }
 
   const onCheckboxClicked = async (e) => {

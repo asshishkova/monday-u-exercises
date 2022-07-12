@@ -34,10 +34,10 @@ export function AddTodoForm({ searchStatus,
     try {
       const newTodos = await createItem(text);
       addTodosAction(newTodos);
-      setLoadedAction(true);
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
+    setLoadedAction(true);
   },[addTodosAction, todoText, setLoadedAction, setServerErrorMessageAction]);
 
   return (
