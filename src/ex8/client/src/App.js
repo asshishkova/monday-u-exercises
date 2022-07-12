@@ -1,10 +1,11 @@
-import TodoAppContainerConnector from "./components/todo-app-container/TodoAppContainerConnector";
-import styles from "./App.module.scss";
+import TodosContainerConnector from "./connectors/todos-container-connector";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import './App.css';
 
 function App() {
   return (
-    <div className={styles.container}>
-      <TodoAppContainerConnector />
+    <div>
+      <TodosContainerConnector/>
     </div>
   );
 }

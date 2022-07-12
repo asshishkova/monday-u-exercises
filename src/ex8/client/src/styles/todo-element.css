@@ -1,0 +1,94 @@
+@import "checkbox.css";
+
+.todo-li {
+  list-style-type: none;
+  margin-top: 10px;
+  border-radius: 4px;
+  display: flex;
+}
+
+.todo-item {
+  padding-right: 10px;
+  width: 415px;
+  min-height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.todo-item-text {
+  width: 370px;
+  overflow: scroll;
+}
+
+.existing-todo {
+  background-color: rgba(128, 128, 128, 0.2);
+}
+
+.existing-todo:hover {
+  background-color: rgba(128, 128, 128, 0.4);
+}
+
+.animation-add-todo {
+  animation: change-color 0.7s linear;
+}
+
+@keyframes change-color {
+  0% {
+    background: rgba(128, 128, 128, 0.8);
+  }
+  100% {
+    background: rgba(128, 128, 128, 0.2);
+  }
+}
+
+.delete-todo-button {
+  font-family: "";
+  background-color: brown;
+  height: 40px;
+  width: 45px;
+  display: none;
+}
+
+.existing-todo:hover .delete-todo-button {
+  display: block;
+}
+
+.animation-delete-todo {
+  color: antiquewhite;
+  animation: deleting-color 0.7s ease-out;
+}
+
+@keyframes deleting-color {
+  0% {
+    opacity: 1;
+    background: brown;
+  }
+  100% {
+    opacity: 0;
+    background: antiquewhite;
+  }
+}
+
+.todo-item[info]:hover::after, .todo-item[info]:after {
+  content: attr(info);
+  position: absolute;
+  color: antiquewhite;
+  background-color: gray;
+  left: 35px;
+  top: 30px;
+  font-size: 14px;
+  border-radius: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.todo-item[info]:after {
+  opacity: 0;
+  transition: 0s all;
+}
+.todo-item[info]:hover::after {
+  opacity: 1;
+  transition-delay: 1.5s;
+}
