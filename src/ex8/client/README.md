@@ -1,70 +1,153 @@
-# Getting Started with Create React App
+# Exercise 8 - Testing
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## In this section you will practice
 
-## Available Scripts
+**Setup testing for your client using jest + cypress**
 
-In the project directory, you can run:
+- Jest is already installed with your react setup so no need to install it
 
-### `npm start`
+- Under the `package.json` file go to "scripts" and append `--watchAll=false` into the "test" runner.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  ```json
+  "scripts": {
+      ...,
+      "test": "react-scripts test --watchAll=false",
+      ...
+    },
+  ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Create a new file (or edit if already exists) called `App.test.js` under the `client/src` folder (right next to the `App.js` file) with the following content
 
-### `npm test`
+  ```javascript
+  import { render, screen } from "@testing-library/react";
+  import { BrowserRouter } from "react-router-dom";
+  import { Provider } from "react-redux";
+  import { store } from "./store";
+  import App from "./App";
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  test("renders learn react link", () => {
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
+    );
+    const linkElement = screen.getByText(/Todo App/i);
+    expect(linkElement).toBeInTheDocument();
+  });
+  ```
 
-### `npm run build`
+- Now you can run `npm run test` and see that all tests pass
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## What you are going to build
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In the last exercise, you have changed your application to use React and Redux.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Now you are going to test the components you have built with:
 
-### `npm run eject`
+- Unit tests
+- Snapshot tests
+- Integration tests
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+This will make your project:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Trustworthy** - Less bugs overall that the users experience
+- **Stable** - Confidence when refactoring code / adding new code
+- **Better** - Testable code is more readable and understandable
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### The requirements:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- [ ] Unit tests - test `itemsEntitiesReducer` - add 3 unit tests
+      you should create a new `__tests__` folder under the reducers folder and a new test file for it
 
-## Learn More
+  ```
+  client/src/reducers/__tests__/items-entities-reducer.test.js
+  ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  you can use this link for some help https://redux.js.org/usage/writing-tests#reducers
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [ ] Snapshot tests - 2 components
 
-### Code Splitting
+      ListItemComponent
+      AboutComponent
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  you should create 2 new test files next to the original components in a designated folder called `__tests__`
 
-### Analyzing the Bundle Size
+  ```
+  client/src/components/list-container/list-item-component/__tests__/ListItemComponent.test.jsx
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  client/src/components/about-component/__tests__/AboutComponent.test.jsx
+  ```
 
-### Making a Progressive Web App
+- [ ] Integration tests - send 2 items to the
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+      ListContainer
 
-### Advanced Configuration
+  you should create a new test file next to the original components in a designated folder called `__tests__`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+  ```
+  client/src/components/list-container/__tests__/ListContainer.test.jsx
+  ```
 
-### Deployment
+  copy this template to it:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  ```javascript
+  import { render, screen } from "@testing-library/react";
+  import ListContainer from "../ListContainer";
+  import { Provider } from "react-redux";
+  import { store } from "../../../store";
 
-### `npm run build` fails to minify
+  const items = [
+    {
+      id: 56,
+      name: "Take dog out for a walk",
+      status: false,
+    },
+    {
+      id: 32,
+      name: "Do the dishes",
+      status: true,
+    },
+  ];
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  describe("ListContainer", () => {
+    test("should render both items (one done and one not)", () => {
+      render(
+        <Provider store={store}>
+          <ListContainer items={items} fetchItems={jest.fn(() => items)} />
+        </Provider>
+      );
+
+      // TODO: test that both items are rendered at the list
+    });
+  });
+  ```
+
+  What does the template do?
+  it renders the ListContainer with a redux store (becuase ListContainer renders some more components that rely on the store to exist)
+
+  we also send the fetchItems function this component as a mocked function that gets us the same items (becuase we dont have a real server or action that does it)
+
+- [ ] Create a new test that mocks `fetchItems` and make sure it has been called (do it under the same test file as the ListContainer tests)
+
+### Bonus
+
+- [ ] Coverage - get to 50% coverage for `items-entities-reducer.js` file
+- [ ] Add snapshot tests with more props variations
+- [ ] Add an E2E test to the project using cypress
+
+**Setup cypress:**
+
+1. Copy e2e folder to your project directory (right next to the client and server folders)
+2. Start your project as you normally would for development
+3. Open a terminal under the e2e folder and run the following commands:
+
+```bash
+npm install
+npm run cypress:open
+```
+
+A window will open up, click on "E2E Testing"
+
+All done you can now write cypress tests :)
