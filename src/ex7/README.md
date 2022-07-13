@@ -52,7 +52,7 @@ This will make your project:
 - More performant out of the box
 
 ### Bonus
-- [x] \* Debounce search
+- [ ] \* Debounce search
 - [x] \* Implement an option to restore the last item that was deleted
 - [ ] ** Make your application accessible, i.e. keyboard navigation (ctrl+Enter create new, tab navigation)
 - [ ] Add redux logger middleware to your application
