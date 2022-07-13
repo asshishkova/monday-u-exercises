@@ -71,8 +71,8 @@ This will make your project:
 
 - [x] Snapshot tests - 2 components
 
-    - ListItemComponent // **2 snapshots of todoElement** (analog of ListItemComponent)
-    - AboutComponent // **2 snapshots of Footer.** AboutComponent was a bonus task, I do not have one. But here I can test two different cases: with and without lastDeletedTodo.
+    - `ListItemComponent` // **2 snapshots of `todoElement`** (analog of `ListItemComponent`)
+    - `AboutComponent` // **2 snapshots of `Footer`.** `AboutComponent` was a bonus task, I do not have one. But here I can test two different cases: with and without `lastDeletedTodo`.
 
   you should create 2 new test files next to the original components in a designated folder called `__tests__`
 
