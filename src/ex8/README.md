@@ -137,7 +137,9 @@ This will make your project:
 
 - [x] Coverage - get to 50% coverage for `items-entities-reducer.js` file // **100% for `todosReducer`  and 80% for all reducers**
 <img src="./client/public/reducers-coverage.png" alt="reducers coverage">
-- [x] Add snapshot tests with more props variations // sent props to `Footer` and `Filter` components
+
+- [x] Add snapshot tests with more props variations // **sent props to `Footer` and `Filter` components**
+
 
 **Setup cypress:**
 
