@@ -134,8 +134,9 @@ This will make your project:
 
 ### Bonus
 
-- [ ] Coverage - get to 50% coverage for `items-entities-reducer.js` file
-- [ ] Add snapshot tests with more props variations
+- [x] Coverage - get to 50% coverage for `items-entities-reducer.js` file // **100% for `todosReducer`  and 80% for all reducers**
+<img src="./public/reducers-coverage.png" alt="reducers coverage">
+- [x] Add snapshot tests with more props variations // sent props to Footer
 - [ ] Add an E2E test to the project using cypress
 
 **Setup cypress:**
