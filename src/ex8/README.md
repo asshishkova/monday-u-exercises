@@ -58,8 +58,10 @@ This will make your project:
 
 ### The requirements:
 
-- [ ] Unit tests - test `itemsEntitiesReducer` - add 3 unit tests
-      you should create a new `__tests__` folder under the reducers folder and a new test file for it
+- [x] Unit tests - test `itemsEntitiesReducer` - add 3 unit tests
+      // **added 8 unit tests to `todosReducer`** (it's an analog of itemsEntitiesReducer)
+
+    you should create a new `__tests__` folder under the reducers folder and a new test file for it
 
   ```
   client/src/reducers/__tests__/items-entities-reducer.test.js
@@ -67,10 +69,10 @@ This will make your project:
 
   you can use this link for some help https://redux.js.org/usage/writing-tests#reducers
 
-- [ ] Snapshot tests - 2 components
+- [x] Snapshot tests - 2 components
 
-      ListItemComponent
-      AboutComponent
+    - ListItemComponent // **2 snapshots of todoElement** (analog of ListItemComponent)
+    - AboutComponent // **2 snapshots of Footer.** AboutComponent was a bonus task, I do not have one. But here I can test two different cases: with and without lastDeletedTodo.
 
   you should create 2 new test files next to the original components in a designated folder called `__tests__`
 
