@@ -24,7 +24,7 @@ const todosReducer = (state = initialState, action) => {
       const itemsWithoutDeleted = state.items.filter(item => item.id !== deletingItem.id);
       return { items: itemsWithoutDeleted };
     case ACTIONS.MARK_OLD:
-      const allItems = state.items;
+      const allItems = [...state.items];
       const oldItem = action.item;
       const oldItemIndex = allItems.findIndex( item => item.id === oldItem.id )
       allItems[oldItemIndex] = {...allItems[oldItemIndex], isNew: false}
