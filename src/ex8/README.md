@@ -140,6 +140,7 @@ This will make your project:
 
 - [x] Add snapshot tests with more props variations // **sent props to `Footer` and `Filter` components**
 
+- [x] Add an E2E test to the project using cypress
 
 **Setup cypress:**
 
