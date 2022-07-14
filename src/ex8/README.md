@@ -131,7 +131,7 @@ This will make your project:
 
   we also send the fetchItems function this component as a mocked function that gets us the same items (becuase we dont have a real server or action that does it)
 
-- [ ] Create a new test that mocks `fetchItems` and make sure it has been called (do it under the same test file as the ListContainer tests)
+- [x] Create a new test that mocks `fetchItems` and make sure it has been called (do it under the same test file as the ListContainer tests) // **Mock functions were created for `TodosContainer`** because there is `SetAllTodosAction` — analog of `fetchItems`
 
 ### Bonus
 

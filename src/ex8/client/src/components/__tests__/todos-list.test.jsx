@@ -26,7 +26,6 @@ describe("TodosList", () => {
     render(
       <Provider store={store}>
         <TodosList todos={todos} filterFunction={filterFunction} />
-        {/* sfetchItems={jest.fn(() => items) */}
       </Provider>
     );
 
