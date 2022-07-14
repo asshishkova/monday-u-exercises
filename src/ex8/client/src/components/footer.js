@@ -44,10 +44,14 @@ export function Footer({  lastDeletedItem, todos,
                                 onClick={restoreDeletedTodo}><i className="fa fa-undo" aria-hidden="true"></i>
                               </button>
   return (
-    <footer id="footer">
-      { amountInfo }
-      { lastDeletedItem && restoreDeletedIcon }
-      { clearAllButton }
-    </footer>
+    <div>
+      { amount > 0 &&
+        <footer id="footer">
+          { amountInfo }
+          { lastDeletedItem && restoreDeletedIcon }
+          { clearAllButton }
+        </footer>
+      }
+    </div>
   )
 }

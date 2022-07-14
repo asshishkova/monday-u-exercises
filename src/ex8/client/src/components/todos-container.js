@@ -3,6 +3,7 @@ import { ThreeDots } from  'react-loader-spinner'
 import { getItems } from "../item-client.js";
 import AddTodoFormConnector from "../connectors/add-todo-form-connector";
 import TodosListConnector from "../connectors/todos-list-connector";
+import FooterConnector from "../connectors/footer-connector.js";
 import "../styles/todos-container.css";
 
 export function TodosContainer({loaded,
@@ -35,6 +36,7 @@ export function TodosContainer({loaded,
             </div>
           }
           <TodosListConnector/>
+          <FooterConnector/>
           { serverErrorMessage.length > 0 &&
             <p id="error-message">
               {serverErrorMessage}
