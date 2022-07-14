@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { getItems } from "../item-client.js";
 import { deleteItem, markItemAsOld, changeItemStatus } from "../item-client.js";
 import "../styles/todo-element.css";
 
@@ -14,7 +13,7 @@ export function TodoElement({ todo,
                               setServerErrorMessageAction,
                               clearServerErrorMessageAction,
                               saveDeletedItemAction,
-                              setTodosAction,
+                              setAllTodosAction,
                               markOldAction }) {
 
   const [currentAnimation, setCurrentAnimation] = useState(NO_ANIMATION)
@@ -62,7 +61,7 @@ export function TodoElement({ todo,
     clearServerErrorMessageAction();
     try {
       await changeItemStatus(todo);
-      setTodosAction(await getItems());
+      await setAllTodosAction();
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }

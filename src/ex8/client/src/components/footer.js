@@ -1,13 +1,12 @@
 import React from "react";
-import { clearAllItems, restoreItem } from "../item-client.js";
 import "../styles/footer.css";
 
 export function Footer({  lastDeletedItem, todos,
                           setServerErrorMessageAction,
                           clearServerErrorMessageAction,
                           saveDeletedItemAction,
-                          setTodosAction,
-                          addTodosAction }) {
+                          clearTodosAction,
+                          restoreTodoAction }) {
 
   const amount = todos.length;
   const amountDone = todos.filter((todo) => todo.status).length;
@@ -18,8 +17,7 @@ export function Footer({  lastDeletedItem, todos,
     saveDeletedItemAction(null);
     if (window.confirm('Are you sure?')) {
       try {
-        await clearAllItems();
-        setTodosAction([]);
+        await clearTodosAction();
       } catch (error) {
         setServerErrorMessageAction(`Error: ${error.message}`)
       }
@@ -29,9 +27,8 @@ export function Footer({  lastDeletedItem, todos,
   const restoreDeletedTodo = async () => {
     clearServerErrorMessageAction();
     try {
-      await restoreItem(lastDeletedItem);
       saveDeletedItemAction(null);
-      addTodosAction([lastDeletedItem]);
+      await restoreTodoAction(lastDeletedItem);
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`)
     }

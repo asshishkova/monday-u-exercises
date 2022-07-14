@@ -1,8 +1,19 @@
 import ACTIONS from "./constants";
+import { getItems, getItemsWhere, clearAllItems, createItem, restoreItem } from "../item-client.js";
 
-export const setTodos = items => ({
-  type: ACTIONS.SET_TODOS,
+export const setAllTodos = items => ({
+  type: ACTIONS.SET_ALL_TODOS,
   items: items
+});
+
+export const setTodosWhere = items => ({
+  type: ACTIONS.SET_TODOS_WHERE,
+  items: items
+});
+
+export const clearTodos = () => ({
+  type: ACTIONS.CLEAR_TODOS,
+  items: []
 });
 
 export const addTodos = items => ({
@@ -20,15 +31,36 @@ export const markOld = item => ({
   item: item
 });
 
-export const setTodosAction = (items) => {
-  return dispatch => {
-      dispatch(setTodos(items));
+export const restoreTodo = item => ({
+  type: ACTIONS.RESTORE_TODO,
+  item: item
+});
+
+export const clearTodosAction = () => {
+  return async dispatch => {
+    await clearAllItems();
+    dispatch(clearTodos());
   }
 };
 
-export const addTodosAction = (items) => {
-  return dispatch => {
-      dispatch(addTodos(items));
+export const setAllTodosAction = () => {
+  return async dispatch => {
+    const items = await getItems();
+    dispatch(setAllTodos(items));
+  }
+};
+
+export const setTodosWhereAction = (text) => {
+  return async dispatch => {
+    const items = await getItemsWhere(text);
+    dispatch(setTodosWhere(items));
+  }
+};
+
+export const addTodosAction = (text) => {
+  return async dispatch => {
+    const newTodos = await createItem(text);
+    dispatch(addTodos(newTodos));
   }
 };
 
@@ -41,5 +73,12 @@ export const deleteTodoAction = (item) => {
 export const markOldAction = (item) => {
   return dispatch => {
       dispatch(markOld(item));
+  }
+};
+
+export const restoreTodoAction = (item) => {
+  return async dispatch => {
+    await restoreItem(item);
+    dispatch(restoreTodo(item));
   }
 };

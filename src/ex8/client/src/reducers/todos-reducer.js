@@ -6,7 +6,11 @@ const initialState = {
 
 const todosReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTIONS.SET_TODOS:
+    case ACTIONS.SET_ALL_TODOS:
+      return { items: action.items };
+    case ACTIONS.SET_TODOS_WHERE:
+      return { items: action.items };
+    case ACTIONS.CLEAR_TODOS:
       return { items: action.items };
     case ACTIONS.ADD_TODOS:
       const updatedItems = [...state.items];
@@ -19,6 +23,8 @@ const todosReducer = (state = initialState, action) => {
         }
       });
       return { items: updatedItems.slice() };
+    case ACTIONS.RESTORE_TODO:
+      return { items: [...state.items, action.item] };
     case ACTIONS.DELETE_TODO:
       const deletingItem = action.item;
       const itemsWithoutDeleted = state.items.filter(item => item.id !== deletingItem.id);

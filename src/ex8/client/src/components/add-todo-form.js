@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from "react";
-import { createItem, getItemsWhere } from "../item-client.js";
 import "../styles/add-todo-form.css";
 
 export function AddTodoForm({ searchStatus,
-                              setTodosAction,
+                              setTodosWhereAction,
                               addTodosAction,
                               setServerErrorMessageAction,
                               clearServerErrorMessageAction,
@@ -17,13 +16,13 @@ export function AddTodoForm({ searchStatus,
       clearServerErrorMessageAction();
       setLoadedAction(false);
       try {
-        setTodosAction(await getItemsWhere(text));
+        await setTodosWhereAction(text);
       } catch (error) {
         setServerErrorMessageAction(`Error: ${error.message}`);
       }
       setLoadedAction(true);
     }
-  },[setTodosAction, setServerErrorMessageAction, searchStatus, setLoadedAction, clearServerErrorMessageAction])
+  },[setTodosWhereAction, setServerErrorMessageAction, searchStatus, setLoadedAction, clearServerErrorMessageAction])
 
 
   const onAddTodoFormSubmitted = useCallback(async (event) => {
@@ -33,8 +32,7 @@ export function AddTodoForm({ searchStatus,
     setLoadedAction(false);
     const text = todoText;
     try {
-      const newTodos = await createItem(text);
-      addTodosAction(newTodos);
+      await addTodosAction(text);
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }

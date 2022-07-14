@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from "react";
 import { ThreeDots } from  'react-loader-spinner'
-import { getItems } from "../item-client.js";
 import AddTodoFormConnector from "../connectors/add-todo-form-connector";
 import TodosListConnector from "../connectors/todos-list-connector";
 import FooterConnector from "../connectors/footer-connector.js";
@@ -10,22 +9,22 @@ export function TodosContainer({loaded,
                                 serverErrorMessage,
                                 setServerErrorMessageAction,
                                 clearServerErrorMessageAction,
-                                setTodosAction,
+                                setAllTodosAction,
                                 setLoadedAction }) {
 
   const updateTodos = useCallback(async () => {
     clearServerErrorMessageAction();
     try {
-      setTodosAction(await getItems());
+      await setAllTodosAction();
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
     setLoadedAction(true);
-  },[setTodosAction, setLoadedAction, setServerErrorMessageAction, clearServerErrorMessageAction])
+  },[setAllTodosAction, setLoadedAction, setServerErrorMessageAction, clearServerErrorMessageAction])
 
   useEffect(() => {
     updateTodos();
-  }, [updateTodos, setTodosAction]);
+  }, [updateTodos]);
 
   return (
     <main className="window">
