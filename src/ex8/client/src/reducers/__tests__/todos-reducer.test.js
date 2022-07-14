@@ -1,5 +1,5 @@
 import todosReducer, {  } from "../todos-reducer";
-import { setAllTodos, addTodos, deleteTodo, markOld, setTodosWhere} from "../../actions/todos-action";
+import { setAllTodos, addTodos, deleteTodo, markOld } from "../../actions/todos-action";
 
 const oldItems = [
   {id: 1, text: 'one', isNew: false},
