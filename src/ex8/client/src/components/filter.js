@@ -12,7 +12,7 @@ const filters = {
   DONE: (todo) => todo.status === true
 }
 
-export function Filter({  searchStatus, updateSearchStatusAction,
+export function FilterBar({  searchStatus, updateSearchStatusAction,
                           filterName, updateFilterAction,
                           setServerErrorMessageAction,
                           setTodosAction }) {

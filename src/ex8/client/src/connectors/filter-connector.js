@@ -6,7 +6,7 @@ import { setServerErrorMessageAction } from "../actions/server-error-message";
 import { updateSearchStatusAction  } from "../actions/activate-search-actions";
 import { updateFilterAction  } from "../actions/filter-todos-action";
 import { setTodosAction } from "../actions/todos-action";
-import { Filter } from "../components/filter";
+import { FilterBar } from "../components/filter";
 
 const mapStateToProps = (state, ownProps) => {
   const searchStatus = getSearchStatus(state);
@@ -21,4 +21,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                               setTodosAction }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default connect(mapStateToProps, mapDispatchToProps)(FilterBar);
