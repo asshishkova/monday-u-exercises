@@ -1,5 +1,5 @@
 import todosReducer, {  } from "../todos-reducer";
-import { setTodos, addTodos, deleteTodo, markOld } from "../../actions/todos-action";
+import { setAllTodos, addTodos, deleteTodo, markOld, setTodosWhere} from "../../actions/todos-action";
 
 const oldItems = [
   {id: 1, text: 'one', isNew: false},
@@ -20,7 +20,7 @@ test('todosReducer should return the initial state', () => {
 
 test('todosReducer should set a todo list', () => {
   const previousState = { items: [] };
-  expect(todosReducer(previousState, setTodos(oldItems))).toEqual(
+  expect(todosReducer(previousState, setAllTodos(oldItems))).toEqual(
     { items: oldItems }
   )
 })
