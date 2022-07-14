@@ -2,7 +2,6 @@ import React from "react";
 import { NoTodosPlaceholder } from "./no-todos-placeholder.js";
 import FilterBarConnector from "../connectors/filter-connector";
 import TodoElementConnector from "../connectors/todo-element-connector";
-import FooterConnector from "../connectors/footer-connector.js";
 import "../styles/todo-list.css";
 
 export function TodosList({ loaded, todos, filterFunction }) {
@@ -17,7 +16,6 @@ export function TodosList({ loaded, todos, filterFunction }) {
                  .map(todo => <TodoElementConnector key={todo.id} todo={todo}/>) }
         </ul>
       }
-      { amount > 0 && <FooterConnector/> }
     </div>
   )
 }

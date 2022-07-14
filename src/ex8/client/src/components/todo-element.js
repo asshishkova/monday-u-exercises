@@ -12,6 +12,7 @@ export function TodoElement({ todo,
                               deleteTodoAction,
                               addTodosAction,
                               setServerErrorMessageAction,
+                              clearServerErrorMessageAction,
                               saveDeletedItemAction,
                               setTodosAction,
                               markOldAction }) {
@@ -23,6 +24,7 @@ export function TodoElement({ todo,
 
   useEffect(() => {
     const markItemAsOldEffect = async () => {
+      clearServerErrorMessageAction();
       try {
         await markItemAsOld(todo);
         markOldAction(todo);
@@ -34,7 +36,7 @@ export function TodoElement({ todo,
       setCurrentAnimation(ADDING_ANIMATION);
       markItemAsOldEffect();
     }
-  },[todo, setServerErrorMessageAction, markOldAction])
+  },[todo, setServerErrorMessageAction, markOldAction, clearServerErrorMessageAction])
 
   const animationEndHandler = async (todo) => {
     setCurrentAnimation(NO_ANIMATION);
@@ -52,12 +54,12 @@ export function TodoElement({ todo,
   }
 
   const onDeleteButtonClicked = async (e) => {
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     setCurrentAnimation(DELETING_ANIMATION); // redux optimistic deleting
   }
 
   const onCheckboxClicked = async (e) => {
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     try {
       await changeItemStatus(todo);
       setTodosAction(await getItems());

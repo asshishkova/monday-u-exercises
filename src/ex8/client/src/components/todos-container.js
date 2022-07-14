@@ -7,19 +7,21 @@ import FooterConnector from "../connectors/footer-connector.js";
 import "../styles/todos-container.css";
 
 export function TodosContainer({loaded,
-                                serverErrorMessage, setServerErrorMessageAction,
+                                serverErrorMessage,
+                                setServerErrorMessageAction,
+                                clearServerErrorMessageAction,
                                 setTodosAction,
                                 setLoadedAction }) {
 
   const updateTodos = useCallback(async () => {
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     try {
       setTodosAction(await getItems());
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
     setLoadedAction(true);
-  },[setTodosAction, setLoadedAction, setServerErrorMessageAction])
+  },[setTodosAction, setLoadedAction, setServerErrorMessageAction, clearServerErrorMessageAction])
 
   useEffect(() => {
     updateTodos();

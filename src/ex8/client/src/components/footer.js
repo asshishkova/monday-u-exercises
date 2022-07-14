@@ -4,6 +4,7 @@ import "../styles/footer.css";
 
 export function Footer({  lastDeletedItem, todos,
                           setServerErrorMessageAction,
+                          clearServerErrorMessageAction,
                           saveDeletedItemAction,
                           setTodosAction,
                           addTodosAction }) {
@@ -13,7 +14,7 @@ export function Footer({  lastDeletedItem, todos,
   const amountPending = amount - amountDone;
 
   const onClearAllButtonClicked = async () => {
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     saveDeletedItemAction(null);
     if (window.confirm('Are you sure?')) {
       try {
@@ -26,7 +27,7 @@ export function Footer({  lastDeletedItem, todos,
   }
 
   const restoreDeletedTodo = async () => {
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     try {
       await restoreItem(lastDeletedItem);
       saveDeletedItemAction(null);

@@ -6,6 +6,7 @@ export function AddTodoForm({ searchStatus,
                               setTodosAction,
                               addTodosAction,
                               setServerErrorMessageAction,
+                              clearServerErrorMessageAction,
                               setLoadedAction }) {
 
   const [todoText, setTodoText] = useState("");
@@ -13,7 +14,7 @@ export function AddTodoForm({ searchStatus,
   const onTextChange = useCallback (async (text) => {
     setTodoText(text);
     if (searchStatus) {
-      setServerErrorMessageAction("");
+      clearServerErrorMessageAction();
       setLoadedAction(false);
       try {
         setTodosAction(await getItemsWhere(text));
@@ -22,13 +23,13 @@ export function AddTodoForm({ searchStatus,
       }
       setLoadedAction(true);
     }
-  },[setTodosAction, setServerErrorMessageAction, searchStatus, setLoadedAction])
+  },[setTodosAction, setServerErrorMessageAction, searchStatus, setLoadedAction, clearServerErrorMessageAction])
 
 
   const onAddTodoFormSubmitted = useCallback(async (event) => {
     event.preventDefault();
     setTodoText("");
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     setLoadedAction(false);
     const text = todoText;
     try {
@@ -38,7 +39,7 @@ export function AddTodoForm({ searchStatus,
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
     setLoadedAction(true);
-  },[addTodosAction, todoText, setLoadedAction, setServerErrorMessageAction]);
+  },[addTodosAction, todoText, setLoadedAction, setServerErrorMessageAction, clearServerErrorMessageAction]);
 
   return (
     <form id="add-todo" onSubmit={onAddTodoFormSubmitted}>

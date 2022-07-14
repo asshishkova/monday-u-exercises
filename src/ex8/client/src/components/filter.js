@@ -15,6 +15,7 @@ const filters = {
 export function FilterBar({  searchStatus, updateSearchStatusAction,
                           filterName, updateFilterAction,
                           setServerErrorMessageAction,
+                          clearServerErrorMessageAction,
                           setTodosAction }) {
 
   const filterTodos = useCallback( async (filterName) => {
@@ -24,13 +25,14 @@ export function FilterBar({  searchStatus, updateSearchStatusAction,
   const onCheckboxClicked = useCallback ( async () => {
     updateSearchStatusAction(!searchStatus);
     if (searchStatus) {
+      clearServerErrorMessageAction();
       try {
         setTodosAction(await getItems());
       } catch (error) {
         setServerErrorMessageAction(`Error: ${error.message}`);
       }
     }
-  },[updateSearchStatusAction, searchStatus, setServerErrorMessageAction, setTodosAction]);
+  },[updateSearchStatusAction, searchStatus, setServerErrorMessageAction, setTodosAction, clearServerErrorMessageAction]);
 
   const createFilterInput = (value) => {
     return (
