@@ -82,9 +82,9 @@ This will make your project:
   client/src/components/about-component/__tests__/AboutComponent.test.jsx
   ```
 
-- [ ] Integration tests - send 2 items to the
+- [x] Integration tests - send 2 items to the
 
-      ListContainer
+  `ListContainer` // **`TodosList`** — analog of `ListContainer`
 
   you should create a new test file next to the original components in a designated folder called `__tests__`
 
