@@ -78,7 +78,7 @@ export const markOldAction = (item) => {
 
 export const restoreTodoAction = (item) => {
   return async dispatch => {
-    await restoreItem(item);
-    dispatch(restoreTodo(item));
+    const restoredItem = await restoreItem(item);
+    dispatch(restoreTodo(restoredItem));
   }
 };
