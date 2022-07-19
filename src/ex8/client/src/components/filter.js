@@ -1,5 +1,4 @@
 import React, { useCallback } from "react";
-import { getItems } from "../item-client.js";
 import "../styles/filter.css";
 
 const ALL = "ALL";
@@ -12,10 +11,11 @@ const filters = {
   DONE: (todo) => todo.status === true
 }
 
-export function Filter({  searchStatus, updateSearchStatusAction,
+export function FilterBar({ searchStatus, updateSearchStatusAction,
                           filterName, updateFilterAction,
                           setServerErrorMessageAction,
-                          setTodosAction }) {
+                          clearServerErrorMessageAction,
+                          setAllTodosAction }) {
 
   const filterTodos = useCallback( async (filterName) => {
     updateFilterAction(filterName, filters[filterName]);
@@ -24,13 +24,14 @@ export function Filter({  searchStatus, updateSearchStatusAction,
   const onCheckboxClicked = useCallback ( async () => {
     updateSearchStatusAction(!searchStatus);
     if (searchStatus) {
+      clearServerErrorMessageAction();
       try {
-        setTodosAction(await getItems());
+        await setAllTodosAction();
       } catch (error) {
         setServerErrorMessageAction(`Error: ${error.message}`);
       }
     }
-  },[updateSearchStatusAction, searchStatus, setServerErrorMessageAction, setTodosAction]);
+  },[updateSearchStatusAction, searchStatus, setServerErrorMessageAction, setAllTodosAction, clearServerErrorMessageAction]);
 
   const createFilterInput = (value) => {
     return (

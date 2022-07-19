@@ -1,24 +1,23 @@
 import React from "react";
-import { clearAllItems, restoreItem } from "../item-client.js";
 import "../styles/footer.css";
 
 export function Footer({  lastDeletedItem, todos,
                           setServerErrorMessageAction,
+                          clearServerErrorMessageAction,
                           saveDeletedItemAction,
-                          setTodosAction,
-                          addTodosAction }) {
+                          clearTodosAction,
+                          restoreTodoAction }) {
 
   const amount = todos.length;
   const amountDone = todos.filter((todo) => todo.status).length;
   const amountPending = amount - amountDone;
 
   const onClearAllButtonClicked = async () => {
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     saveDeletedItemAction(null);
     if (window.confirm('Are you sure?')) {
       try {
-        await clearAllItems();
-        setTodosAction([]);
+        await clearTodosAction();
       } catch (error) {
         setServerErrorMessageAction(`Error: ${error.message}`)
       }
@@ -26,11 +25,10 @@ export function Footer({  lastDeletedItem, todos,
   }
 
   const restoreDeletedTodo = async () => {
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     try {
-      await restoreItem(lastDeletedItem);
       saveDeletedItemAction(null);
-      addTodosAction([lastDeletedItem]);
+      await restoreTodoAction(lastDeletedItem);
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`)
     }
@@ -44,10 +42,14 @@ export function Footer({  lastDeletedItem, todos,
                                 onClick={restoreDeletedTodo}><i className="fa fa-undo" aria-hidden="true"></i>
                               </button>
   return (
-    <footer id="footer">
-      { amountInfo }
-      { lastDeletedItem && restoreDeletedIcon }
-      { clearAllButton }
-    </footer>
+    <div>
+      { amount > 0 &&
+        <footer id="footer">
+          { amountInfo }
+          { lastDeletedItem && restoreDeletedIcon }
+          { clearAllButton }
+        </footer>
+      }
+    </div>
   )
 }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { getItems } from "../item-client.js";
 import { deleteItem, markItemAsOld, changeItemStatus } from "../item-client.js";
 import "../styles/todo-element.css";
 
@@ -12,8 +11,9 @@ export function TodoElement({ todo,
                               deleteTodoAction,
                               addTodosAction,
                               setServerErrorMessageAction,
+                              clearServerErrorMessageAction,
                               saveDeletedItemAction,
-                              setTodosAction,
+                              setAllTodosAction,
                               markOldAction }) {
 
   const [currentAnimation, setCurrentAnimation] = useState(NO_ANIMATION)
@@ -23,6 +23,7 @@ export function TodoElement({ todo,
 
   useEffect(() => {
     const markItemAsOldEffect = async () => {
+      clearServerErrorMessageAction();
       try {
         await markItemAsOld(todo);
         markOldAction(todo);
@@ -34,7 +35,7 @@ export function TodoElement({ todo,
       setCurrentAnimation(ADDING_ANIMATION);
       markItemAsOldEffect();
     }
-  },[todo, setServerErrorMessageAction, markOldAction])
+  },[todo, setServerErrorMessageAction, markOldAction, clearServerErrorMessageAction])
 
   const animationEndHandler = async (todo) => {
     setCurrentAnimation(NO_ANIMATION);
@@ -52,15 +53,15 @@ export function TodoElement({ todo,
   }
 
   const onDeleteButtonClicked = async (e) => {
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     setCurrentAnimation(DELETING_ANIMATION); // redux optimistic deleting
   }
 
   const onCheckboxClicked = async (e) => {
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     try {
       await changeItemStatus(todo);
-      setTodosAction(await getItems());
+      await setAllTodosAction();
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }

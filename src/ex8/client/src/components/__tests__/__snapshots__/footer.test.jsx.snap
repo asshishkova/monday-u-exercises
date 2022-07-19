@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly amount info of todos with last deleted item 1`] = `
+<div>
+  <footer
+    id="footer"
+  >
+    <p
+      id="amount-info"
+    >
+      Tasks: 
+      2
+       pending, 
+      1
+       done.
+    </p>
+    <button
+      className="btn"
+      id="restore-deleted"
+      onClick={[Function]}
+    >
+      <i
+        aria-hidden="true"
+        className="fa fa-undo"
+      />
+    </button>
+    <button
+      className="btn"
+      id="clear-all-button"
+      onClick={[Function]}
+    >
+      Clear all
+    </button>
+  </footer>
+</div>
+`;
+
+exports[`renders correctly amount info of todos without last deleted item 1`] = `
+<div>
+  <footer
+    id="footer"
+  >
+    <p
+      id="amount-info"
+    >
+      Tasks: 
+      2
+       pending, 
+      1
+       done.
+    </p>
+    <button
+      className="btn"
+      id="clear-all-button"
+      onClick={[Function]}
+    >
+      Clear all
+    </button>
+  </footer>
+</div>
+`;

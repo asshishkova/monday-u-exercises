@@ -3,8 +3,8 @@ import { bindActionCreators } from "redux";
 import { getLoaded } from "../selectors/loaded-selector";
 import { getServerErrorMessage } from "../selectors/server-error-message-selector";
 import { setLoadedAction } from "../actions/loaded-action";
-import { setTodosAction } from "../actions/todos-action";
-import { setServerErrorMessageAction } from "../actions/server-error-message";
+import { setAllTodosAction } from "../actions/todos-action";
+import { setServerErrorMessageAction, clearServerErrorMessageAction } from "../actions/server-error-message";
 import { TodosContainer } from "../components/todos-container";
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,9 +14,10 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return bindActionCreators({ setTodosAction,
+  return bindActionCreators({ setAllTodosAction,
                               setLoadedAction,
-                              setServerErrorMessageAction}, dispatch);
+                              setServerErrorMessageAction,
+                              clearServerErrorMessageAction}, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosContainer);

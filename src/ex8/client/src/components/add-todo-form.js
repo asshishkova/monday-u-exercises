@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from "react";
-import { createItem, getItemsWhere } from "../item-client.js";
 import "../styles/add-todo-form.css";
 
 export function AddTodoForm({ searchStatus,
-                              setTodosAction,
+                              setTodosWhereAction,
                               addTodosAction,
                               setServerErrorMessageAction,
+                              clearServerErrorMessageAction,
                               setLoadedAction }) {
 
   const [todoText, setTodoText] = useState("");
@@ -13,38 +13,37 @@ export function AddTodoForm({ searchStatus,
   const onTextChange = useCallback (async (text) => {
     setTodoText(text);
     if (searchStatus) {
-      setServerErrorMessageAction("");
+      clearServerErrorMessageAction();
       setLoadedAction(false);
       try {
-        setTodosAction(await getItemsWhere(text));
+        await setTodosWhereAction(text);
       } catch (error) {
         setServerErrorMessageAction(`Error: ${error.message}`);
       }
       setLoadedAction(true);
     }
-  },[setTodosAction, setServerErrorMessageAction, searchStatus, setLoadedAction])
+  },[setTodosWhereAction, setServerErrorMessageAction, searchStatus, setLoadedAction, clearServerErrorMessageAction])
 
 
   const onAddTodoFormSubmitted = useCallback(async (event) => {
     event.preventDefault();
     setTodoText("");
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     setLoadedAction(false);
     const text = todoText;
     try {
-      const newTodos = await createItem(text);
-      addTodosAction(newTodos);
+      await addTodosAction(text);
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
     setLoadedAction(true);
-  },[addTodosAction, todoText, setLoadedAction, setServerErrorMessageAction]);
+  },[addTodosAction, todoText, setLoadedAction, setServerErrorMessageAction, clearServerErrorMessageAction]);
 
   return (
     <form id="add-todo" onSubmit={onAddTodoFormSubmitted}>
       <input type="text" id="new-todo-textbox"
         value={todoText} onChange={(e) => onTextChange(e.target.value)}
-        autoFocus required placeholder="Add your new todo"/>
+        autoFocus required placeholder="Add your new todo or numbers: 1,2,3"/>
       <button type="submit" id="add-todo-button" className="btn">+</button>
     </form>
   )

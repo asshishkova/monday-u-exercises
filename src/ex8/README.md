@@ -58,8 +58,10 @@ This will make your project:
 
 ### The requirements:
 
-- [ ] Unit tests - test `itemsEntitiesReducer` - add 3 unit tests
-      you should create a new `__tests__` folder under the reducers folder and a new test file for it
+- [x] Unit tests - test `itemsEntitiesReducer` - add 3 unit tests
+      // **added 8 unit tests to `todosReducer`** (it's an analog of itemsEntitiesReducer)
+
+    you should create a new `__tests__` folder under the reducers folder and a new test file for it
 
   ```
   client/src/reducers/__tests__/items-entities-reducer.test.js
@@ -67,10 +69,10 @@ This will make your project:
 
   you can use this link for some help https://redux.js.org/usage/writing-tests#reducers
 
-- [ ] Snapshot tests - 2 components
+- [x] Snapshot tests - 2 components
 
-      ListItemComponent
-      AboutComponent
+    - `ListItemComponent` // **2 snapshots of `todoElement`** (analog of `ListItemComponent`)
+    - `AboutComponent` // **2 snapshots of `Footer`.** `AboutComponent` was a bonus task, I do not have one. But here I can test two different cases: with and without `lastDeletedTodo`.
 
   you should create 2 new test files next to the original components in a designated folder called `__tests__`
 
@@ -80,9 +82,9 @@ This will make your project:
   client/src/components/about-component/__tests__/AboutComponent.test.jsx
   ```
 
-- [ ] Integration tests - send 2 items to the
+- [x] Integration tests - send 2 items to the
 
-      ListContainer
+  `ListContainer` // **`TodosList`** — analog of `ListContainer`
 
   you should create a new test file next to the original components in a designated folder called `__tests__`
 
@@ -129,13 +131,16 @@ This will make your project:
 
   we also send the fetchItems function this component as a mocked function that gets us the same items (becuase we dont have a real server or action that does it)
 
-- [ ] Create a new test that mocks `fetchItems` and make sure it has been called (do it under the same test file as the ListContainer tests)
+- [x] Create a new test that mocks `fetchItems` and make sure it has been called (do it under the same test file as the ListContainer tests) // **Mock functions were created for `TodosContainer`** because there is `SetAllTodosAction` — analog of `fetchItems`
 
 ### Bonus
 
-- [ ] Coverage - get to 50% coverage for `items-entities-reducer.js` file
-- [ ] Add snapshot tests with more props variations
-- [ ] Add an E2E test to the project using cypress
+- [x] Coverage - get to 50% coverage for `items-entities-reducer.js` file // **over 70% for `todosReducer` and the average for all reducers**
+<img src="./client/public/reducers-coverage.png" alt="reducers coverage">
+
+- [x] Add snapshot tests with more props variations // **sent props to `Footer` and `Filter` components**
+
+- [x] Add an E2E test to the project using cypress
 
 **Setup cypress:**
 

@@ -1,28 +1,30 @@
 import React, { useEffect, useCallback } from "react";
 import { ThreeDots } from  'react-loader-spinner'
-import { getItems } from "../item-client.js";
 import AddTodoFormConnector from "../connectors/add-todo-form-connector";
 import TodosListConnector from "../connectors/todos-list-connector";
+import FooterConnector from "../connectors/footer-connector.js";
 import "../styles/todos-container.css";
 
 export function TodosContainer({loaded,
-                                serverErrorMessage, setServerErrorMessageAction,
-                                setTodosAction,
+                                serverErrorMessage,
+                                setServerErrorMessageAction,
+                                clearServerErrorMessageAction,
+                                setAllTodosAction,
                                 setLoadedAction }) {
 
   const updateTodos = useCallback(async () => {
-    setServerErrorMessageAction("");
+    clearServerErrorMessageAction();
     try {
-      setTodosAction(await getItems());
+      await setAllTodosAction();
     } catch (error) {
       setServerErrorMessageAction(`Error: ${error.message}`);
     }
     setLoadedAction(true);
-  },[setTodosAction, setLoadedAction, setServerErrorMessageAction])
+  },[setAllTodosAction, setLoadedAction, setServerErrorMessageAction, clearServerErrorMessageAction])
 
   useEffect(() => {
     updateTodos();
-  }, [updateTodos, setTodosAction]);
+  }, [updateTodos]);
 
   return (
     <main className="window">
@@ -35,6 +37,7 @@ export function TodosContainer({loaded,
             </div>
           }
           <TodosListConnector/>
+          <FooterConnector/>
           { serverErrorMessage.length > 0 &&
             <p id="error-message">
               {serverErrorMessage}
