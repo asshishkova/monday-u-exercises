@@ -43,7 +43,7 @@ export function AddTodoForm({ searchStatus,
     <form id="add-todo" onSubmit={onAddTodoFormSubmitted}>
       <input type="text" id="new-todo-textbox"
         value={todoText} onChange={(e) => onTextChange(e.target.value)}
-        autoFocus required placeholder="Add your new todo"/>
+        autoFocus required placeholder="Add your new todo or numbers: 1,2,3"/>
       <button type="submit" id="add-todo-button" className="btn">+</button>
     </form>
   )
