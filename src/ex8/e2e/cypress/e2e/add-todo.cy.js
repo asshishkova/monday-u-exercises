@@ -56,6 +56,12 @@ describe("Add Todo Action", () => {
       .should('have.length', 4);
   });
 
+  it("Should clear all items", () => {
+    cy.get('#clear-all-button').click();
+    cy.get('#todos-list .todo-li')
+      .should('have.length', 0);
+  });
+
   // it("Should restore the last deleted item", () => {
   //   cy.get('#restore-deleted').click();
   //   cy.get('#todos-list .todo-li')
