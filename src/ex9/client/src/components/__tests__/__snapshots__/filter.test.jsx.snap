@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly \`done\` filter with deactivated search 1`] = `
+<div
+  className="filters"
+>
+  <div
+    className="filter-radio-buttons"
+  >
+    Show
+    <input
+      checked={false}
+      id="ALL"
+      name="radios"
+      onChange={[Function]}
+      type="radio"
+      value="ALL"
+    />
+    <label
+      htmlFor="ALL"
+    >
+      all
+    </label>
+    <input
+      checked={false}
+      id="PENDING"
+      name="radios"
+      onChange={[Function]}
+      type="radio"
+      value="PENDING"
+    />
+    <label
+      htmlFor="PENDING"
+    >
+      pending
+    </label>
+    <input
+      checked={true}
+      id="DONE"
+      name="radios"
+      onChange={[Function]}
+      type="radio"
+      value="DONE"
+    />
+    <label
+      htmlFor="DONE"
+    >
+      done
+    </label>
+  </div>
+  <label
+    className="search-filter"
+  >
+    Search
+    <input
+      className="search-checkbox"
+      defaultChecked={false}
+      onClick={[Function]}
+      type="checkbox"
+    />
+    <span
+      className="search-checkbox-mark"
+    />
+  </label>
+</div>
+`;
+
+exports[`renders correctly \`pending\` filter with activated search 1`] = `
+<div
+  className="filters"
+>
+  <div
+    className="filter-radio-buttons"
+  >
+    Show
+    <input
+      checked={false}
+      id="ALL"
+      name="radios"
+      onChange={[Function]}
+      type="radio"
+      value="ALL"
+    />
+    <label
+      htmlFor="ALL"
+    >
+      all
+    </label>
+    <input
+      checked={true}
+      id="PENDING"
+      name="radios"
+      onChange={[Function]}
+      type="radio"
+      value="PENDING"
+    />
+    <label
+      htmlFor="PENDING"
+    >
+      pending
+    </label>
+    <input
+      checked={false}
+      id="DONE"
+      name="radios"
+      onChange={[Function]}
+      type="radio"
+      value="DONE"
+    />
+    <label
+      htmlFor="DONE"
+    >
+      done
+    </label>
+  </div>
+  <label
+    className="search-filter"
+  >
+    Search
+    <input
+      className="search-checkbox"
+      defaultChecked={true}
+      onClick={[Function]}
+      type="checkbox"
+    />
+    <span
+      className="search-checkbox-mark"
+    />
+  </label>
+</div>
+`;
