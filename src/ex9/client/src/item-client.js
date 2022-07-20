@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function getItems() {
   try {
-    const response = await axios.get(`/api/todo`);
+    const response = await axios.get(`/todo`);
     return response.data;
   }
   catch (error) {
@@ -12,7 +12,7 @@ async function getItems() {
 
 async function getItemsPending() {
   try {
-    const response = await axios.get(`/api/pending`);
+    const response = await axios.get(`/pending`);
     return response.data;
   }
   catch (error) {
@@ -22,7 +22,7 @@ async function getItemsPending() {
 
 async function getItemsDone() {
   try {
-    const response = await axios.get(`/api/done`);
+    const response = await axios.get(`/done`);
     return response.data;
   }
   catch (error) {
@@ -32,7 +32,7 @@ async function getItemsDone() {
 
 async function getItemsWhere(searchText) {
   try {
-    const response = await axios.get(`/api/search?text=${encodeURIComponent(searchText)}`);
+    const response = await axios.get(`/search?text=${encodeURIComponent(searchText)}`);
     return response.data;
   }
   catch (error) {
@@ -42,7 +42,7 @@ async function getItemsWhere(searchText) {
 
 async function deleteItem(item) {
   try {
-    const response = await axios.delete(`/api/todo/${item.id}`);
+    const response = await axios.delete(`/todo/${item.id}`);
     return response.data;
   }
   catch (error) {
@@ -52,7 +52,7 @@ async function deleteItem(item) {
 
 async function markItemAsOld(item) {
   try {
-    const response = await axios.post(`/api/todo/${item.id}/markold`);
+    const response = await axios.post(`/todo/${item.id}/markold`);
     return response.data;
   }
   catch (error) {
@@ -64,7 +64,7 @@ async function changeItemStatus(item) {
   const doneTime = item.done === null? Date.now() : null;
   try {
     const response = await axios.post(
-      `/api/todo/${item.id}/changestatus`,
+      `/todo/${item.id}/changestatus`,
       {
         status: !item.status,
         done: doneTime
@@ -79,7 +79,7 @@ async function changeItemStatus(item) {
 
 async function createItem(itemText) {
   try {
-    const response = await axios.post(`/api/todo`, { text: itemText });
+    const response = await axios.post(`/todo`, { text: itemText });
     return response.data;
   }
   catch (error) {
@@ -90,7 +90,7 @@ async function createItem(itemText) {
 async function restoreItem(item) {
   const {text, status, done} = item;
   try {
-    const response = await axios.post(`/api/restore`,
+    const response = await axios.post(`/restore`,
                                       { text: text, status: status, done: done });
     return response.data;
   }
@@ -101,7 +101,7 @@ async function restoreItem(item) {
 
 async function clearAllItems() {
   try {
-    const response = await axios.delete(`/api/clearall`);
+    const response = await axios.delete(`/clearall`);
     return response.data;
   }
   catch (error) {

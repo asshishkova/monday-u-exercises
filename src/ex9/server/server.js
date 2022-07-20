@@ -1,16 +1,15 @@
 const express = require('express');
 const compression = require('compression');
 require('express-async-errors');
-const requestLoggerMiddleware = require("./server/middleware/request-logger.js");
-const errorHandler = require("./server/middleware/error-handler.js");
-const todoRouter = require("./server/routes/router.js");
-const port = 3000;
+const requestLoggerMiddleware = require("./middleware/request-logger.js");
+const errorHandler = require("./middleware/error-handler.js");
+const todoRouter = require("./routes/router.js");
+const port = 3001;
 const app = express();
 app.use([express.json(), requestLoggerMiddleware, compression()]);
-app.use('/api', todoRouter);
-// app.use('/', todoRouter);
+// app.use('/todo', todoRouter);
+app.use('/', todoRouter);
 app.use(errorHandler);
-app.use(express.static("public"))
 
 
 process.on('unhandledRejection', (reason, promise) => {
