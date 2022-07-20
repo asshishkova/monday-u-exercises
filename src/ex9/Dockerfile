@@ -8,4 +8,6 @@ COPY client client
 RUN npm --prefix server install
 RUN npm --prefix client install
 
+ENV NODE_ENV=production
+
 CMD npm --prefix server start & npm --prefix client start
