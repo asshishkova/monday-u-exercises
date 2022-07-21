@@ -1,9 +1,6 @@
-# Welcome to monday-u!
+# Todos app
 
-Welcome to monday-u official github repository! We are very excited to have you here!
-This is going to be so much fun! Here are a few general details:
-
-![](https://i.ytimg.com/vi/6_zFLsW7z2E/maxresdefault.jpg)
+https://asshishkova-todoops.herokuapp.com/
 
 ## Exercises list
 
@@ -23,10 +20,3 @@ This is going to be so much fun! Here are a few general details:
 **Exercise 7** - [Redux](https://github.com/asshishkova/monday-u-exercises/tree/main/src/ex7)
 
 **Exercise 8** - [Tests](https://github.com/asshishkova/monday-u-exercises/tree/main/src/ex8)
-
-# Submitting your tasks
-Create a pull request in your forked repository and send to your mentor when it's ready.
-
-# Solutions
-
-Every friday a new exercise and the solution for previous one will be published
