@@ -1,14 +1,18 @@
 const express = require('express');
+const path = require('path');
 const compression = require('compression');
 require('express-async-errors');
 const requestLoggerMiddleware = require("./server/middleware/request-logger.js");
 const errorHandler = require("./server/middleware/error-handler.js");
 const todoRouter = require("./server/routes/router.js");
-const port = 3001;
+const port = process.env.PORT || 3001;
 const app = express();
 app.use([express.json(), requestLoggerMiddleware, compression()]);
 // app.use('/todo', todoRouter);
 app.use('/', todoRouter);
+
+app.use(express.static(path.join(__dirname + "/server/public")))
+
 app.use(errorHandler);
 
 
