@@ -54,6 +54,10 @@ async function getTodo(req, res) {
   res.status(200).json(todo);
 }
 
+async function health(req, res) {
+  res.status(200).json({});
+}
+
 async function getAll(req, res) {
   let data = await itemManager.getAll();
   if (!data) data = [];
@@ -110,5 +114,6 @@ module.exports = {
   markTodoAsOld,
   changeStatus,
   clearAll,
-  restoreTodo
+  restoreTodo,
+  health
 };

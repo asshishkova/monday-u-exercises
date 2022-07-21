@@ -9,11 +9,13 @@ const {
   markTodoAsOld,
   changeStatus,
   clearAll,
-  restoreTodo
+  restoreTodo,
+  health
 } = require("./api.js");
 
 const todoRouter = express.Router();
 
+todoRouter.get('/', health);
 todoRouter.get('/todo', getAll);
 todoRouter.get('/search', getAllWhere);
 todoRouter.get('/todo/:id', getTodo);
