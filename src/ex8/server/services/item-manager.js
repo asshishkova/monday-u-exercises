@@ -91,11 +91,22 @@ class ItemManager {
   }
 
   async getAll() {
-    return await Item.findAll();
+    return await Item.findAll({
+      order: [
+        ['id', 'ASC'],
+      ],
+    });
   }
 
   async getAllWhere(text) {
-    return await Item.findAll({ where: { text: { [Op.like]: `%${text}%` } }});
+    return await Item.findAll({
+      where: {
+        text: { [Op.iLike]: `%${text}%` }
+      },
+      order: [
+        ['id', 'ASC'],
+      ],
+    });
   }
 }
 
